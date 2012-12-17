@@ -1,16 +1,9 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
  *= require_self
- *= require foundation_and_overrides
- *= require_tree .
+ *= require foundation_icons
+ *= require framework
+ *= require components
+ *= require features
 */
 .brand {
   float: left;
@@ -24,15 +17,18 @@ ul.nav {
 ul.nav li {
   display: inline;
 }
-#flash_notice, #flash_alert {
-  padding: 5px 8px;
-  margin: 10px 0;
+.flash {
+  padding: 12px;
+  margin: 5px;
+  font-weight: bold;
 }
-#flash_notice {
+#flash_notice, #flash_flow {
   background-color: #CFC;
-  border: solid 1px #6C6;
+  color: #062;
+  border: 1px solid #062;
 }
 #flash_alert {
   background-color: #FCC;
-  border: solid 1px #C66;
+  color: #F11;
+  border: 1px solid #F11;
 }

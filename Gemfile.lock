@@ -7,6 +7,18 @@ GIT
       debugger-linecache (~> 1.1.1)
       debugger-ruby_core_source (~> 1.1.5)
 
+GIT
+  remote: git://github.com/jeremytregunna/ruby-trello.git
+  revision: a0231a09b4c0321e3caf37acb556f2c4e105d73b
+  branch: master
+  specs:
+    ruby-trello (0.4.4.1)
+      activemodel
+      addressable (~> 2.3)
+      json
+      oauth (~> 0.4.5)
+      rest-client (~> 1.6.7)
+
 PATH
   remote: ~/projects/supporting_cast
   specs:
@@ -138,6 +150,7 @@ GEM
       sassy-math (>= 1.2)
     multi_json (1.5.0)
     nokogiri (1.5.5)
+    oauth (0.4.7)
     orm_adapter (0.4.0)
     pg (0.14.1)
     polyglot (0.3.3)
@@ -171,6 +184,8 @@ GEM
     redis (3.0.2)
     redis-objects (0.6.1)
       redis (>= 3.0.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rolify (3.2.0)
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
@@ -265,6 +280,7 @@ DEPENDENCIES
   redis-objects (~> 0.6)
   rolify (>= 3.2.0)
   rspec-rails (>= 2.11.4)
+  ruby-trello!
   sass-rails (~> 3.2.3)
   sendgrid (>= 1.0.1)
   shoulda-matchers

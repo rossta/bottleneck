@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216160526) do
+ActiveRecord::Schema.define(:version => 20121217043833) do
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
+    t.string   "uid"
+    t.string   "trello_url"
+    t.integer  "trello_organization_id"
+    t.boolean  "trello_closed"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.string   "trello_name"
+    t.integer  "owner_id"
+    t.integer  "trello_account_id"
+  end
+
+  add_index "projects", ["owner_id"], :name => "index_projects_on_owner_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +38,17 @@ ActiveRecord::Schema.define(:version => 20121216160526) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "trello_accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "token"
+    t.string   "secret"
+    t.string   "uid"
+    t.string   "trello_avatar_id"
+    t.string   "trello_url"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

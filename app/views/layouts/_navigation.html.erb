@@ -1,26 +1,35 @@
-<%= link_to "Sternoapp", root_path, :class => 'brand' %>
-<ul class="nav">
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>        
-    </li>
-  <% else %>
-    <li>
-    <%= link_to 'Login', new_user_session_path %>  
-    </li>
-  <% end %>
-  <% if user_signed_in? %>
-    <li>
-    <%= link_to 'Edit account', edit_user_registration_path %>
-    </li>
-    <% if current_user.has_role? :admin %>
-      <li>
-      <%= link_to 'Admin', users_path %>
+<div class="contain-to-grid">
+  <nav class="container top-bar" data-role="top-nav">
+    <ul>
+      <li class="name">
+        <h1><%= link_to "Sterno", root_path, class: 'brand' %></h1>
       </li>
-    <% end %>
-  <% else %>
-    <li>
-    <%= link_to 'Sign up', new_user_registration_path %>
-    </li>
-  <% end %>
-</ul>
+      <li class="toggle-topbar"><a href="#"></a></li>
+    </ul>
+    <section>
+      <ul class="right">
+        <% if user_signed_in? %>
+          <li>
+            <%= current_user.name %>
+          </li>
+          <li>
+            <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to 'Login', new_user_session_path %>
+          </li>
+        <% end %>
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to 'Edit account', edit_user_registration_path %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to 'Sign up', new_user_registration_path %>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  </nav>
+</div>

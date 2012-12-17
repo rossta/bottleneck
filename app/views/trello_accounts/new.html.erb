@@ -1,0 +1,14 @@
+<h2>Get Started</h2>
+
+<section>
+  <h4>Connect with Trello</h4>
+  <%= link_to "Get your Trello Key", generate_trello_token_key_url, target: '_blank' %>
+
+  <%= simple_form_for @trello_account do |f| %>
+    <fieldset>
+      <%= f.input :name %>
+      <%= f.input :token %>
+      <%= f.submit 'Enter', class: "button radius" %>
+    </fieldset>
+  <% end %>
+</section>

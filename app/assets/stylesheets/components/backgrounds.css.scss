@@ -1,0 +1,22 @@
+body {
+}
+
+#header, #main {
+  background-color: white;
+}
+
+.image-replace {
+  font: 0/0 a;
+  text-shadow: none;
+  color: transparent;
+}
+
+.modal {
+  background: white;
+  padding: 30px;
+  -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+  h2 { margin-top: 0;}
+}

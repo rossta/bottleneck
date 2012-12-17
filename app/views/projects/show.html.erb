@@ -1,0 +1,17 @@
+<h2><%= @project.name %></h2>
+<section class="row">
+  <div class="six columns">
+    <div class="panel">
+      <h5>Settings</h5>
+      <p>Name: <%= @project.trello_name %></p>
+      <p>Id: <%= @project.uid %></p>
+      <p>Url: <%= @project.trello_url %></p>
+      <p>Org: <%= @project.trello_organization_id %></p>
+      <p>Closed: <%= @project.trello_closed %></p>
+      <p>
+        <%= link_to 'View on trello &raquo;'.html_safe, @project.trello_url %> |
+        <%= link_to 'Refresh', refresh_project_path(@project), method: :put %>
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<section>
+  <h4>Import a Project</h4>
+
+  <% @trello_boards.each do |board| %>
+  <!-- :id, :name, :description, :closed, :url, :organization_id, :prefs -->
+    <section class="trello_board row">
+      <div class="three columns">
+        <%= board.name %>
+      </div>
+      <div class="three columns end">
+        <%= simple_form_for Project.new do |f| %>
+          <%= f.input :uid, input_html: { value: board.id }, as: :hidden %>
+          <%= f.input :name, input_html: { value: board.name }, as: :hidden %>
+          <%= f.submit 'Import', class: 'button small radius' %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+</section>
+
+<!-- https://trello.com/1/authorize?key=PUBLIC_KEY_FROM_ABOVE&name=MyApp&response_type=token&scope=read,write,account&expiration=never -->

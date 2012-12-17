@@ -2,24 +2,28 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Sternoapp" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Sternoapp" %>">
+    <title><%= render_title %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "News" %>">
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>
   </head>
-  <body class="<%= controller_name %> <%= action_name %>">
-    <div id="container" class="container">
-      <header>
-        <%= render 'layouts/navigation' %>
-        <%= render 'layouts/messages' %>
-      </header>
-      <div id="main" role="main">
+  <body class="<%= body_classes %>">
+    <header id="header" class="clear">
+      <%= render 'layouts/navigation' unless bare_layout? %>
+    </header>
+    <%= render 'layouts/messages' %>
+    <section id="main" role="main" class="row">
+      <section class="twelve columns">
         <%= yield %>
-      </div>
-      <footer>
-      </footer>
-    </div> <!--! end of #container -->
+      </section>
+    </section>
+    <footer>
+      <%= render 'layouts/footer' unless bare_layout? %>
+    </footer>
+    <script type="text/javascript">
+      <%= render_onready %>
+    </script>
   </body>
 </html>

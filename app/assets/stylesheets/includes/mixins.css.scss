@@ -1,0 +1,20 @@
+// @mixin vote-link {
+//   position: absolute;
+//   left: 0px;
+//   top: 0;
+//   height: 16px;
+//   width: 16px;
+//   margin: 5px 5px 25px;
+
+//   &.upvote {
+//     background: url(image-path('icons/16x16/heart-empty.png'));
+//   }
+
+//   &.downvote {
+//     background: url(image-path('icons/16x16/arrow-down.png'));
+//   }
+
+//   &.has_voted {
+//     background-image: url(image-path('icons/16x16/heart-full.png'));
+//   }
+// }

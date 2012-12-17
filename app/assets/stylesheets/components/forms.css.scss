@@ -1,0 +1,39 @@
+form {
+  .hint {
+    color: #999;
+    font-size: .85em;
+    display: block;
+  }
+
+  .instructions {
+    padding: 12px 6px;
+    margin-bottom: 12px;
+    line-height: 1.5em;
+    border: 1px solid #111;
+    background: #DDD;
+    font-weight:bold;
+  }
+
+  fieldset {
+    padding: 12px;
+
+    .input {
+      padding-bottom: 12px;
+
+      &.last {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+.contained {
+  form {
+    margin-bottom: 0;
+  }
+  fieldset {
+    border: none;
+    padding: 0 0 12px;
+    margin: 0;
+  }
+}
