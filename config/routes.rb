@@ -1,6 +1,9 @@
 Sternoapp::Application.routes.draw do
+  resources :lists
+
+
   authenticated :user do
-    root :to => 'home#index'
+    root :to => 'dashboard#show'
   end
   root :to => "home#index"
   devise_for :users
@@ -8,7 +11,7 @@ Sternoapp::Application.routes.draw do
   resources :users
   resources :trello_accounts do
     collection do
-      get :callback
+      get :callback    # three-legged OAuth currently not functional
     end
   end
 

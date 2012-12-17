@@ -1,13 +1,55 @@
-<h2><%= @project.name %></h2>
+<% title @project.name %>
+<%= render_title_html %>
+<dl class="tabs">
+  <dd class="active"><a href="#simple1">Overview</a></dd>
+  <dd><a href="#simple2">Feed</a></dd>
+  <dd class="hide-for-small"><a href="#simple3">Configure</a></dd>
+</dl>
+<section class="row">
+  <div class="six columns">
+    <% if @project.imported? %>
+      <table class="six">
+        <thead>
+          <tr>
+            <th>List</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @project.lists.each do |list| %>
+            <tr class="">
+              <td><%= list.name %></td>
+              <td>
+                <%= simple_form_for list do |f| %>
+                  <%= f.input :role, collection: List::ROLES, label_html: { class: "hidden" } %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="panel">
+        <% onready 'spinner' do %>
+          new ProjectSpinner('#importing').spin()
+        <% end %>
+        <h5 class="align-center">Importing</h5>
+        <div id="importing"></div>
+      </div>
+    <% end %>
+  </div>
+</section>
 <section class="row">
   <div class="six columns">
     <div class="panel">
       <h5>Settings</h5>
-      <p>Name: <%= @project.trello_name %></p>
-      <p>Id: <%= @project.uid %></p>
-      <p>Url: <%= @project.trello_url %></p>
-      <p>Org: <%= @project.trello_organization_id %></p>
-      <p>Closed: <%= @project.trello_closed %></p>
+      <dl>
+        <dt>Name:</dt><dd><%= @project.trello_name %></dd>
+        <dt>ID:</dt><dd><%= @project.uid %></dd>
+        <dt>URL:</dt><dd><%= @project.trello_url %></dd>
+        <dt>Org:</dt><dd><%= @project.trello_organization_id %></dd>
+        <dt>Closed:</dt><dd><%= @project.trello_closed %></dd>
+      </dl>
       <p>
         <%= link_to 'View on trello &raquo;'.html_safe, @project.trello_url %> |
         <%= link_to 'Refresh', refresh_project_path(@project), method: :put %>

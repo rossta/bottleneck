@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(params[:project])
     @project.trello_account = @trello_account
 
-    @project.owner = current_user if current_user
+    @project.owner = current_user if user_signed_in?
 
     if @project.save && @project.fetch
       flash[:notice] = "Your project was successfully created."
