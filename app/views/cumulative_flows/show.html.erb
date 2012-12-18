@@ -1,0 +1,17 @@
+<% title "#{@project.name} Cumulative Flow" %>
+<%= render_title_html %>
+<%= render 'projects/sub_nav' %>
+<section class="row">
+  <div class="six columns">
+    <% if @project.imported? %>
+      <%= link_to 'Edit Cumulative Flow', edit_project_flow_path(@project) %>
+      <% @project.lists.each do |list| %>
+        <div>
+          List: <%= list.name %>, Cards: <%= list.card_names.join(', ') %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= render 'importing' %>
+    <% end %>
+  </div>
+</section>

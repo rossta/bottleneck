@@ -1,44 +1,6 @@
 <% title @project.name %>
 <%= render_title_html %>
-<dl class="tabs">
-  <dd class="active"><a href="#simple1">Overview</a></dd>
-  <dd><a href="#simple2">Feed</a></dd>
-  <dd class="hide-for-small"><a href="#simple3">Configure</a></dd>
-</dl>
-<section class="row">
-  <div class="six columns">
-    <% if @project.imported? %>
-      <table class="six">
-        <thead>
-          <tr>
-            <th>List</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @project.lists.each do |list| %>
-            <tr class="">
-              <td><%= list.name %></td>
-              <td>
-                <%= simple_form_for list do |f| %>
-                  <%= f.input :role, collection: List::ROLES, label_html: { class: "hidden" } %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <div class="panel">
-        <% onready 'spinner' do %>
-          new ProjectSpinner('#importing').spin()
-        <% end %>
-        <h5 class="align-center">Importing</h5>
-        <div id="importing"></div>
-      </div>
-    <% end %>
-  </div>
-</section>
+<%= render 'projects/sub_nav' %>
 <section class="row">
   <div class="six columns">
     <div class="panel">

@@ -1,5 +1,5 @@
 class ProjectSpinner
-  constructor: (@domId) ->
+  constructor: (@selector) ->
 
   opts:
     width: 4, # The line thickness
@@ -17,6 +17,21 @@ class ProjectSpinner
     left: 'auto' # Left position relative to parent in px
 
   spin: ->
-    new Spinner(@opts).spin($(@domId)[0])
+    new Spinner(@opts).spin($(@selector)[0])
+
+class ProjectListForm
+  constructor: (@selector) ->
+
+  enable: ->
+    $(@selector).submit (e) ->
+      # e.preventDefault()
+      $.ajax(
+        type: "PUT"
+        url: $(this).attr('action')
+        data: $(this).serialize()
+        dataType: 'json'
+      )
+      false
 
 @ProjectSpinner = ProjectSpinner
+@ProjectListForm = ProjectListForm

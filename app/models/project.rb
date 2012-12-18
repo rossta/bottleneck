@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :trello_account
   belongs_to :owner, class_name: 'User'
-  has_many :lists, dependent: :destroy
+  has_many :lists, order: 'id ASC', dependent: :destroy
 
   delegate :token, to: :trello_account, prefix: :trello, allow_nil: true
 
@@ -28,7 +28,17 @@ class Project < ActiveRecord::Base
   end
 
   def fetch_lists
-    self.lists = trello_lists.map { |trello_list| List.from_trello_list(trello_list) }
+    self.lists = trello_lists.map { |trello_list| List.fetch(trello_list, trello_account) }
+  end
+
+  def fetch_cards
+    self.lists.map(&:fetch_cards)
+  end
+
+  def fetch
+    super
+    fetch_lists
+    fetch_cards
   end
 
 end

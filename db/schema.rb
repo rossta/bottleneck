@@ -11,25 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217141253) do
+ActiveRecord::Schema.define(:version => 20121218041253) do
+
+  create_table "cards", :force => true do |t|
+    t.integer  "list_id"
+    t.integer  "trello_account_id"
+    t.string   "uid"
+    t.string   "trello_name"
+    t.string   "trello_short_id"
+    t.string   "trello_closed"
+    t.string   "trello_url"
+    t.string   "trello_board_id"
+    t.string   "trello_list_id"
+    t.integer  "position"
+    t.datetime "due_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "lists", :force => true do |t|
     t.string   "name"
     t.integer  "project_id"
+    t.integer  "trello_account_id"
     t.string   "uid"
     t.string   "trello_board_id"
     t.boolean  "trello_closed"
     t.string   "role"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
-
-  create_table "lists_roles", :id => false, :force => true do |t|
-    t.integer "list_id"
-    t.integer "role_id"
-  end
-
-  add_index "lists_roles", ["list_id", "role_id"], :name => "index_lists_roles_on_list_id_and_role_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"

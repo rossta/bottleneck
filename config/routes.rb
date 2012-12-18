@@ -1,4 +1,7 @@
 Sternoapp::Application.routes.draw do
+  resources :cards
+
+
   resources :lists
 
 
@@ -21,5 +24,7 @@ Sternoapp::Application.routes.draw do
     member do
       put :refresh
     end
+
+    resource :cumulative_flow, path: :flow, as: :flow, only: [:show, :edit]
   end
 end

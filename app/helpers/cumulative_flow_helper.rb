@@ -1,0 +1,2 @@
+module CumulativeFlowHelper
+end

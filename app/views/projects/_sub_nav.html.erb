@@ -1,0 +1,9 @@
+<dl class="tabs">
+  <dd class="<%= 'active' if current_page?(project_path(@project)) %>">
+    <a href="<%= project_path(@project) %>">Overview</a>
+  </dd>
+  <dd class="<%= 'active' if current_page?(project_flow_path(@project)) %>">
+    <a href="<%= project_flow_path(@project) %>">Flow</a>
+  </dd>
+  <dd class="hide-for-small"><a href="#simple3">Configure</a></dd>
+</dl>
