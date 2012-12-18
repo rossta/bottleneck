@@ -41,4 +41,15 @@ class Project < ActiveRecord::Base
     fetch_cards
   end
 
+  def record_interval
+    BoardInterval.record(self)
+  end
+
+  def recording_timestamp
+    Time.zone.now.send(timestamp_adjustment)
+  end
+
+  def timestamp_adjustment
+    :end_of_day
+  end
 end

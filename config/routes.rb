@@ -1,4 +1,13 @@
 Sternoapp::Application.routes.draw do
+  resources :card_intervals
+
+
+  resources :list_intervals
+
+
+  resources :board_intervals
+
+
   resources :cards
 
 

@@ -1,0 +1,2 @@
+class CardIntervalsController < ApplicationController
+end

@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218041253) do
+ActiveRecord::Schema.define(:version => 20121218140239) do
+
+  create_table "board_intervals", :force => true do |t|
+    t.integer  "project_id"
+    t.datetime "recorded_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "board_intervals", ["project_id"], :name => "index_board_intervals_on_project_id"
+
+  create_table "card_intervals", :force => true do |t|
+    t.integer  "list_interval_id"
+    t.integer  "card_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "card_intervals", ["card_id"], :name => "index_card_intervals_on_card_id"
+  add_index "card_intervals", ["list_interval_id"], :name => "index_card_intervals_on_list_interval_id"
 
   create_table "cards", :force => true do |t|
     t.integer  "list_id"
@@ -29,6 +48,21 @@ ActiveRecord::Schema.define(:version => 20121218041253) do
     t.datetime "updated_at",        :null => false
   end
 
+  add_index "cards", ["list_id"], :name => "index_cards_on_list_id"
+  add_index "cards", ["trello_account_id"], :name => "index_cards_on_trello_account_id"
+
+  create_table "list_intervals", :force => true do |t|
+    t.integer  "list_id"
+    t.integer  "board_interval_id"
+    t.datetime "recorded_at"
+    t.integer  "card_count"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "list_intervals", ["board_interval_id"], :name => "index_list_intervals_on_board_interval_id"
+  add_index "list_intervals", ["list_id"], :name => "index_list_intervals_on_list_id"
+
   create_table "lists", :force => true do |t|
     t.string   "name"
     t.integer  "project_id"
@@ -40,6 +74,9 @@ ActiveRecord::Schema.define(:version => 20121218041253) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
+
+  add_index "lists", ["project_id"], :name => "index_lists_on_project_id"
+  add_index "lists", ["trello_account_id"], :name => "index_lists_on_trello_account_id"
 
   create_table "projects", :force => true do |t|
     t.string   "name"

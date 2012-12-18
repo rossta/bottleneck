@@ -15,5 +15,8 @@ class CreateCards < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :cards, :list_id
+    add_index :cards, :trello_account_id
   end
 end

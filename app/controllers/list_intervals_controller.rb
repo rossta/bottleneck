@@ -1,0 +1,2 @@
+class ListIntervalsController < ApplicationController
+end

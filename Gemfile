@@ -49,4 +49,7 @@ group :test do
   gem "database_cleaner", ">= 0.9.1"
   gem "email_spec", ">= 1.4.0"
   gem "shoulda-matchers"
+  gem "vcr", '~> 2.3'
+  gem "fakeweb"
+  # gem "poltergeist" Capybara 2 compatability coming soon: https://github.com/jonleighton/poltergeist/pull/208
 end

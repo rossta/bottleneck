@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe CumulativeFlowController do
+describe CumulativeFlowsController do
 
 end

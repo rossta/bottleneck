@@ -11,5 +11,8 @@ class CreateLists < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :lists, :project_id
+    add_index :lists, :trello_account_id
   end
 end

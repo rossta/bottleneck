@@ -1,0 +1,2 @@
+class BoardIntervalsController < ApplicationController
+end
