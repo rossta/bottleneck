@@ -1,18 +1,8 @@
 Sternoapp::Application.routes.draw do
-  resources :card_intervals
-
-
-  resources :list_intervals
-
-
-  resources :board_intervals
-
 
   resources :cards
 
-
   resources :lists
-
 
   authenticated :user do
     root :to => 'dashboard#show'
@@ -32,6 +22,10 @@ Sternoapp::Application.routes.draw do
   resources :projects do
     member do
       put :refresh
+    end
+
+    collection do
+      get :clear
     end
 
     resource :cumulative_flow, path: :flow, as: :flow, only: [:show, :edit]

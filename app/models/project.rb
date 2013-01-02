@@ -1,10 +1,12 @@
 class Project < ActiveRecord::Base
+  include Redis::Objects
   include TrelloFetchable
   attr_accessible :name, :uid, :trello_url, :trello_organization_id, :trello_closed
 
   belongs_to :trello_account
   belongs_to :owner, class_name: 'User'
   has_many :lists, order: 'id ASC', dependent: :destroy
+  has_many :cards, through: :lists
 
   delegate :token, to: :trello_account, prefix: :trello, allow_nil: true
 
@@ -14,6 +16,8 @@ class Project < ActiveRecord::Base
     organization_id: :trello_organization_id,
     closed: :trello_closed
   }
+
+  hash_key :card_counter
 
   def trello_board
     @trello_board ||= authorize { Trello::Board.find(uid) }
@@ -42,7 +46,19 @@ class Project < ActiveRecord::Base
   end
 
   def record_interval
-    BoardInterval.record(self)
+    card_counter.incr("intervals", 1)
+    card_counter.store(interval_key, cards.count)
+    lists.map(&:record_interval)
+  end
+
+  def interval_json(beginning_of_period, end_of_period)
+    lists.map { |list|
+      list.interval_json(beginning_of_period, end_of_period, color_palette.next)
+    }
+  end
+
+  def interval_key(date = Date.today)
+    date.to_s(:number)
   end
 
   def recording_timestamp
@@ -51,5 +67,13 @@ class Project < ActiveRecord::Base
 
   def timestamp_adjustment
     :end_of_day
+  end
+
+  def redis
+    Redis.current
+  end
+
+  def color_palette
+    @color_palette ||= ColorPalette.new
   end
 end

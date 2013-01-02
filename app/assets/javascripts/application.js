@@ -13,5 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require d3.v3
+//= require rickshaw/rickshaw
 //= require spin
 //= require_tree .

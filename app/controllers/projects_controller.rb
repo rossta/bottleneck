@@ -37,6 +37,11 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
+  def clear
+    session.delete(:trello_account_id)
+    redirect_to root_url
+  end
+
   protected
 
   def build_trello_account
