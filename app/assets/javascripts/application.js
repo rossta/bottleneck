@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
+//= require underscore
 //= require foundation
 //= require d3.v3
 //= require rickshaw/rickshaw

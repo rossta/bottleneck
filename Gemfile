@@ -9,6 +9,7 @@ group :assets do
   gem "zurb-foundation", ">= 3.2.3"
   gem "compass-rails", ">= 1.0.3"
   gem "d3_rails"
+  gem "jquery-ui-rails"
 end
 
 gem 'jquery-rails'

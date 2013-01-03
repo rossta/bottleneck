@@ -5,8 +5,10 @@
   <div class="six columns">
     <div id="flow">
       <div id="chart_container">
-        <div id="y_axis"></div>
         <div id="chart"></div>
+        <div id="y_axis"></div>
+        <div id="timeline"></div>
+        <div id="slider"></div>
       </div>
       <div id="legend"></div>
     </div>
@@ -24,25 +26,41 @@
   </div>
 </section>
 <script type="text/javascript">
-  var series = <%= raw @project.interval_json(3.days.ago, Date.today).to_json %>;
+  var seriesData = <%= raw @project.interval_json(3.days.ago, Date.today).to_json %>;
+
+  var palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
+
+  _(seriesData).each(function(data) {
+    data.color = palette.color();
+  });
+  seriesData = _(seriesData).sortBy(function(data) { return data.position; });
+
   var graph = new Rickshaw.Graph({
     element: document.querySelector("#chart"),
     width: 550,
     height: 250,
-    series: series
+    series: seriesData
   });
 
   var xAxis = new Rickshaw.Graph.Axis.Time({ graph: graph });
+
   var yAxis = new Rickshaw.Graph.Axis.Y({
     graph: graph,
     orientation: 'left',
     tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
     element: document.querySelector("#y_axis")
   });
+
   var legend = new Rickshaw.Graph.Legend({
     element: document.querySelector("#legend"),
     graph: graph
   });
+
+  var slider = new Rickshaw.Graph.RangeSlider( {
+    graph: graph,
+    element: $('#slider')
+  });
+
   graph.render();
 
 

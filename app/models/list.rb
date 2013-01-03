@@ -88,11 +88,11 @@ class List < ActiveRecord::Base
     end
   end
 
-  def interval_json(beg_of_period, end_of_period, color)
+  def interval_json(beg_of_period, end_of_period)
     {
       :name => name,
       :data => ListInterval.new(self, beg_of_period, end_of_period).data,
-      :color => color
+      :position => -id
     }
   end
 

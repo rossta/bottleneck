@@ -17,6 +17,8 @@
 
 # minimal Rails specific artifacts
 db/*.sqlite3
+db/development.rdb
+db/test.rdb
 /log/*
 /tmp/*
 
@@ -38,6 +40,7 @@ db/*.sqlite3
 /coverage/
 /db/*.javadb/
 /db/*.sqlite3
+/db/*.rdb
 /doc/api/
 /doc/app/
 /doc/features.html

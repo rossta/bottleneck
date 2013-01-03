@@ -45,6 +45,8 @@ class ProjectsController < ApplicationController
   protected
 
   def build_trello_account
+    session.delete(:trello_account_id) if params[:reload]
+
     @trello_account = if trello_account_id = session[:trello_account_id]
       TrelloAccount.find(trello_account_id)
     else

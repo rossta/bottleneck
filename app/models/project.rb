@@ -53,7 +53,7 @@ class Project < ActiveRecord::Base
 
   def interval_json(beginning_of_period, end_of_period)
     lists.map { |list|
-      list.interval_json(beginning_of_period, end_of_period, color_palette.next)
+      list.interval_json(beginning_of_period, end_of_period)
     }
   end
 
