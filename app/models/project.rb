@@ -49,11 +49,11 @@ class Project < ActiveRecord::Base
   def record_interval(now = Time.now)
     today = now.to_date
     card_count = cards.count
-    redis.multi do
-      unless interval.has_key?(interval_key(today))
-        interval.incr(:total, 1)
-        interval.incr(:cards, card_count)
-      end
+    unless interval.has_key?(interval_key(today))
+      interval.incr('total', 1)
+      interval.incr(:cards, card_count)
+    end
+    redis.pipelined do
       interval.store(interval_key(today), now.to_i)
       interval.store(interval_key(today, :card_count), card_count)
       interval.store(interval_key(today, :list_ids), list_ids)

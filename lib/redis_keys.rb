@@ -13,7 +13,7 @@ module RedisKeys
   end
 
   def interval_keys(date_range, *segments)
-    dates.to_a.map { |date| interval_key(date, *segments) }
+    date_range.to_a.map { |date| interval_key(date, *segments) }
   end
 
   def date_interval(date = Date.today)
