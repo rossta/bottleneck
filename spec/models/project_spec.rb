@@ -8,7 +8,7 @@ describe Project do
 
     it "retrieves trello board via trello account api" do
       trello_board = project.trello_board
-      trello_board.name.should eq('Sternoapp')
+      trello_board.name.should eq('Bottleneck')
     end
   end
 

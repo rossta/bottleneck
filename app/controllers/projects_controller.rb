@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_filter :build_trello_account, only: [:start, :new, :create]
+  before_filter :build_trello_account, only: [:new, :create]
 
   respond_to :html, :json
 
@@ -15,6 +15,7 @@ class ProjectsController < ApplicationController
 
     if @project.save && @project.fetch
       flash[:notice] = "Your project was successfully created."
+      session.delete(:trello_account_id)
     end
 
     Rails.logger.info @project.inspect
@@ -40,7 +41,12 @@ class ProjectsController < ApplicationController
   protected
 
   def build_trello_account
-    @trello_account = TrelloAccount.new
+    if session[:trello_account_id]
+      @trello_account = TrelloAccount.find(session[:trello_account_id])
+    else
+      flash[:notice] = "Please connect to your Trello account first"
+      redirect_to start_project_path
+    end
   end
 
 end

@@ -1,4 +1,4 @@
-Sternoapp::Application.routes.draw do
+Bottleneck::Application.routes.draw do
 
   resources :cards
 

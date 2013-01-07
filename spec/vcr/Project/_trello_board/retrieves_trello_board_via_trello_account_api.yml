@@ -2,120 +2,6 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.trello.com/1/boards/
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      accept:
-      - ! '*/*; q=0.5, application/xml'
-      accept-encoding:
-      - gzip, deflate
-      authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="a14f32ecb9a4b8f7f38d1210fe35783c",
-        oauth_signature="iJiIBFrA7nb0pkSB%2Bm1GKLwbJTg%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1355842421", oauth_token="aeb20eb3201ad981ffc1a65ee6f3d9225de5491e729835e22ecdb3a5551ac5f9",
-        oauth_version="1.0"
-      user-agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      x-powered-by:
-      - Express
-      content-type:
-      - text/html; charset=UTF-8
-      content-length:
-      - '3090'
-      etag:
-      - b7c9d524968e6797fd32cb0321c127fd
-      content-encoding:
-      - gzip
-      set-cookie:
-      - connect.sid=IQ0HHO4BiUc3lq3H%2BNzGsfsS.ZbqwFkbHI0wDs71L5yZCEVJ9Z8BEkp6W5QKt3lY34sc;
-        path=/; httpOnly
-      date:
-      - Tue, 18 Dec 2012 14:53:41 GMT
-      connection:
-      - keep-alive
-    body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        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
-    http_version: '1.1'
-  recorded_at: Tue, 18 Dec 2012 14:53:42 GMT
-- request:
-    method: get
     uri: https://api.trello.com/1/boards/50ce927d006f9d1b63010458
     body:
       encoding: US-ASCII
@@ -126,9 +12,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="d97f438d08822706bb83831885c8c3c2",
-        oauth_signature="OakzMn0xkJ7xyGcEQ6DqQ03eAyY%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1355842782", oauth_token="aeb20eb3201ad981ffc1a65ee6f3d9225de5491e729835e22ecdb3a5551ac5f9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="41dc452051e06c32e9c484ff3afa3d02",
+        oauth_signature="3HlODf7FKIlMLsoB%2BWgBetXPUts%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1357567417", oauth_token="aeb20eb3201ad981ffc1a65ee6f3d9225de5491e729835e22ecdb3a5551ac5f9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -142,9 +28,9 @@ http_interactions:
       content-type:
       - application/json; charset=utf-8
       content-length:
-      - '318'
+      - '320'
       x-server-time:
-      - '1355842781510'
+      - '1357567418476'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
@@ -154,15 +40,15 @@ http_interactions:
       access-control-allow-methods:
       - GET, PUT, POST, DELETE
       set-cookie:
-      - connect.sid=0MbI0YoDjQUkLu2YmoGLhWuV.nEFsB8mAGj0%2BxNpiEYeoeNbhqj9DnhgW8AUN6ZW%2BOkc;
+      - connect.sid=WtCdS1jOyssozKh%2FROcFpYz4.Fk4rPfMlnPv8dnSh68XnbJ2UBh2oWlwJBTEwql3ml8Q;
         path=/; httpOnly
       date:
-      - Tue, 18 Dec 2012 14:59:41 GMT
+      - Mon, 07 Jan 2013 14:03:38 GMT
       connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: ! '{"id":"50ce927d006f9d1b63010458","name":"Sternoapp","desc":"","closed":false,"idOrganization":null,"pinned":true,"url":"https://trello.com/board/sternoapp/50ce927d006f9d1b63010458","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true}}'
+      string: ! '{"id":"50ce927d006f9d1b63010458","name":"Bottleneck","desc":"","closed":false,"idOrganization":null,"pinned":true,"url":"https://trello.com/board/bottleneck/50ce927d006f9d1b63010458","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true}}'
     http_version: '1.1'
-  recorded_at: Tue, 18 Dec 2012 14:59:42 GMT
+  recorded_at: Mon, 07 Jan 2013 14:03:38 GMT
 recorded_with: VCR 2.3.0

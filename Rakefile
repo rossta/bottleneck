@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Sternoapp::Application.load_tasks
+Bottleneck::Application.load_tasks

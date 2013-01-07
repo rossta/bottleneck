@@ -62,7 +62,7 @@ module ApplicationHelper
   end
 
   def app_name
-    :sterno
+    :bottle
   end
 
   def pre_signup_flow?

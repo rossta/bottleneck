@@ -30,7 +30,6 @@ class TrelloAccountsController < ApplicationController
   def callback
     Rails.logger.info "callback received..................."
     Rails.logger.info params.inspect
-
   end
 
     # get "/request-token" do
