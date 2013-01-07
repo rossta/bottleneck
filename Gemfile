@@ -43,7 +43,7 @@ group :development do
   gem "better_errors", ">= 0.2.0"
   gem "quiet_assets", ">= 1.0.1"
   gem "foreman"
-  gem "supporting_cast", path: "~/projects/supporting_cast", branch: "master"
+  gem "supporting_cast", branch: "master"
 end
 
 group :test do

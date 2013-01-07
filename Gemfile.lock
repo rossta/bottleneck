@@ -19,11 +19,6 @@ GIT
       oauth (~> 0.4.5)
       rest-client (~> 1.6.7)
 
-PATH
-  remote: ~/projects/supporting_cast
-  specs:
-    supporting_cast (0.0.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -231,6 +226,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    supporting_cast (0.0.1)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -295,7 +291,7 @@ DEPENDENCIES
   sendgrid (>= 1.0.1)
   shoulda-matchers
   simple_form (>= 2.0.4)
-  supporting_cast!
+  supporting_cast
   thin (>= 1.5.0)
   uglifier (>= 1.0.3)
   vcr (~> 2.3)
