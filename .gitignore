@@ -17,8 +17,7 @@
 
 # minimal Rails specific artifacts
 db/*.sqlite3
-db/development.rdb
-db/test.rdb
+db/*.rdb
 /log/*
 /tmp/*
 
