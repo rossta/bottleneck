@@ -5,11 +5,11 @@ module ApplicationHelper
   end
 
   def render_head_title
-    content_for?(:title) ? "#{content_for(:title)} | Sterno" : "Sterno"
+    content_for?(:title) ? "#{content_for(:title)} | Bottleneck" : "Bottleneck"
   end
 
   def render_title_html
-    content_tag(:h3, content_for?(:title) ? content_for(:title) : "Sterno")
+    content_tag(:h3, content_for?(:title) ? content_for(:title) : "Bottleneck")
   end
 
   def body_classes
