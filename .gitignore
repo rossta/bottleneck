@@ -26,6 +26,7 @@ db/*.rdb
 *.rbc
 *.sassc
 .rspec
+.env
 .redcar/
 .sass-cache
 /config/config.yml
