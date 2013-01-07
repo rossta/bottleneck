@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
 
     if @project.save && @project.fetch
       flash[:notice] = "Your project was successfully created."
-      session.delete(:trello_account_id)
+      session[:trello_account_id] = nil
     end
 
     Rails.logger.info @project.inspect
