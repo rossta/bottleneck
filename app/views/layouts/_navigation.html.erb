@@ -10,7 +10,7 @@
       <ul class="right">
         <% if user_signed_in? %>
           <li>
-            <%= current_user.name %>
+            <%= link_to current_user.name, dashboard_path %>
           </li>
           <li>
             <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>

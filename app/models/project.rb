@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
   include Redis::Objects
+  include RedisKeys
   include TrelloFetchable
   attr_accessible :name, :uid, :trello_url, :trello_organization_id, :trello_closed
 
@@ -17,7 +18,7 @@ class Project < ActiveRecord::Base
     closed: :trello_closed
   }
 
-  hash_key :card_counter
+  hash_key :interval, marshal: true
 
   def trello_board
     @trello_board ||= authorize { Trello::Board.find(uid) }
@@ -45,10 +46,19 @@ class Project < ActiveRecord::Base
     fetch_cards
   end
 
-  def record_interval
-    card_counter.incr("intervals", 1)
-    card_counter.store(interval_key, cards.count)
-    lists.map(&:record_interval)
+  def record_interval(now = Time.now)
+    today = now.to_date
+    card_count = cards.count
+    redis.multi do
+      unless interval.has_key?(interval_key(today))
+        interval.incr(:total, 1)
+        interval.incr(:cards, card_count)
+      end
+      interval.store(interval_key(today), now.to_i)
+      interval.store(interval_key(today, :card_count), card_count)
+      interval.store(interval_key(today, :list_ids), list_ids)
+    end
+    lists.map { |list| list.record_interval(now) }
   end
 
   def interval_json(beginning_of_period, end_of_period)
@@ -57,23 +67,11 @@ class Project < ActiveRecord::Base
     }
   end
 
-  def interval_key(date = Date.today)
-    date.to_s(:number)
-  end
-
   def recording_timestamp
     Time.zone.now.send(timestamp_adjustment)
   end
 
   def timestamp_adjustment
     :end_of_day
-  end
-
-  def redis
-    Redis.current
-  end
-
-  def color_palette
-    @color_palette ||= ColorPalette.new
   end
 end

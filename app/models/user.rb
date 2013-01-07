@@ -9,5 +9,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
-  has_many :owned_projects, as: :owner  # dependent: :destroy
+  has_many :owned_projects, class_name: 'Project', foreign_key: :owner_id  # dependent: :destroy
+  # has_many :project_memberships
+  # has_many :projects, through: :project_memberships
+
+  def projects
+    owned_projects
+  end
 end

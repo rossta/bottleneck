@@ -16,15 +16,19 @@ class CumulativeFlow
       element: document.querySelector("#chart")
       width: 550
       height: 250
+      stroke: true
+      renderer: 'area'
       series: @data
 
     xAxis = new Rickshaw.Graph.Axis.Time
       graph: graph
+      ticksTreatment: 'glow'
 
     yAxis = new Rickshaw.Graph.Axis.Y
       graph: graph
       orientation: 'left'
       tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+      ticksTreatment: 'glow'
       element: document.querySelector("#y_axis")
 
     legend = new Rickshaw.Graph.Legend
@@ -34,6 +38,25 @@ class CumulativeFlow
     slider = new Rickshaw.Graph.RangeSlider
       graph: graph
       element: $('#slider')
+
+    hoverDetail = new Rickshaw.Graph.HoverDetail
+      graph: graph
+
+    annotator = new Rickshaw.Graph.Annotate
+      graph: graph
+      element: document.getElementById('timeline')
+
+    highlighter = new Rickshaw.Graph.Behavior.Series.Highlight
+      graph: graph
+      legend: legend
+
+    shelving = new Rickshaw.Graph.Behavior.Series.Toggle
+      graph: graph
+      legend: legend
+
+    order = new Rickshaw.Graph.Behavior.Series.Order
+      graph: graph
+      legend: legend
 
     graph.render()
 

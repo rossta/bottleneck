@@ -5,10 +5,11 @@ Sternoapp::Application.routes.draw do
   resources :lists
 
   authenticated :user do
-    root :to => 'dashboard#show'
+    root :to => 'dashboard#show', as: :dashboard
   end
   root :to => "home#index"
-  devise_for :users
+  devise_for :users,
+    controllers: { registrations: "users/registrations" }
 
   resources :users
   resources :trello_accounts do

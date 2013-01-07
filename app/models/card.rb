@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
   include Redis::Objects
+  include RedisKeys
   include TrelloFetchable
 
   attr_accessible :due, :position, :trello_board_id, :trello_closed,
@@ -26,7 +27,7 @@ class Card < ActiveRecord::Base
 
   delegate :project, to: :list
 
-  hash_key :list_interval
+  hash_key :interval, marshal: true
 
   def self.fetch(trello_card, trello_account)
     card = find_or_initialize_by_uid(trello_card.id)
@@ -39,12 +40,9 @@ class Card < ActiveRecord::Base
     trello_name
   end
 
-  def record_interval
-    list_interval.store(interval_key, list_id)
+  def record_interval(now = Time.now)
+    today = now.to_date
+    interval.store(interval_key(today), now.to_i)
+    interval.store(interval_key(today, :list_id), list_id)
   end
-
-  def interval_key
-    project.interval_key
-  end
-
 end

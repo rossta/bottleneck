@@ -1,5 +1,6 @@
 class List < ActiveRecord::Base
   include Redis::Objects
+  include RedisKeys
   include TrelloFetchable
 
   attr_accessible :name, :uid, :role
@@ -17,7 +18,7 @@ class List < ActiveRecord::Base
   belongs_to :project
   has_many :cards
 
-  hash_key :card_counter
+  hash_key :interval, marshal: true
 
   ROLES = %w(Backlog WIP Done Ignore)
 
@@ -44,47 +45,19 @@ class List < ActiveRecord::Base
     cards.map(&:name)
   end
 
-  def record_interval
-    card_counter.incr("total", 1)
-    card_counter.incr("cards", cards.count)
-    card_counter.store(interval_key, cards.count)
-    cards.map(&:record_interval)
-    cards.count
-  end
-
-  def interval_key(date = Date.today)
-    project.interval_key(date)
-  end
-
-  def interval_keys(*dates)
-    dates.map { |date| interval_key(date) }
-  end
-
-  class ListInterval
-    DateCount = Struct.new(:date, :count) do
-      def x; date.to_time.to_i; end
-      def y; (count || 0).to_i; end
-    end
-
-    attr_reader :list, :beg_of_period, :end_of_period
-    def initialize(list, beg_of_period, end_of_period)
-      @list, @beg_of_period, @end_of_period = list, beg_of_period, end_of_period
-    end
-
-    def data
-      date_counts.map { |dc| { x: dc.x, y: dc.y } }
-    end
-
-    def dates
-      @dates ||= Range.new(beg_of_period.to_date, end_of_period.to_date)
-    end
-
-    def counts
-      @counts ||= list.card_counter.bulk_values *list.interval_keys(*dates.to_a)
-    end
-
-    def date_counts
-      dates.to_a.zip(counts).map { |tuple| DateCount.new(tuple[0], tuple[1]) }
+  def record_interval(now = Time.now)
+    today = now.to_date
+    cards.count.tap do |card_count|
+      redis.multi do
+        unless interval.has_key?(interval_key(today))
+          interval.incr(:total, 1)
+          interval.incr(:card_count, card_count)
+        end
+        interval.store(interval_key(today), now.to_i)
+        interval.store(interval_key(today, :card_count), card_count)
+        interval.store(interval_key(today, :card_ids), card_ids)
+      end
+      cards.map { |card| card.record_interval(now) }
     end
   end
 
@@ -95,9 +68,4 @@ class List < ActiveRecord::Base
       :position => -id
     }
   end
-
-  def color_palette
-    @color_palette ||= ColorPalette.new
-  end
-
 end

@@ -1,12 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :build_trello_account, only: [:start, :new, :create]
-  before_filter :redirect_to_new, only: :start
-  before_filter :redirect_to_start, only: :new
 
   respond_to :html, :json
-
-  def start
-  end
 
   def new
     @trello_boards = @trello_account.trello_boards
@@ -45,26 +40,7 @@ class ProjectsController < ApplicationController
   protected
 
   def build_trello_account
-    session.delete(:trello_account_id) if params[:reload]
-
-    @trello_account = if trello_account_id = session[:trello_account_id]
-      TrelloAccount.find(trello_account_id)
-    else
-      TrelloAccount.new
-    end
+    @trello_account = TrelloAccount.new
   end
 
-  def redirect_to_new
-    if @trello_account.persisted?
-      redirect_to new_project_path
-      return
-    end
-  end
-
-  def redirect_to_start
-    if @trello_account.new_record?
-      redirect_to start_project_path
-      return
-    end
-  end
 end

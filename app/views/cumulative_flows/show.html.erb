@@ -2,7 +2,7 @@
 <%= render_title_html %>
 <%= render 'projects/sub_nav' %>
 <section class="row">
-  <div class="six columns">
+  <div class="twelve columns">
     <div id="flow">
       <div id="chart_container">
         <div id="chart"></div>
@@ -12,17 +12,23 @@
       </div>
       <div id="legend"></div>
     </div>
-
-    <% if @project.imported? %>
-      <%= link_to 'Edit Cumulative Flow', edit_project_flow_path(@project) %>
-      <% @project.lists.each do |list| %>
-        <div>
-          List: <%= list.name %>, Cards: <%= list.card_names.join(', ') %>
-        </div>
+    <div id="lists" style="margin-top:30px">
+      <% if @project.imported? %>
+        <%= link_to 'Edit Cumulative Flow', edit_project_flow_path(@project) %>
+        <% @project.lists.each do |list| %>
+          <div>
+            <strong>List: <%= list.name %></strong>
+            <ul>
+              <% list.card_names.each do |card_name| -%>
+              <li><%= card_name %></li>
+              <% end -%>
+            </ul>
+          </div>
+        <% end %>
+      <% else %>
+        <%= render 'importing' %>
       <% end %>
-    <% else %>
-      <%= render 'importing' %>
-    <% end %>
+    </div>
   </div>
 </section>
 <script type="text/javascript">
