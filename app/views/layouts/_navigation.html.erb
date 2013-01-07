@@ -1,8 +1,10 @@
+<% if bare_layout? %>
+<% else %>
 <div class="contain-to-grid">
   <nav class="container top-bar" data-role="top-nav">
     <ul>
       <li class="name">
-        <h1><%= link_to "Sterno", root_path, class: 'brand' %></h1>
+        <h1><%= link_to app_title, root_path, class: 'brand' %></h1>
       </li>
       <li class="toggle-topbar"><a href="#"></a></li>
     </ul>
@@ -33,3 +35,4 @@
     </section>
   </nav>
 </div>
+<% end %>

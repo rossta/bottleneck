@@ -1,5 +1,5 @@
 <%= render layout: 'layouts/spotlight' do %>
-  <h2>Sign in</h2>
+  <h2><%= app_title %>: Sign in</h2>
   <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
     <fieldset>
       <%= f.input :email, :autofocus => true %>
