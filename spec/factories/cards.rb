@@ -2,14 +2,13 @@
 
 FactoryGirl.define do
   factory :card do
-    trello_short_id "MyString"
-    trello_name "MyString"
-    due "2012-12-17 23:12:53"
-    trello_closed "MyString"
-    trello_url "MyString"
-    trello_board_id "MyString"
-    trello_member_ids "MyString"
-    trello_list_id "MyString"
+    trello_name "Task for Later"
     position 1
+    # trello_short_id "MyString"
+    # trello_closed "MyString"
+    # trello_url "MyString"
+    # trello_board_id "MyString"
+    # trello_member_ids "MyString"
+    # trello_list_id "MyString"
   end
 end
