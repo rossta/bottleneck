@@ -39,3 +39,5 @@ Bottleneck::Application.configure do
   config.action_mailer.default_url_options = { :host => 'example.com' }
 
 end
+
+ENV['REDISTOGO_URL'] = YAML.load_file('config/redis.yml')[Rails.env]

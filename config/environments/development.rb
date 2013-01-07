@@ -51,3 +51,5 @@ Bottleneck::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
+
+ENV['REDISTOGO_URL'] = YAML.load_file('config/redis.yml')[Rails.env]
