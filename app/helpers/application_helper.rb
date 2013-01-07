@@ -62,7 +62,11 @@ module ApplicationHelper
   end
 
   def app_name
-    :bottle
+    :bottleneck
+  end
+
+  def app_title
+    @app_title ||= app_name.to_s.titleize
   end
 
   def pre_signup_flow?
