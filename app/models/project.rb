@@ -46,11 +46,11 @@ class Project < ActiveRecord::Base
     fetch_cards
   end
 
-  def record_interval(now = Time.now)
+  def record_interval(now = Clock.time)
     today = now.to_date
     card_count = cards.count
-    unless interval.has_key?(interval_key(today))
-      interval.incr('total', 1)
+    unless interval_previously_recorded?(today)
+      interval.incr(:total, 1)
       interval.incr(:cards, card_count)
     end
     redis.pipelined do
@@ -69,6 +69,10 @@ class Project < ActiveRecord::Base
 
   def recording_timestamp
     Time.zone.now.send(timestamp_adjustment)
+  end
+
+  def interval_previously_recorded?(date)
+    interval.has_key?(interval_key(date))
   end
 
   def timestamp_adjustment

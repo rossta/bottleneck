@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Project do
+  include RedisKeys
+
   let(:project) { Project.new }
 
   describe "#trello_board", vcr: { record: :new_episodes } do
@@ -17,7 +19,7 @@ describe Project do
     let(:list) { build(:list) }
 
     before do
-      list.cards << [build(:card), build(:card), build(:card)]
+      list.cards << build(:card) << build(:card) << build(:card)
       project.lists << list
     end
 
@@ -32,15 +34,19 @@ describe Project do
     end
 
     it "sets card count for date" do
-      interval_key = "#{Date.today.to_s(:number)}/card_count"
       project.record_interval
-      project.interval[interval_key].to_i.should eq(3)
+      project.interval[interval_key(Clock.date, :card_count)].to_i.should eq(3)
     end
 
     it "sets list_ids for date" do
-      interval_key = "#{Date.today.to_s(:number)}/list_ids"
       project.record_interval
-      project.interval[interval_key].should eq([list.id])
+      project.interval[interval_key(Clock.date, :list_ids)].should eq([list.id])
+    end
+
+    it "records intervals for each list" do
+      time = Clock.time
+      list.should_receive(:record_interval).with(time)
+      project.record_interval(time)
     end
   end
 end

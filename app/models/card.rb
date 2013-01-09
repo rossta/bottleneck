@@ -40,9 +40,19 @@ class Card < ActiveRecord::Base
     trello_name
   end
 
-  def record_interval(now = Time.now)
+  def record_interval(now = Clock.time)
     today = now.to_date
-    interval.store(interval_key(today), now.to_i)
-    interval.store(interval_key(today, :list_id), list_id)
+    unless interval_previously_recorded?(today)
+      interval.incr(redis_key(:list_total, list_id), 1)
+    end
+    redis.pipelined do
+      interval.store(interval_key(today), now.to_i)
+      interval.store(interval_key(today, :list_id), list_id)
+    end
   end
+
+  def interval_previously_recorded?(date)
+    interval.has_key?(interval_key(date))
+  end
+
 end

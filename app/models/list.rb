@@ -45,20 +45,20 @@ class List < ActiveRecord::Base
     cards.map(&:name)
   end
 
-  def record_interval(now = Time.now)
+  def record_interval(now = Clock.time)
     today = now.to_date
-    cards.count.tap do |card_count|
-      redis.multi do
-        unless interval.has_key?(interval_key(today))
-          interval.incr(:total, 1)
-          interval.incr(:card_count, card_count)
-        end
-        interval.store(interval_key(today), now.to_i)
-        interval.store(interval_key(today, :card_count), card_count)
-        interval.store(interval_key(today, :card_ids), card_ids)
-      end
-      cards.map { |card| card.record_interval(now) }
+    card_count = cards.count
+    unless interval_previously_recorded?(today)
+      interval.incr(:total, 1)
+      interval.incr(:card_count, card_count)
     end
+    redis.multi do
+      interval.store(interval_key(today), now.to_i)
+      interval.store(interval_key(today, :card_count), card_count)
+      interval.store(interval_key(today, :card_ids), card_ids)
+    end
+    cards.map { |card| card.record_interval(now) }
+    card_count
   end
 
   def interval_json(beg_of_period, end_of_period)
@@ -67,5 +67,9 @@ class List < ActiveRecord::Base
       :data => ListInterval.new(self, beg_of_period, end_of_period).data,
       :position => -id
     }
+  end
+
+  def interval_previously_recorded?(date)
+    interval.has_key?(interval_key(date))
   end
 end
