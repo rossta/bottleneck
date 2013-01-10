@@ -51,6 +51,8 @@ class ProjectsController < ApplicationController
 
   def refresh
     @project = Project.find(params[:id])
+    authorize! :update, @project
+
     @project.fetch
     @project.save
     respond_with @project
