@@ -20,6 +20,8 @@ class Project < ActiveRecord::Base
 
   hash_key :interval, marshal: true
 
+  resourcify
+
   def trello_board
     @trello_board ||= authorize { Trello::Board.find(uid) }
   end
@@ -77,5 +79,13 @@ class Project < ActiveRecord::Base
 
   def timestamp_adjustment
     :end_of_day
+  end
+
+  def add_moderator(user)
+    user.add_role(:moderator, self)
+  end
+
+  def has_moderator?(user)
+    user.has_role?(:moderator, self)
   end
 end
