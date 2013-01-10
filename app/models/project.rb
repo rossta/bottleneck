@@ -88,4 +88,8 @@ class Project < ActiveRecord::Base
   def has_moderator?(user)
     user.has_role?(:moderator, self)
   end
+
+  def time_zone
+    ActiveSupport::TimeZone['Eastern Time (US & Canada)']
+  end
 end

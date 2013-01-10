@@ -1,8 +1,7 @@
 require 'spec_helper'
 
-describe "Sign up" do
-
-  it "directs to new project after sign up" do
+feature "Sign up" do
+  scenario "directs to new project after sign up" do
     name = FactoryGirl.generate(:name)
     email = FactoryGirl.generate(:email)
     visit root_path

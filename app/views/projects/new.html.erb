@@ -1,16 +1,16 @@
 <section>
   <h4>Import a Project</h4>
 
-  <% @trello_boards.each do |board| %>
+  <% @trello_account.trello_boards.each do |trello_board| %>
   <!-- :id, :name, :description, :closed, :url, :organization_id, :prefs -->
-    <section class="trello_board row">
+    <section class="trello_board row" data-id="<%= trello_board.id %>">
       <div class="three columns">
-        <%= board.name %>
+        <%= trello_board.name %>
       </div>
       <div class="three columns end">
         <%= simple_form_for Project.new do |f| %>
-          <%= f.input :uid, input_html: { value: board.id }, as: :hidden %>
-          <%= f.input :name, input_html: { value: board.name }, as: :hidden %>
+          <%= f.input :uid, input_html: { value: trello_board.id }, as: :hidden %>
+          <%= f.input :name, input_html: { value: trello_board.name }, as: :hidden %>
           <%= f.submit 'Import', class: 'button small radius' %>
         <% end %>
       </div>

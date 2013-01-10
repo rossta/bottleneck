@@ -3,6 +3,7 @@
 FactoryGirl.define do
   sequence(:name) { |n| "jerry #{n}" }
   sequence(:email) { |n| "example#{n}@example.com" }
+
   factory :user do
     name
     email

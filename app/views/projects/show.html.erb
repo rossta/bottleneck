@@ -11,6 +11,7 @@
         <dt>URL:</dt><dd><%= @project.trello_url %></dd>
         <dt>Org:</dt><dd><%= @project.trello_organization_id %></dd>
         <dt>Closed:</dt><dd><%= @project.trello_closed %></dd>
+        <dt>Time zone:</dt><dd><%= @project.time_zone %></dd>
       </dl>
       <p>
         <%= link_to 'View on trello &raquo;'.html_safe, @project.trello_url %> |

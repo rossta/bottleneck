@@ -1,0 +1,259 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.trello.com/1/members/bottleneck
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="6d143f9213f2994ed7289bb96ac2990c",
+        oauth_signature="v7uMgjK5%2FK1RzDKZ42xu280b8cg%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1357819747", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+        oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '739'
+      x-server-time:
+      - '1357819746373'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      set-cookie:
+      - connect.sid=3vWEYss69Ghd05umy83bW2Rt.k7K5%2FjueQ3GpqHBBLru0539gMlbSIk4AWdiEBTm0swE;
+        path=/; httpOnly
+      date:
+      - Thu, 10 Jan 2013 12:09:06 GMT
+      connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"id":"50ce59a6c74c3e366300830b","avatarHash":null,"bio":"","fullName":"Bottleneck","initials":"B","memberType":null,"status":"active","url":"https://trello.com/bottleneck","username":"bottleneck","avatarSource":"none","confirmed":true,"email":"rosskaff+bottleneck@gmail.com","gravatarHash":"109e173a1f14a57ee2b737aeab1d8b16","idBoards":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idBoardsInvited":[],"idBoardsPinned":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idOrganizations":[],"idOrganizationsInvited":[],"idPremOrgsAdmin":[],"loginTypes":["password"],"prefs":{"sendSummaries":true,"minutesBetweenSummaries":60,"minutesBeforeDeadlineToNotify":1440,"colorBlind":false},"trophies":[],"uploadedAvatarHash":null}'
+    http_version: '1.1'
+  recorded_at: Thu, 10 Jan 2013 12:09:07 GMT
+- request:
+    method: get
+    uri: https://api.trello.com/1/members/50ce59a6c74c3e366300830b/boards?filter=all
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="9f44de07c5816d7069afef1495fc2389",
+        oauth_signature="cd2J8zm1%2Bh87kL1xIAg6olGrFws%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1357819747", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+        oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '1287'
+      x-server-time:
+      - '1357819746635'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      set-cookie:
+      - connect.sid=YRO4XQNBLgmWrpSvn7BrAEBw.cKf5USYYWbn%2F3l85%2FPsgLM5HXqYJhFLCrMfrs274IKc;
+        path=/; httpOnly
+      date:
+      - Thu, 10 Jan 2013 12:09:06 GMT
+      connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"id":"50ce927d006f9d1b63010458","name":"Bottleneck","desc":"","closed":false,"idOrganization":null,"invited":false,"pinned":true,"url":"https://trello.com/board/bottleneck/50ce927d006f9d1b63010458","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true},"invitations":[],"memberships":[{"id":"50ce927d006f9d1b6301045c","idMember":"50ce59a6c74c3e366300830b","memberType":"admin","deactivated":false}],"subscribed":false,"labelNames":{"red":"","orange":"","yellow":"","green":"","blue":"","purple":""}},{"id":"50ce59a6c74c3e366300830c","name":"Welcome
+        Board","desc":"","closed":false,"idOrganization":null,"invited":false,"pinned":true,"url":"https://trello.com/board/welcome-board/50ce59a6c74c3e366300830c","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true},"invitations":[],"memberships":[{"id":"50ce59a6c74c3e366300830d","idMember":"4e6a7fad05d98b02ba00845c","memberType":"normal","deactivated":false},{"id":"50ce59a6c74c3e3663008318","idMember":"50ce59a6c74c3e366300830b","memberType":"admin","deactivated":false}],"subscribed":false,"labelNames":{"red":"","orange":"","yellow":"","green":"","blue":"","purple":""}}]'
+    http_version: '1.1'
+  recorded_at: Thu, 10 Jan 2013 12:09:08 GMT
+- request:
+    method: get
+    uri: https://api.trello.com/1/members/bottleneck
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="cdd41ff5c47eafa10a6d8738f7595214",
+        oauth_signature="QFgY4MwVU%2F62l537rsdqJhfRYZ0%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1357819748", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+        oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '739'
+      x-server-time:
+      - '1357819746849'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      set-cookie:
+      - connect.sid=CuqV2HhNAQAFxI%2FK0fStbHui.Mx5wdhn16wPeCmypjdZpp4lUpOMRqISm8iyZJUJqhCY;
+        path=/; httpOnly
+      date:
+      - Thu, 10 Jan 2013 12:09:06 GMT
+      connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"id":"50ce59a6c74c3e366300830b","avatarHash":null,"bio":"","fullName":"Bottleneck","initials":"B","memberType":null,"status":"active","url":"https://trello.com/bottleneck","username":"bottleneck","avatarSource":"none","confirmed":true,"email":"rosskaff+bottleneck@gmail.com","gravatarHash":"109e173a1f14a57ee2b737aeab1d8b16","idBoards":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idBoardsInvited":[],"idBoardsPinned":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idOrganizations":[],"idOrganizationsInvited":[],"idPremOrgsAdmin":[],"loginTypes":["password"],"prefs":{"sendSummaries":true,"minutesBetweenSummaries":60,"minutesBeforeDeadlineToNotify":1440,"colorBlind":false},"trophies":[],"uploadedAvatarHash":null}'
+    http_version: '1.1'
+  recorded_at: Thu, 10 Jan 2013 12:09:08 GMT
+- request:
+    method: get
+    uri: https://api.trello.com/1/members/50ce59a6c74c3e366300830b/boards?filter=all
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="cc056493d06923e6b350fc691d2f0099",
+        oauth_signature="QEnQv851cUbtwDxcAt89meD8iUE%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1357819748", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+        oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '1287'
+      x-server-time:
+      - '1357819747099'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      set-cookie:
+      - connect.sid=x15atS8L5SZ7e%2FAi1ge1wrLF.TbxxzTpHsaGOOE1Yiii%2FNtONSU%2F1g59yB2iYkyljjaM;
+        path=/; httpOnly
+      date:
+      - Thu, 10 Jan 2013 12:09:07 GMT
+      connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[{"id":"50ce927d006f9d1b63010458","name":"Bottleneck","desc":"","closed":false,"idOrganization":null,"invited":false,"pinned":true,"url":"https://trello.com/board/bottleneck/50ce927d006f9d1b63010458","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true},"invitations":[],"memberships":[{"id":"50ce927d006f9d1b6301045c","idMember":"50ce59a6c74c3e366300830b","memberType":"admin","deactivated":false}],"subscribed":false,"labelNames":{"red":"","orange":"","yellow":"","green":"","blue":"","purple":""}},{"id":"50ce59a6c74c3e366300830c","name":"Welcome
+        Board","desc":"","closed":false,"idOrganization":null,"invited":false,"pinned":true,"url":"https://trello.com/board/welcome-board/50ce59a6c74c3e366300830c","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true},"invitations":[],"memberships":[{"id":"50ce59a6c74c3e366300830d","idMember":"4e6a7fad05d98b02ba00845c","memberType":"normal","deactivated":false},{"id":"50ce59a6c74c3e3663008318","idMember":"50ce59a6c74c3e366300830b","memberType":"admin","deactivated":false}],"subscribed":false,"labelNames":{"red":"","orange":"","yellow":"","green":"","blue":"","purple":""}}]'
+    http_version: '1.1'
+  recorded_at: Thu, 10 Jan 2013 12:09:08 GMT
+- request:
+    method: get
+    uri: https://api.trello.com/1/boards/50ce927d006f9d1b63010458
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="83ed21ff9627eed57347be19194eb21e",
+        oauth_signature="gzAc%2Bec7Xj8u2n1ZMRA9kMLhr%2FY%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1357819748", oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - text/plain; charset=utf-8
+      content-length:
+      - '34'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      set-cookie:
+      - connect.sid=b5meYlKCSphjAb6E1Hzhjcrl.aIz9wliOtDvnpLiVdupAH2JTT9ewcEdG0X7kVdE1Kps;
+        path=/; httpOnly
+      date:
+      - Thu, 10 Jan 2013 12:09:07 GMT
+      connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! 'unauthorized permission requested
+
+'
+    http_version: '1.1'
+  recorded_at: Thu, 10 Jan 2013 12:09:08 GMT
+recorded_with: VCR 2.3.0

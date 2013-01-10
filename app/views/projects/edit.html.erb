@@ -1,0 +1,14 @@
+<% title @project.name %>
+<%= render_title_html %>
+<%= render 'projects/sub_nav' %>
+<section class="row">
+  <div class="six columns">
+    <%= simple_form_for @project do |f| %>
+    <fieldset>
+      <%= f.input :name %>
+      <%= f.select :time_zone, ActiveSupport::TimeZone.us_zones %>
+      <%= f.submit 'Save', class: 'button radius' %>
+    </fieldset>
+    <% end %>
+  </div>
+</section>

@@ -36,4 +36,11 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  def current_project
+    @project
+  end
+
+  def project_time_zone(&block)
+    Time.use_zone(current_project.time_zone, &block)
+  end
 end

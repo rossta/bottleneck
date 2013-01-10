@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :trello_account do
     name 'bottleneck'
-    token "aeb20eb3201ad981ffc1a65ee6f3d9225de5491e729835e22ecdb3a5551ac5f9"
+    token "c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9"
   end
 end
