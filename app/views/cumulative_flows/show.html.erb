@@ -1,8 +1,9 @@
-<% title "#{@project.name} Cumulative Flow" %>
+<% title "#{@project.name}" %>
 <%= render_title_html %>
 <%= render 'projects/sub_nav' %>
 <section class="row">
   <div class="twelve columns">
+    <h3><%= @flow.title %></h3>
     <div id="flow">
       <div id="chart_container">
         <div id="chart"></div>
@@ -16,14 +17,15 @@
       <% if @project.imported? %>
         <%= link_to 'Edit Cumulative Flow', edit_project_flow_path(@project) %>
         <% @project.lists.each do |list| %>
-          <div>
-            <strong>List: <%= list.name %></strong>
+          <article id="<%= dom_id(list) %>" class="<%= dom_class(list) %>">
+            <h4><%= link_to list.name, [@project, list] %></h4>
+            <h5>Cards:</h5>
             <ul>
               <% list.card_names.each do |card_name| -%>
               <li><%= card_name %></li>
               <% end -%>
             </ul>
-          </div>
+          </article>
         <% end %>
       <% else %>
         <%= render 'importing' %>
@@ -32,7 +34,7 @@
   </div>
 </section>
 <script type="text/javascript">
-  var seriesData = <%= raw @project.interval_json(3.days.ago, Date.today).to_json %>;
+  var seriesData = <%= raw @flow.to_json %>;
 
   new CumulativeFlow(seriesData).render();
 </script>

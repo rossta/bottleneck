@@ -1,9 +1,4 @@
 Bottleneck::Application.routes.draw do
-
-  resources :cards
-
-  resources :lists
-
   authenticated :user do
     root :to => 'dashboard#show', as: :dashboard
   end
@@ -29,6 +24,7 @@ Bottleneck::Application.routes.draw do
       get :clear
     end
 
+    resources :lists
     resource :cumulative_flow, path: :flow, as: :flow, only: [:show, :edit]
   end
 end

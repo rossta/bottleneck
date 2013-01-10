@@ -63,12 +63,6 @@ class Project < ActiveRecord::Base
     lists.map { |list| list.record_interval(now) }
   end
 
-  def interval_json(beginning_of_period, end_of_period)
-    lists.map { |list|
-      list.interval_json(beginning_of_period, end_of_period)
-    }
-  end
-
   def recording_timestamp
     Time.zone.now.send(timestamp_adjustment)
   end

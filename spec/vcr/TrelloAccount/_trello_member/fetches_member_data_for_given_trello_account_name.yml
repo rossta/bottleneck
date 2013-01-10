@@ -12,9 +12,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="dab565ed6961722861f4da4229cc517b",
-        oauth_signature="%2BcYW1dDMqARchxBy3QeuBmetHdY%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1357819749", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="d9ba08cc2a8eaa62d449157fa5594005",
+        oauth_signature="WAlrmcMWNHPVoZcZ%2BLss3Hw5FFw%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1357843958", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -30,7 +30,7 @@ http_interactions:
       content-length:
       - '739'
       x-server-time:
-      - '1357819747746'
+      - '1357843956886'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
@@ -40,15 +40,15 @@ http_interactions:
       access-control-allow-methods:
       - GET, PUT, POST, DELETE
       set-cookie:
-      - connect.sid=c6xBf8TMzHzda0lvY5eTKt8e.DGJ6z3VRpMyRU6lowZam8TTZfUFNER%2Fq8zcFuUmRsNQ;
+      - connect.sid=i79VmEKBc8PKumabxBnyoeVY.4NP8OV5hs6YlNK4GWmCMC8KkK2pw%2FYONh4NlKRFXtbI;
         path=/; httpOnly
       date:
-      - Thu, 10 Jan 2013 12:09:07 GMT
+      - Thu, 10 Jan 2013 18:52:36 GMT
       connection:
       - keep-alive
     body:
       encoding: US-ASCII
       string: ! '{"id":"50ce59a6c74c3e366300830b","avatarHash":null,"bio":"","fullName":"Bottleneck","initials":"B","memberType":null,"status":"active","url":"https://trello.com/bottleneck","username":"bottleneck","avatarSource":"none","confirmed":true,"email":"rosskaff+bottleneck@gmail.com","gravatarHash":"109e173a1f14a57ee2b737aeab1d8b16","idBoards":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idBoardsInvited":[],"idBoardsPinned":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idOrganizations":[],"idOrganizationsInvited":[],"idPremOrgsAdmin":[],"loginTypes":["password"],"prefs":{"sendSummaries":true,"minutesBetweenSummaries":60,"minutesBeforeDeadlineToNotify":1440,"colorBlind":false},"trophies":[],"uploadedAvatarHash":null}'
     http_version: '1.1'
-  recorded_at: Thu, 10 Jan 2013 12:09:09 GMT
+  recorded_at: Thu, 10 Jan 2013 18:52:38 GMT
 recorded_with: VCR 2.3.0

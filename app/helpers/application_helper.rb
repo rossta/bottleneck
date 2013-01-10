@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def render_title_html
-    content_tag(:h3, content_for?(:title) ? content_for(:title) : "Bottleneck")
+    content_tag(:h2, content_for?(:title) ? content_for(:title) : "Bottleneck")
   end
 
   def body_classes

@@ -14,7 +14,7 @@ feature "Projects" do
     form.project
   end
 
-  scenario "Connect trello account", vcr: { record: :new_episodes } do
+  scenario "Connect trello account", vcr: { record: :new_episodes, re_record_interval: 7.days } do
     trello_account = build(:trello_account)
 
     visit start_project_path
@@ -25,7 +25,7 @@ feature "Projects" do
     page.should have_content("Import a Project")
   end
 
-  scenario "Import a project", vcr: { record: :new_episodes } do
+  scenario "Import a project", vcr: { record: :new_episodes, re_record_interval: 7.days } do
     trello_account = create(:trello_account)
     board = trello_account.trello_boards.first
     board.name.should eq("Bottleneck")

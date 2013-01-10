@@ -48,7 +48,7 @@ class ProjectForm
     project.owner = owner if owner
 
     if trello_account
-      project.trello_account
+      project.trello_account = trello_account
       project.fetch
     end
 

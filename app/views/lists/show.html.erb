@@ -1,0 +1,17 @@
+<% title @project.name %>
+<%= render_title_html %>
+<%= render 'projects/sub_nav' %>
+<section class="row">
+  <div class="twelve columns">
+    <div>
+      <h3><%= @list.name %></h3>
+      <ul class="block-list">
+        <% @list.cards.each do |card| -%>
+        <li class="panel">
+          <%= card.name %>
+        </li>
+        <% end -%>
+      </ul>
+    </div>
+  </div>
+</section>
