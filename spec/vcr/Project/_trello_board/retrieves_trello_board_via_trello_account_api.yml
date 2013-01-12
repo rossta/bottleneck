@@ -12,9 +12,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="ca559ca473fdce95694a557b7932dc11",
-        oauth_signature="2h2tLG%2B39A1komrgiJIGolAwdRs%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1357843962", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="2c731a0f221e12ec0e58936876c511aa",
+        oauth_signature="F3X7eSjccXGDAuotmLhXaSk83lo%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1358013689", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -30,7 +30,7 @@ http_interactions:
       content-length:
       - '320'
       x-server-time:
-      - '1357843960540'
+      - '1358013689657'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
@@ -40,15 +40,15 @@ http_interactions:
       access-control-allow-methods:
       - GET, PUT, POST, DELETE
       set-cookie:
-      - connect.sid=Q%2FXski6o9Gl%2Bv%2F%2FV0SWoCaBj.y8i2OcIfjBpI5uKlcf4aDtllmeT8q%2BBxCADE%2B9Yr%2FxA;
+      - connect.sid=w0Hi9%2BQBMWueunJSgs9UcoSn.T%2BR1vGIgdh7vsvUyRhACNClNfOJjr1PSkx8V7z0AX00;
         path=/; httpOnly
       date:
-      - Thu, 10 Jan 2013 18:52:40 GMT
+      - Sat, 12 Jan 2013 18:01:29 GMT
       connection:
       - keep-alive
     body:
       encoding: US-ASCII
       string: ! '{"id":"50ce927d006f9d1b63010458","name":"Bottleneck","desc":"","closed":false,"idOrganization":null,"pinned":true,"url":"https://trello.com/board/bottleneck/50ce927d006f9d1b63010458","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true}}'
     http_version: '1.1'
-  recorded_at: Thu, 10 Jan 2013 18:52:42 GMT
+  recorded_at: Sat, 12 Jan 2013 18:01:29 GMT
 recorded_with: VCR 2.3.0
