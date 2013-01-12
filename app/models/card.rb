@@ -40,9 +40,10 @@ class Card < ActiveRecord::Base
     trello_name
   end
 
-  def record_interval(now = Clock.time)
+  def record_interval(now = Clock.time, opts = {})
     today = now.to_date
-    unless interval_previously_recorded?(today)
+    end_of_day = opts[:end_of_day] || false
+    if end_of_day && !interval_previously_recorded?(today)
       interval.incr(redis_key(:list_total, list_id), 1)
     end
     redis.pipelined do

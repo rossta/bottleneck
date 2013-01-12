@@ -51,7 +51,6 @@ class Project < ActiveRecord::Base
 
   def record_interval(now = time_zone_now)
     IntervalRecording.new(project: self, now: now).record
-    lists.map { |list| list.record_interval(now) }
   end
 
   def timestamp_adjustment
@@ -89,6 +88,8 @@ class Project < ActiveRecord::Base
         project_interval.store(interval_key(today, :list_ids), list_ids)
       end
       record_end_of_day_summary if near_end_of_day?
+
+      project.lists.map { |list| list.record_interval(now, end_of_day: near_end_of_day?) }
     end
 
     def record_end_of_day_summary
