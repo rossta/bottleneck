@@ -38,7 +38,7 @@ describe Project do
 
     it "records intervals for each list" do
       time = Clock.time
-      list.should_receive(:record_interval).with(time)
+      list.should_receive(:record_interval).with(time, end_of_day: false)
       project.record_interval(time)
     end
 

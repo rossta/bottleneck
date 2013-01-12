@@ -48,8 +48,7 @@ class List < ActiveRecord::Base
   def record_interval(now = Clock.time, opts = {})
     today = now.to_date
     card_count = cards.count
-    end_of_day = opts[:end_of_day] || false
-    if end_of_day && !interval_previously_recorded?(today)
+    if opts[:end_of_day] && !interval_previously_recorded?(today)
       interval.store(interval_key(today), now.to_i)
       interval.incr(:total, 1)
       interval.incr(:card_count, card_count)
@@ -58,7 +57,7 @@ class List < ActiveRecord::Base
       interval.store(interval_key(today, :card_count), card_count)
       interval.store(interval_key(today, :card_ids), card_ids)
     end
-    cards.map { |card| card.record_interval(now, end_of_day: end_of_day) }
+    cards.map { |card| card.record_interval(now, opts) }
     card_count
   end
 

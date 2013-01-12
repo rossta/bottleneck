@@ -42,10 +42,11 @@ class Card < ActiveRecord::Base
 
   def record_interval(now = Clock.time, opts = {})
     today = now.to_date
-    end_of_day = opts[:end_of_day] || false
-    if end_of_day && !interval_previously_recorded?(today)
+
+    if opts[:end_of_day] && !interval_previously_recorded?(today)
       interval.incr(redis_key(:list_total, list_id), 1)
     end
+
     redis.pipelined do
       interval.store(interval_key(today), now.to_i)
       interval.store(interval_key(today, :list_id), list_id)

@@ -17,7 +17,7 @@ describe Card do
     end
 
     it "increments intervals spent in list" do
-      card.record_interval
+      card.record_interval(Clock.time, end_of_day: true)
       card.interval[redis_key(:list_total, list.id)].to_i.should eq(1)
     end
   end
