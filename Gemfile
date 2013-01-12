@@ -17,17 +17,25 @@ gem 'jquery-rails'
 gem "thin", ">= 1.5.0"
 gem "pg", ">= 0.14.1"
 
-gem "sendgrid", ">= 1.0.1"
-gem "devise", ">= 2.1.2"
-gem "cancan", ">= 1.6.8"
-gem "rolify", ">= 3.2.0"
-gem "simple_form", ">= 2.0.4"
 gem "figaro", ">= 0.5.0"
 
+# actionpack
+gem "devise", ">= 2.1.2"
+gem "cancan", ">= 1.6.8"
+gem "simple_form", ">= 2.0.4"
+
+# activerecord
 gem "virtus"
 gem "active_model_serializers"
 gem "dalli"
 gem 'redis-objects', "~> 0.6"
+gem "rolify", ">= 3.2.0"
+
+# Utilities
+gem "resque"
+
+# APIs
+gem "sendgrid", ">= 1.0.1"
 gem 'ruby-trello', git: 'git://github.com/jeremytregunna/ruby-trello.git', branch: "master"
 
 group :development, :test do

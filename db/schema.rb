@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218041253) do
+ActiveRecord::Schema.define(:version => 20130111150151) do
 
   create_table "cards", :force => true do |t|
     t.integer  "list_id"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20121218041253) do
     t.string   "trello_name"
     t.integer  "owner_id"
     t.integer  "trello_account_id"
+    t.string   "time_zone"
   end
 
   add_index "projects", ["owner_id"], :name => "index_projects_on_owner_id"

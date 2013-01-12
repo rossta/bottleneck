@@ -5,15 +5,18 @@ class ProjectForm
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
+  delegate :uid, :name, :time_zone, :persisted?, to: :project, prefix: true
+
   attribute :uid, String, default: :project_uid
   attribute :name, String, default: :project_name
+  attribute :time_zone, String, default: :default_time_zone
 
   validates :uid, presence: true
   validates :name, presence: true
   validates :owner, presence: true, unless: :project_persisted?
-  validates :trello_account, presence: true, unless: :project_persisted?
+  validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.zones_map(&:name)
 
-  delegate :uid, :name, :persisted?, to: :project, prefix: true
+  validates :trello_account, presence: true, unless: :project_persisted?
 
   attr_accessor :project
   attr_accessor :owner, :trello_account
@@ -39,6 +42,10 @@ class ProjectForm
 
   def project
     @project ||= Project.new
+  end
+
+  def default_time_zone
+    project_time_zone || 'Eastern Time (US & Canada)'
   end
 
   private

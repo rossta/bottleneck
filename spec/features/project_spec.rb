@@ -7,13 +7,6 @@ feature "Projects" do
     login_as user
   end
 
-  def create_project(attrs = {})
-    form = ProjectForm.new(attributes_for(:project))
-    attrs.each { |name, val| form.send("#{name}=", val) }
-    form.save
-    form.project
-  end
-
   scenario "Connect trello account", vcr: { record: :new_episodes, re_record_interval: 7.days } do
     trello_account = build(:trello_account)
 
@@ -46,15 +39,15 @@ feature "Projects" do
     project.add_moderator(user)
 
     visit project_path(project)
-    click_link "Configure"
+    click_link "Settings"
 
     fill_in "Name", with: "New Project Name"
-    # select "Eastern Time", from: "Time Zone"
-    # ActiveSupport::TimeZone.us_zones
+    select "(GMT-06:00) Central Time (US & Canada)", from: "Time zone"
 
     click_button "Save"
+    click_link "Settings"
 
     page.should have_content("New Project Name")
-    page.should have_content("Eastern Time")
+    page.should have_content("Central Time")
   end
 end

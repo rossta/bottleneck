@@ -2,21 +2,4 @@
 <%= render_title_html %>
 <%= render 'projects/sub_nav' %>
 <section class="row">
-  <div class="six columns">
-    <div class="panel">
-      <h5>Settings</h5>
-      <dl>
-        <dt>Name:</dt><dd><%= @project.trello_name %></dd>
-        <dt>ID:</dt><dd><%= @project.uid %></dd>
-        <dt>URL:</dt><dd><%= @project.trello_url %></dd>
-        <dt>Org:</dt><dd><%= @project.trello_organization_id %></dd>
-        <dt>Closed:</dt><dd><%= @project.trello_closed %></dd>
-        <dt>Time zone:</dt><dd><%= @project.time_zone %></dd>
-      </dl>
-      <p>
-        <%= link_to 'View on trello &raquo;'.html_safe, @project.trello_url %> |
-        <%= link_to 'Refresh', refresh_project_path(@project), method: :put %>
-      </p>
-    </div>
-  </div>
 </section>

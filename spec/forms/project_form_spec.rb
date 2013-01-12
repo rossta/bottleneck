@@ -40,7 +40,8 @@ describe ProjectForm do
     context "valid" do
       let(:attributes) { {
         uid: "1234567890",
-        name: "Bottleneck"
+        name: "Bottleneck",
+        time_zone: "Indiana (East)"
       } }
 
       it "saves and fetches project" do
