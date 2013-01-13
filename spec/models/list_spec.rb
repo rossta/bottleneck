@@ -14,12 +14,12 @@ describe List do
     end
 
     it "stores card total for interval" do
-      list.record_interval
+      list.record_interval(now)
       list.interval[interval_key(today, :card_count)].to_i.should eq(3)
     end
 
     it "stores card ids for interval" do
-      list.record_interval
+      list.record_interval(now)
       list.interval[interval_key(today, :card_ids)].should eq(list.card_ids)
     end
 
