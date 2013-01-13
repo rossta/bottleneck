@@ -7,7 +7,7 @@ class TrelloAuthorization
       config.consumer_key     = ENV['TRELLO_USER_KEY']
       config.consumer_secret  = ENV['TRELLO_USER_SECRET']
       config.oauth_token      = options[:token]   if options[:token]
-      config.oauth_secret     = options[:secret]  if options[:secret]
+      config.oauth_token_secret = options[:secret]  if options[:secret]
     end
   end
 
