@@ -2,7 +2,16 @@ class TrelloAuthorization
   include Trello
   include Trello::Authorization
 
-  def self.authorize!
+  def self.configure(options = {})
+    Trello.configure do |config|
+      config.consumer_key     = ENV['TRELLO_USER_KEY']
+      config.consumer_secret  = ENV['TRELLO_USER_SECRET']
+      config.oauth_token      = options[:token]   if options[:token]
+      config.oauth_secret     = options[:secret]  if options[:secret]
+    end
+  end
+
+  def self.deprecrated_configures
     Trello::Authorization.const_set :AuthPolicy, OAuthPolicy
     OAuthPolicy.consumer_credential = OAuthCredential.new(ENV['TRELLO_USER_KEY'], ENV['TRELLO_USER_SECRET'])
   end
@@ -16,6 +25,13 @@ class TrelloAuthorization
   end
 
   def self.session(token, secret = nil)
+    result = nil
+    configure(token: token, secret: secret)
+    result = yield if block_given?
+    result
+  end
+
+  def self.deprecated_session(token, secret = nil)
     result = nil
     current_token = OAuthPolicy.token
     OAuthPolicy.token = OAuthCredential.new(token, secret)

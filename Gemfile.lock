@@ -9,8 +9,8 @@ GIT
 
 GIT
   remote: git://github.com/rossta/ruby-trello.git
-  revision: 6d6621d58a74b8c96329b54fac0e6ee32c674851
-  branch: master
+  revision: ce077d90fb470ae3f773e383dcc433dcf1542548
+  branch: configurable_client
   specs:
     ruby-trello (0.4.4.2)
       activemodel

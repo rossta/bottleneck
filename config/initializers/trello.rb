@@ -1,3 +1,3 @@
 require 'trello'
 
-TrelloAuthorization.authorize!
+TrelloAuthorization.configure
