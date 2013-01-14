@@ -55,6 +55,14 @@ describe List do
       list.record_interval(time)
     end
 
+    it "functions for empty card list" do
+      list.cards = []
+      list.record_interval(now)
+      list.interval[interval_key(today, :card_count)].to_i.should eq(0)
+      list.interval[interval_key(today, :cumulative_total)].to_i.should eq(0)
+    end
+
+
     context "end of day" do
       it "increments total intervals" do
         list.record_interval(now, end_of_day: true)

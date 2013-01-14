@@ -56,7 +56,7 @@ class List < ActiveRecord::Base
     card_count = cards.count
 
     # card ids all time
-    card_history.merge(card_ids)
+    card_history.merge(card_ids) if card_ids.any?
     card_cumulative = card_history.size
 
     redis.multi do
@@ -87,12 +87,12 @@ class List < ActiveRecord::Base
     card_count
   end
 
-  def interval_counts
-    list.interval.bulk_values *list.interval_keys(dates, card_count_key)
+  def interval_counts(dates)
+    interval.bulk_values *interval_keys(dates, card_count_key)
   end
 
   def card_count_key
-    case list.role
+    case role
     when DONE
       :cumulative_total # all-time
     else
