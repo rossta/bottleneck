@@ -36,6 +36,11 @@ describe Project do
       project.interval[interval_key(today, :list_ids)].should eq([list.id])
     end
 
+    it "stores list_ids for all time in list history" do
+      project.record_interval(now)
+      project.list_history.members.map(&:to_i).should eq([list.id])
+    end
+
     it "records intervals for each list" do
       time = Clock.time
       list.should_receive(:record_interval).with(time, end_of_day: false)

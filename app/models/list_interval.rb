@@ -5,6 +5,9 @@ class ListInterval
   end
 
   attr_reader :list, :beg_of_period, :end_of_period
+
+  delegate :name, :position, to: :list
+
   def initialize(list, beg_of_period, end_of_period)
     @list, @beg_of_period, @end_of_period = list, beg_of_period, end_of_period
   end
@@ -18,7 +21,7 @@ class ListInterval
   end
 
   def counts
-    @counts ||= list.interval.bulk_values *list.interval_keys(dates, :card_count)
+    @counts ||= list.interval_counts(dates)
   end
 
   def date_counts

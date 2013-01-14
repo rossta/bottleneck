@@ -20,6 +20,7 @@ class Project < ActiveRecord::Base
   }
 
   hash_key :interval, marshal: true
+  set :list_history
 
   resourcify
 
@@ -84,6 +85,7 @@ class Project < ActiveRecord::Base
 
     def record
       redis.pipelined do
+        project.list_history.merge(list_ids)
         project_interval.store(interval_key(today, :card_count), card_count)
         project_interval.store(interval_key(today, :list_ids), list_ids)
       end
