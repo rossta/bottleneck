@@ -21,6 +21,7 @@ class Project < ActiveRecord::Base
 
   hash_key :interval, marshal: true
   set :list_history
+  set :card_history
 
   resourcify
 
@@ -73,7 +74,8 @@ class Project < ActiveRecord::Base
   class IntervalRecording
     include RedisKeys
 
-    delegate :interval, :list_ids, :cards, :time_zone_now,
+    delegate :interval, :card_history, :list_history,
+     :list_ids, :card_ids, :cards, :time_zone_now,
       to: :project, prefix: true
 
     attr_accessor :project, :now
@@ -84,21 +86,47 @@ class Project < ActiveRecord::Base
     end
 
     def record
-      redis.pipelined do
-        project.list_history.merge(list_ids)
-        project_interval.store(interval_key(today, :card_count), card_count)
-        project_interval.store(interval_key(today, :list_ids), list_ids)
-      end
-      record_end_of_day_summary if near_end_of_day?
+      record_all_time_summary
+      record_daily_summary
+      record_end_of_day_summary
 
-      project.lists.map { |list| list.record_interval(now, end_of_day: near_end_of_day?) }
+      project.lists.map { |list| list.record_interval(now) }
+    end
+
+    def record_all_time_summary
+      # list ids all time
+      project_list_history.merge(list_ids) if list_ids.any?
+
+      # card ids all time
+      project_card_history.merge(card_ids) if card_ids.any?
+    end
+
+    def record_daily_summary
+      card_cumulative = project_card_history.size
+
+      redis.pipelined do
+        # list ids for today
+        project_interval.store(date_key(today, :list_ids), list_ids)
+
+        # card count for today
+        project_interval.store(date_key(today, :card_count), card_count)
+
+        # cumulative total by today
+        project_interval.store(date_key(today, :cumulative_total), card_cumulative)
+      end
     end
 
     def record_end_of_day_summary
-      return if project_interval.has_key?(interval_key(today))
+      return if !near_end_of_day?
+      return if project_interval.has_key?(date_key(today))
 
-      project_interval.store(interval_key(today), now.to_i)
+      # end of day timestamp
+      project_interval.store(date_key(today), now.to_i)
+
+      # increment interval count
       project_interval.incr(:total, 1)
+
+      # increment total card count
       project_interval.incr(:cards, card_count)
     end
 
@@ -118,6 +146,10 @@ class Project < ActiveRecord::Base
       @list_ids ||= project_list_ids
     end
 
+    def card_ids
+      @card_ids ||= project_card_ids
+    end
+
     def near_end_of_day?
       hrs_til_midnight <= 1
     end
@@ -125,5 +157,6 @@ class Project < ActiveRecord::Base
     def hrs_til_midnight
       ((now.end_of_day - now) / 1.hour).to_i
     end
+
   end
 end

@@ -48,13 +48,13 @@ class Card < ActiveRecord::Base
     end
 
     redis.pipelined do
-      interval.store(interval_key(today), now.to_i)
-      interval.store(interval_key(today, :list_id), list_id)
+      interval.store(date_key(today), now.to_i)
+      interval.store(date_key(today, :list_id), list_id)
     end
   end
 
   def interval_previously_recorded?(date)
-    interval.has_key?(interval_key(date))
+    interval.has_key?(date_key(date))
   end
 
 end

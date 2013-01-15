@@ -13,7 +13,7 @@ describe Card do
 
     it "stores list id for interval" do
       card.record_interval
-      card.interval[interval_key(Clock.date, :list_id)].to_i.should eq(list.id)
+      card.interval[date_key(Clock.date, :list_id)].to_i.should eq(list.id)
     end
 
     it "increments intervals spent in list" do

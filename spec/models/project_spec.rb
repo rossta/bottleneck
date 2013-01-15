@@ -23,17 +23,18 @@ describe Project do
 
     before do
       list.cards << build(:card) << build(:card) << build(:card)
+      list.stub!(:record_interval)
       project.lists << list
     end
 
     it "sets card count for date" do
       project.record_interval(now)
-      project.interval[interval_key(today, :card_count)].to_i.should eq(3)
+      project.interval[date_key(today, :card_count)].to_i.should eq(3)
     end
 
     it "sets list_ids for date" do
       project.record_interval(now)
-      project.interval[interval_key(today, :list_ids)].should eq([list.id])
+      project.interval[date_key(today, :list_ids)].should eq([list.id])
     end
 
     it "stores list_ids for all time in list history" do
@@ -41,10 +42,32 @@ describe Project do
       project.list_history.members.map(&:to_i).should eq([list.id])
     end
 
+    it "stores card ids in card history" do
+      project.record_interval(now)
+      project.card_history.members.map(&:to_i).sort.should eq(list.card_ids.sort)
+    end
+
     it "records intervals for each list" do
       time = Clock.time
-      list.should_receive(:record_interval).with(time, end_of_day: false)
+      list.should_receive(:record_interval).with(time)
       project.record_interval(time)
+    end
+
+    it "records empty card list" do
+      list.cards = []
+      project.record_interval(now)
+      project.interval[date_key(today, :card_count)].to_i.should eq(0)
+      project.interval[date_key(today, :cumulative_total)].to_i.should eq(0)
+      project.card_history.size.should eq(0)
+    end
+
+    it "records empty lists" do
+      project.lists = []
+      project.record_interval(now)
+      project.interval[date_key(today, :card_count)].to_i.should eq(0)
+      project.interval[date_key(today, :cumulative_total)].to_i.should eq(0)
+      project.list_history.size.should eq(0)
+      project.card_history.size.should eq(0)
     end
 
     context "end of day" do
