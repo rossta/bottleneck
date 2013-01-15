@@ -14,4 +14,14 @@ namespace :datafix do
       end
     end
   end
+
+  desc "Add project id to cards 1.14.2012"
+  task :add_project_id_to_cards => :environment do
+    Project.find_each do |project|
+      project.cards.each do |card|
+        card.project = project
+        card.save!
+      end
+    end
+  end
 end

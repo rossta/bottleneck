@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111150151) do
+ActiveRecord::Schema.define(:version => 20130115011612) do
 
   create_table "cards", :force => true do |t|
     t.integer  "list_id"
@@ -27,9 +27,11 @@ ActiveRecord::Schema.define(:version => 20130111150151) do
     t.datetime "due_at"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "project_id"
   end
 
   add_index "cards", ["list_id"], :name => "index_cards_on_list_id"
+  add_index "cards", ["project_id"], :name => "index_cards_on_project_id"
   add_index "cards", ["trello_account_id"], :name => "index_cards_on_trello_account_id"
 
   create_table "lists", :force => true do |t|
