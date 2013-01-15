@@ -5,7 +5,7 @@ class CumulativeFlowsController < ApplicationController
   def show
     @flow = CumulativeFlow.new(
       start_time: 11.days.ago,
-      end_time: Time.zone.now.yesterday,
+      end_time: Clock.time,
       project: @project
     )
   end
