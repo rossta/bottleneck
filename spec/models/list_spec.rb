@@ -20,6 +20,9 @@ describe List do
     before do
       Clock.stub!(:zone_time).and_return(midday)
       list.cards << build(:card) << build(:card) << build(:card)
+      list.cards.each do |card|
+        card.stub!(:record_interval)
+      end
     end
 
     it "stores card total for interval" do
@@ -53,7 +56,7 @@ describe List do
     it "records interval for each card" do
       time = Clock.time
       list.cards.each do |card|
-        card.should_receive(:record_interval).with(time, end_of_day: false)
+        card.should_receive(:record_interval).with(time)
       end
       list.record_interval(time)
     end

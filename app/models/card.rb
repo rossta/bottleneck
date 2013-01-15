@@ -8,26 +8,26 @@ class Card < ActiveRecord::Base
 
   attr_accessor :trello_card
 
-  trello_representative :trello_card, {
-    name: :name,
+  trello_api_adapter :trello_card, {
+    name:     :name,
     board_id: :trello_board_id,
-    closed: :trello_closed,
+    closed:   :trello_closed,
     short_id: :trello_short_id,
-    name: :trello_name,
-    close: :trello_closed,
-    url: :trello_url,
+    name:     :trello_name,
+    close:    :trello_closed,
+    url:      :trello_url,
     board_id: :trello_board_id,
-    list_id: :trello_list_id,
-    pos: :position,
-    due: :due_at
+    list_id:  :trello_list_id,
+    pos:      :position,
+    due:      :due_at
   }
 
   belongs_to :trello_account
   belongs_to :list
-
-  delegate :project, to: :list
+  belongs_to :project
 
   hash_key :interval, marshal: true
+  set :list_history
 
   def self.fetch(trello_card, trello_account)
     card = find_or_initialize_by_uid(trello_card.id)
@@ -41,20 +41,13 @@ class Card < ActiveRecord::Base
   end
 
   def record_interval(now = Clock.time, opts = {})
-    today = now.to_date
-
-    if opts[:end_of_day] && !interval_previously_recorded?(today)
-      interval.incr(redis_key(:list_total, list_id), 1)
-    end
-
-    redis.pipelined do
-      interval.store(date_key(today), now.to_i)
-      interval.store(date_key(today, :list_id), list_id)
-    end
+    IntervalRecording::OfCard.new(of: self, at: now).record
   end
 
-  def interval_previously_recorded?(date)
-    interval.has_key?(date_key(date))
+  def after_save
+    return unless list_id && list_id.changed?
+    self.project = list.project
+    save
   end
 
 end

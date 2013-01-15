@@ -8,10 +8,10 @@ class List < ActiveRecord::Base
 
   delegate :token, to: :trello_account, prefix: :trello, allow_nil: true
 
-  trello_representative :trello_list, {
-    name: :name,
+  trello_api_adapter :trello_list, {
+    name:     :name,
     board_id: :trello_board_id,
-    closed: :trello_closed
+    closed:   :trello_closed
   }
 
   belongs_to :trello_account
@@ -52,7 +52,7 @@ class List < ActiveRecord::Base
   end
 
   def record_interval(now = Clock.time)
-    IntervalRecording.new(list: self, now: now).record
+    IntervalRecording::OfList.new(of: self, at: now).record
   end
 
   def interval_counts(dates)
@@ -76,80 +76,4 @@ class List < ActiveRecord::Base
     }
   end
 
-  class IntervalRecording
-    include RedisKeys
-
-    delegate :cards, :card_history, :interval, :card_ids,
-      to: :list, prefix: true
-
-    attr_accessor :list, :now
-
-    def initialize(attrs = {})
-      @list = attrs[:list]
-      @now = attrs[:now]
-    end
-
-    def record
-      record_all_time_summary
-      record_daily_summary
-      record_end_of_day_summary
-
-      list_cards.map { |card| card.record_interval(now, end_of_day: near_end_of_day?) }
-      card_count
-    end
-
-    def record_all_time_summary
-      # card ids all time
-      list_card_history.merge(card_ids) if card_ids.any?
-    end
-
-    def record_daily_summary
-      card_cumulative = list_card_history.size
-
-      redis.multi do
-        # card count for today
-        list_interval.store(date_key(today, :card_count), card_count)
-
-        # card ids for today
-        list_interval.store(date_key(today, :card_ids), card_ids)
-
-        # cumulative total by today
-        list_interval.store(date_key(today, :cumulative_total), card_cumulative)
-      end
-    end
-
-    def record_end_of_day_summary
-      return if !near_end_of_day?
-      return if list_interval.has_key?(date_key(today))
-
-      # end of day interval time stamp
-      list_interval.store(date_key(today), now.to_i)
-
-      # intervals all time
-      list_interval.incr(:total, 1)
-
-      # card count all time
-      list_interval.incr(:card_count, card_count)
-    end
-
-    def today
-      now.to_date
-    end
-
-    def card_count
-      @card_count ||= list.cards.count
-    end
-
-    def card_ids
-      @card_ids ||= list_card_ids
-    end
-
-    def near_end_of_day?
-      hrs_til_midnight <= 1
-    end
-
-    def hrs_til_midnight
-      ((now.end_of_day - now) / 1.hour).to_i
-    end
-  end
 end

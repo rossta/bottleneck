@@ -2,7 +2,7 @@ class TrelloAccount < ActiveRecord::Base
   include TrelloFetchable
   attr_accessible :name, :token, :secret
 
-  trello_representative :trello_member, {
+  trello_api_adapter :trello_member, {
     username:  :name,
     id:        :uid,
     avatar_id: :trello_avatar_id,
