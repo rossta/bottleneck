@@ -11,7 +11,7 @@ class TrelloAuthorization
     end
   end
 
-  def self.deprecrated_configures
+  def self.deprecrated_configure
     Trello::Authorization.const_set :AuthPolicy, OAuthPolicy
     OAuthPolicy.consumer_credential = OAuthCredential.new(ENV['TRELLO_USER_KEY'], ENV['TRELLO_USER_SECRET'])
   end

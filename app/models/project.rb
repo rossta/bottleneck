@@ -51,7 +51,7 @@ class Project < ActiveRecord::Base
     fetch_cards
   end
 
-  def record_interval(now = time_zone_now)
+  def record_interval(now = zone_time_now)
     IntervalRecording::OfProject.new(of: self, at: now).record
   end
 
@@ -67,7 +67,15 @@ class Project < ActiveRecord::Base
     user.has_role?(:moderator, self)
   end
 
-  def time_zone_now
+  def zone_time_now
+    zone_time(Time.now)
+  end
+
+  def zone_time(time)
+    Clock.zone_time(time_zone, time)
+  end
+
+  def time_in_zone
     Clock.zone_time(time_zone)
   end
 

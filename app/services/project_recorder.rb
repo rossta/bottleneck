@@ -2,7 +2,7 @@ class ProjectRecorder
   @queue = :account
 
   def self.record_interval
-    Project.find_each do |project|
+    Project.where('trello_account_id IS NOT NULL').find_each do |project|
       record_project project
     end
   end

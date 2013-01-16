@@ -15,6 +15,7 @@ class IntervalRecording::OfList < IntervalRecording::Base
   end
 
   def record_daily_summary
+    # puts "list_id: #{list.id},#{date_key(today, :cumulative_total)} count: #{card_ids.count}, history #{card_history.size}"
     card_cumulative = card_history.size
 
     redis.multi do

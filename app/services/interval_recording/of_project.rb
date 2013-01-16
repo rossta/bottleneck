@@ -2,7 +2,7 @@ class IntervalRecording::OfProject < IntervalRecording::Base
   records :project
 
   delegate :interval, :card_history, :list_history,
-    :cards, :time_zone_now, :lists,
+    :cards, :zone_time_now, :lists,
     to: :project
 
   def after_record
