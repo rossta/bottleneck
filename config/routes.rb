@@ -11,6 +11,7 @@ Bottleneck::Application.routes.draw do
   resources :users
   resources :trello_accounts do
     collection do
+      get :authorize
       get :callback    # three-legged OAuth currently not functional
     end
   end

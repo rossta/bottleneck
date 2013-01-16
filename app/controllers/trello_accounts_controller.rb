@@ -12,42 +12,38 @@ class TrelloAccountsController < ApplicationController
   end
 
   def authorize
-    TrelloAuthorization.create_trello_account callback_trello_accounts_url do |request_token|
-      Rails.logger.info "Request token received: key, secret"
-      Rails.logger.info request_token.inspect
-      Rails.logger.info [request_token.token, request_token.secret].join(', ')
-      @trello_account = TrelloAccount.new(params[:trello_account]) do |tu|
-        tu.token  = request_token.token
-        tu.secret = request_token.secret
-      end
-      Rails.logger.info @trello_account.inspect
-      redirect_to request_token.authorize_url(:oauth_callback => callback_trello_accounts_url)
-    end
-
-    Rails.logger.info TrelloAccount.request(params[:trello_account][:name]).inspect
+    redirect_to request_token.authorize_url(:oauth_callback => callback_url, name: app_name)
   end
 
   def callback
     Rails.logger.info "callback received..................."
     Rails.logger.info params.inspect
+    @access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
+    @trello_account = TrelloAccount.create do |ta|
+      ta.token = @access_token.token
+      ta.secret = @access_token.secret
+    end
+    respond_with @trello_account, location: new_project_path
   end
 
-    # get "/request-token" do
-    #   if oauth_verified?
-    #     redirect to("/")
-    #   else
-    #     redirect request_token.authorize_url(:oauth_callback => url('/'))
-    #   end
-    # end
-
-    # get "/callback" do
-    #   # handle no params[:oauth_verifier]
-    #   # handle no access token
-    #   oauth_verify! params[:oauth_verifier]
-    #   redirect to("/"), params
-    # end
-
   private
+
+  def callback_url
+    callback_trello_accounts_url
+  end
+
+  def app_name
+    "Bottleneck (#{Rails.env.titleize})"
+  end
+
+  def consumer
+    @consumer ||= ::OAuth::Consumer.new(ENV['TRELLO_USER_KEY'], ENV['TRELLO_USER_SECRET'],
+                     site:                'https://trello.com',
+                     request_token_path:  '/1/OAuthGetRequestToken',
+                     authorize_path:      '/1/OAuthAuthorizeToken',
+                     access_token_path:   '/1/OAuthGetAccessToken',
+                     http_method:         :get)
+  end
 
   def access_token
     @access_token ||= begin
@@ -57,23 +53,16 @@ class TrelloAccountsController < ApplicationController
   end
 
   def request_token
-    if session[:request_token] && session[:request_token_secret]
-      ::OAuth::RequestToken.new(consumer, session[:request_token], session[:request_token_secret])
-    else
-      rtoken = consumer.get_request_token
-      session[:request_token] = rtoken.token
-      session[:request_token_secret] = rtoken.secret
-      rtoken
+    @request_token ||= begin
+      if session[:request_token] && session[:request_token_secret]
+        ::OAuth::RequestToken.new(consumer, session[:request_token], session[:request_token_secret])
+      else
+        rtoken = consumer.get_request_token(:oauth_callback => callback_url)
+        session[:request_token] = rtoken.token
+        session[:request_token_secret] = rtoken.secret
+        rtoken
+      end
     end
-  end
-
-  def consumer
-    ::OAuth::Consumer.new(ENV['TRELLO_USER_KEY'], settings.consumer_secret,
-                             :site => settings.site,
-                             :request_token_path => settings.request_token_path,
-                             :authorize_path => settings.authorize_path,
-                             :access_token_path => settings.access_token_path,
-                             :http_method => :get)
   end
 
   def oauth_verify!(oauth_verifier)

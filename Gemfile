@@ -33,6 +33,7 @@ gem "rolify", ">= 3.2.0"
 
 # Utilities
 gem "resque"
+gem "oauth"
 
 # APIs
 gem "sendgrid", ">= 1.0.1"

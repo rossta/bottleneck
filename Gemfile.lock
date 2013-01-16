@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/rossta/ruby-trello.git
-  revision: 1195c8174b0ab162d70c2739217a43d774c5079c
+  revision: 3901e49b29be6ceec64898215c24b9dddff3ee68
   branch: configurable_client
   specs:
     ruby-trello (0.4.4.2)
@@ -295,6 +295,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   launchy
+  oauth
   pg (>= 0.14.1)
   quiet_assets (>= 1.0.1)
   rails (= 3.2.11)

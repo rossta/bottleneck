@@ -1,5 +1,9 @@
 <%= render layout: 'layouts/spotlight' do %>
   <h2>Connect with Trello</h2>
+  <p>3 legged Oauth</p>
+  <%= link_to "Connect your Trello account", authorize_trello_accounts_path %>
+
+  <p>2 legged Oauth</p>
   <%= link_to "Get your Trello Key", generate_trello_token_key_url, target: '_blank' %>
 
   <%= simple_form_for @trello_account do |f| %>
