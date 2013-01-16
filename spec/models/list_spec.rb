@@ -44,8 +44,12 @@ describe List do
       list.interval[date_key(today, :cumulative_total)].to_i.should eq(3)
 
       list.cards = [build(:card)]
-      list.record_interval(now_tomorrow)
-      list.interval[date_key(tomorrow, :cumulative_total)].to_i.should eq(4)
+      list.record_interval(now + 1.day)
+      list.interval[date_key(today + 1, :cumulative_total)].to_i.should eq(4)
+
+      list.cards = []
+      list.record_interval(now + 2.days)
+      list.interval[date_key(today + 2, :cumulative_total)].to_i.should eq(4)
     end
 
     it "stores card ids in card history" do
