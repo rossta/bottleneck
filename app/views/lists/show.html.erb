@@ -9,6 +9,14 @@
         <% @list.cards.each do |card| -%>
         <li class="panel">
           <%= card.name %>
+
+          <div>History: <%= card.list_history.members.join(", ") %></div>
+          <div>History Totals:
+            <%= card.list_counts.to_json %>
+            <script type="text/javascript">
+
+            </script>
+          </div>
         </li>
         <% end -%>
       </ul>

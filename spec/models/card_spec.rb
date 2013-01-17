@@ -3,9 +3,35 @@ require 'spec_helper'
 describe Card do
   include RedisKeys
 
+  let(:card) { Card.new }
+
   it { should belong_to(:project) }
   it { should belong_to(:list) }
   it { should belong_to(:trello_account) }
+
+  describe "#trello_token" do
+    it "delegates to project" do
+      card.project = stub_model(Project, trello_token: "12345678")
+      card.trello_token.should eq("12345678")
+    end
+
+    it "returns nil if no project" do
+      card.trello_token.should be_nil
+    end
+  end
+
+  describe "#trello_card", :pending do
+    it "exists with valid uid and trello_token", vcr: { record: :new_episodes } do
+      card.uid = generate(:card_uid)
+      card.trello_token = generate(:trello_token)
+      card.project = build(:project)
+      card.trello_card.should be_present
+    end
+
+    it "is nil without uid and trello_token" do
+      card.trello_card.should be_nil
+    end
+  end
 
   describe "#record_interval" do
     let(:card) { create(:card) }

@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   include Redis::Objects
   include RedisKeys
   include TrelloFetchable
+
   attr_accessible :name, :uid, :trello_url, :trello_organization_id, :trello_closed,
     :time_zone
 

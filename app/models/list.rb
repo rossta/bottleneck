@@ -21,6 +21,8 @@ class List < ActiveRecord::Base
   hash_key :interval, marshal: true
   set :card_history
 
+  default_scope order("#{table_name}.position")
+
   ROLES = [
     BACKLOG = "Backlog",
     WIP = "WIP",
