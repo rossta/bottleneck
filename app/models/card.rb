@@ -4,7 +4,7 @@ class Card < ActiveRecord::Base
   include TrelloFetchable
 
   attr_accessible :uid, :due, :position, :trello_board_id, :trello_closed,
-    :trello_list_id, :trello_name, :trello_short_id, :trello_url
+    :trello_list_id, :name, :trello_short_id, :trello_url
 
   attr_accessor :trello_card
 
@@ -13,10 +13,7 @@ class Card < ActiveRecord::Base
     board_id: :trello_board_id,
     closed:   :trello_closed,
     short_id: :trello_short_id,
-    name:     :trello_name,
-    close:    :trello_closed,
     url:      :trello_url,
-    board_id: :trello_board_id,
     list_id:  :trello_list_id,
     pos:      :position,
     due:      :due_at
@@ -29,9 +26,9 @@ class Card < ActiveRecord::Base
   hash_key :interval, marshal: true
   set :list_history
 
-  delegate :labels, to: :trello_card, allow_nil: true
+  delegate :name, :labels, to: :trello_card, allow_nil: true, prefix: true
 
-  attr_accessor :trello_token
+  attr_accessor :trello_token, :trello_card
 
   def self.fetch(trello_card, trello_account)
     card = find_or_initialize_by_uid(trello_card.id)
@@ -41,11 +38,21 @@ class Card < ActiveRecord::Base
   end
 
   def name
-    trello_name
+    read_attribute(:name) || trello_card_name
   end
 
   def display_name
-    name << "#{((labels || []).map(&:name).join(', '))}"
+    return "[Unlabeled]" if name.blank?
+    [name, label_display_names].reject(&:blank?).join(' ')
+  end
+
+  def label_display_names
+    return "" if labels.empty?
+    "(#{(labels || []).map(&:name).join(', ')})"
+  end
+
+  def labels
+    trello_card_labels || []
   end
 
   def trello_card

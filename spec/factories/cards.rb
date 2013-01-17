@@ -5,7 +5,7 @@ FactoryGirl.define do
 
   factory :card do
     uid { generate(:card_uid) }
-    trello_name "Task for Later"
+    name "Task for Later"
     position 1
     # trello_short_id "MyString"
     # trello_closed "MyString"

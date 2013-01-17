@@ -33,6 +33,30 @@ describe Card do
     end
   end
 
+  describe "#display_name" do
+    let(:trello_card) { stub(Trello::Card, name: "Card on trello", labels: []) }
+    let(:trello_label) { stub(Trello::Label, name: "Bug", color: "red") }
+
+    before do
+      card.stub!(trello_card: trello_card)
+    end
+
+    it "returns unlabeled if no trello name or card" do
+      card.stub!(trello_card: nil)
+      card.display_name.should eq("[Unlabeled]")
+    end
+
+    it "returns trello name" do
+      card.name = trello_card.name
+      card.display_name.should eq("Card on trello")
+    end
+
+    it "returns trello card name if no trello name" do
+      trello_card.stub(labels: [trello_label])
+      card.display_name.should eq("Card on trello (Bug)")
+    end
+  end
+
   describe "#record_interval" do
     let(:card) { create(:card) }
     let(:list) { create(:list) }

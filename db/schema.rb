@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117114623) do
+ActiveRecord::Schema.define(:version => 20130117140127) do
 
   create_table "cards", :force => true do |t|
     t.integer  "list_id"
     t.integer  "trello_account_id"
     t.string   "uid"
-    t.string   "trello_name"
+    t.string   "name"
     t.string   "trello_short_id"
     t.string   "trello_closed"
     t.string   "trello_url"

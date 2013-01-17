@@ -26,7 +26,7 @@ Time.use_zone(time_zone) do
 
   # create 10 cards
   1.upto(10).each do |num|
-    card = project.cards.find_or_create_by_trello_name("Card #{num}")
+    card = project.cards.find_or_create_by_name("Card #{num}")
     instance_variable_set("@card_#{num}", card)
     card.interval.clear
     card.list_history.clear
