@@ -1,0 +1,7 @@
+<article>
+  <%= card.display_name %>
+  <div id="<%= dom_id(card, 'interval') %>"></div>
+  <script type="text/javascript">
+    new CardListHistory("#<%= dom_id(card, 'interval') %>", <%= raw card.list_days.to_json %>);
+  </script>
+</article>

@@ -3,23 +3,7 @@
 <%= render 'projects/sub_nav' %>
 <section class="row">
   <div class="twelve columns">
-    <div>
-      <h3><%= @list.name %></h3>
-      <ul class="block-list">
-        <% @list.cards.each do |card| -%>
-        <li class="panel">
-          <%= card.name %>
-
-          <div>History: <%= card.list_history.members.join(", ") %></div>
-          <div>History Totals:
-            <%= card.list_counts.to_json %>
-            <script type="text/javascript">
-
-            </script>
-          </div>
-        </li>
-        <% end -%>
-      </ul>
-    </div>
+    <h4><%= @list.name %></h4>
+    <%= render 'lists/cards', list: @list %>
   </div>
 </section>

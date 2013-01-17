@@ -1,7 +1,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  sequence(:card_uid) { |n| "50f5e35dceec22721f001927" }
+  sequence(:card_uid) { |n| "50f02b7e6a44c1b264004e34" } # from Bottleneck board on trello
 
   factory :card do
     uid { generate(:card_uid) }

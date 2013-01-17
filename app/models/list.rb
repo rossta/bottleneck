@@ -21,7 +21,8 @@ class List < ActiveRecord::Base
   hash_key :interval, marshal: true
   set :card_history
 
-  default_scope order("#{table_name}.position")
+  default_scope order("#{table_name}.position ASC")
+  scope :reverse_order, reorder("#{table_name}.position DESC")
 
   ROLES = [
     BACKLOG = "Backlog",
@@ -74,7 +75,7 @@ class List < ActiveRecord::Base
     {
       :name => name,
       :data => ListInterval.new(self, beg_of_period, end_of_period).data,
-      :position => -id
+      :position => position
     }
   end
 

@@ -19,7 +19,7 @@ class CumulativeFlow
   end
 
   def to_json
-    project.lists.map { |list| list.interval_json(start_time, end_time) }.to_json
+    project.lists.reverse_order.map { |list| list.interval_json(start_time, end_time) }.to_json
   end
 
 end

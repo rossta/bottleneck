@@ -1,0 +1,14 @@
+<div id="<%= dom_id(list, 'cards') %>">
+  <% if list.cards.any? -%>
+  <h5>Cards:</h5>
+  <ul class="block-list">
+    <% list.cards.each do |card| -%>
+      <li class="panel">
+        <%= render 'cards/list_history', card: card %>
+      </li>
+    <% end -%>
+  </ul>
+  <% else -%>
+    <p>There are no cards currently recorded for this list.</p>
+  <% end -%>
+</div>

@@ -2,14 +2,22 @@ class CumulativeFlow
   constructor: (@data) ->
 
   render: ->
-    palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } );
+    # spectrum14
+    # colorwheel
+    # cool
+    # spectrum2000
+    # spectrum2001
+    # classic9
+    # munin
+
+    palette = new Rickshaw.Color.Palette( { scheme: 'munin' } )
+
+    @data = _(@data).sortBy((d) ->
+      -d.position
+    )
 
     _(@data).each((d) ->
       d.color = palette.color()
-    )
-
-    @data = _(@data).sortBy((d) ->
-      d.position
     )
 
     graph = new Rickshaw.Graph

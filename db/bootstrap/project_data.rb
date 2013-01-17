@@ -16,8 +16,9 @@ Time.use_zone(time_zone) do
   project.card_history.clear
   project.list_history.clear
 
-  %w[ ideas ready wip review done ].each do |name|
+  %w[ ideas ready wip review done ].each_with_index do |name, i|
     list = project.lists.find_or_create_by_name(name.titleize)
+    list.update_attribute(:position, (i + 1) * 100)
     instance_variable_set("@#{name}", list)
     list.interval.clear
     list.card_history.clear

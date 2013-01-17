@@ -44,6 +44,10 @@ class Card < ActiveRecord::Base
     trello_name
   end
 
+  def display_name
+    name << "#{((labels || []).map(&:name).join(', '))}"
+  end
+
   def trello_card
     @trello_card ||= authorize { Trello::Card.find(uid) }
   end
@@ -61,7 +65,7 @@ class Card < ActiveRecord::Base
     def y; (count || 0).to_i; end
   end
 
-  def list_counts
+  def list_days
     list_ids  = list_history.members.map(&:to_i)
     lists     = project.lists.select("lists.id, lists.name")
     counts    = list_ids.map { |list_id| interval[redis_key(:list_total, list_id)] }

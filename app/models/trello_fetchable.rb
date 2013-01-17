@@ -29,6 +29,7 @@ module TrelloFetchable
   end
 
   def authorize(&block)
+    return nil unless trello_token
     TrelloAuthorization.session(trello_token, nil, &block)
   end
 

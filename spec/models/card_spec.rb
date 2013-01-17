@@ -20,8 +20,8 @@ describe Card do
     end
   end
 
-  describe "#trello_card", :pending do
-    it "exists with valid uid and trello_token", vcr: { record: :new_episodes } do
+  describe "#trello_card", vcr: { record: :new_episodes } do
+    it "exists with valid uid and trello_token" do
       card.uid = generate(:card_uid)
       card.trello_token = generate(:trello_token)
       card.project = build(:project)

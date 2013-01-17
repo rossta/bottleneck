@@ -19,12 +19,7 @@
         <% @project.lists.each do |list| %>
           <article id="<%= dom_id(list) %>" class="<%= dom_class(list) %>">
             <h4><%= link_to list.name, [@project, list] %></h4>
-            <h5>Cards:</h5>
-            <ul>
-              <% list.card_names.each do |card_name| -%>
-              <li><%= card_name %></li>
-              <% end -%>
-            </ul>
+            <%= render 'lists/cards', list: list %>
           </article>
         <% end %>
       <% else %>
