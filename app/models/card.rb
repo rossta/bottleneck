@@ -94,6 +94,10 @@ class Card < ActiveRecord::Base
     list_counts.map { |lc| { x: lc.x, y: lc.y } }
   end
 
+  def list_day_count(given_list_id)
+    interval[redis_key(:list_total, given_list_id)] || 0
+  end
+
   private
 
   def denormalize_project

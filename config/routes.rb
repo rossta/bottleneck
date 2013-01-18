@@ -28,6 +28,7 @@ Bottleneck::Application.routes.draw do
     end
 
     resources :lists
+    resources :cards
     resource :cumulative_flow, path: :flow, as: :flow, only: [:show, :edit]
   end
 

@@ -71,6 +71,21 @@ class List < ActiveRecord::Base
     end
   end
 
+  CardCount = Struct.new(:card, :count) do
+    def x; card.name; end
+    def y; (count || 0).to_i; end
+    def attributes; { x: x, y: y }; end
+  end
+
+  def card_days
+    counts = cards.map { |card| card.list_day_count(id) }
+    cards.zip(counts).map { |tuple| new_card_count(*tuple) }.map(&:attributes)
+  end
+
+  def new_card_count(card, count)
+    CardCount.new(card, count)
+  end
+
   def interval_json(beg_of_period, end_of_period)
     {
       :name => name,

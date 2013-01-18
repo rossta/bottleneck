@@ -1,0 +1,14 @@
+<% title @project.name %>
+<%= render_title_html %>
+<%= render 'projects/sub_nav' %>
+<section class="row">
+  <div class="twelve columns">
+    <h4><%= @card.name %></h4>
+    <article="panel">
+      <div id="<%= dom_id(@card, 'interval') %>"></div>
+      <script type="text/javascript">
+        new CardListHistory("#<%= dom_id(@card, 'interval') %>", <%= raw @card.list_days.to_json %>);
+      </script>
+    </article>
+  </div>
+</section>
