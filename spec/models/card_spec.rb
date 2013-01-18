@@ -50,6 +50,13 @@ describe Card do
 
         Card.find(card.id).labels.should eq([{"name" => "Bug", "color" => "red"}])
       end
+
+      it "converts array of objects responding to '#attributes' to hashes" do
+        card.labels = [mock("Label", attributes: {"name" => "Bug", "color" => "red"})]
+        card.save
+
+        Card.find(card.id).labels.should eq([{"name" => "Bug", "color" => "red"}])
+      end
     end
   end
 

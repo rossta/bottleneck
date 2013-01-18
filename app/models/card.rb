@@ -61,7 +61,7 @@ class Card < ActiveRecord::Base
   end
 
   def labels=(given_labels)
-    @labels = given_labels
+    @labels = given_labels.map { |label| label.respond_to?(:attributes) ? label.attributes : label }
     update_label_list if persisted?
   end
 
