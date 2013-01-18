@@ -20,39 +20,52 @@ describe Card do
     end
   end
 
-  describe "#trello_card", vcr: { record: :new_episodes } do
-    it "exists with valid uid and trello_token" do
+  context "trello api", vcr: { record: :new_episodes }  do
+    before do
       card.uid = generate(:card_uid)
       card.trello_token = generate(:trello_token)
-      card.project = build(:project)
-      card.trello_card.should be_present
     end
 
-    it "is nil without uid and trello_token" do
-      card.trello_card.should be_nil
+    describe "#trello_card" do
+      it "exists with valid uid and trello_token" do
+        card.trello_card.should be_present
+      end
+
+      it "is nil without uid and trello_token" do
+        card.uid = nil
+        card.trello_token = nil
+        card.trello_card.should be_nil
+      end
+    end
+
+    describe "#labels", vcr: { record: :new_episodes } do
+      it "is populated from trello card" do
+        card.fetch
+        card.labels.should be_empty
+      end
+
+      it "persists labels array" do
+        card.labels = [{"name" => "Bug", "color" => "red"}]
+        card.save
+
+        Card.find(card.id).labels.should eq([{"name" => "Bug", "color" => "red"}])
+      end
     end
   end
 
   describe "#display_name" do
-    let(:trello_card) { stub(Trello::Card, name: "Card on trello", labels: []) }
-    let(:trello_label) { stub(Trello::Label, name: "Bug", color: "red") }
-
-    before do
-      card.stub!(trello_card: trello_card)
-    end
-
     it "returns unlabeled if no trello name or card" do
-      card.stub!(trello_card: nil)
       card.display_name.should eq("[Unlabeled]")
     end
 
     it "returns trello name" do
-      card.name = trello_card.name
+      card.name = "Card on trello"
       card.display_name.should eq("Card on trello")
     end
 
     it "returns trello card name if no trello name" do
-      trello_card.stub(labels: [trello_label])
+      card.name = "Card on trello"
+      card.labels = [{name: "Bug", color: "red"}]
       card.display_name.should eq("Card on trello (Bug)")
     end
   end

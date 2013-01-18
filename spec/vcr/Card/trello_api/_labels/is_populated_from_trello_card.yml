@@ -1,0 +1,106 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.trello.com/1/cards/50f02b7e6a44c1b264004e34
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="bb044ae826d279dca19adc2138845ef9",
+        oauth_signature="dAa07XopL%2Bey8piH8xaYOOCcSuQ%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1358483492", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+        oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '696'
+      x-server-time:
+      - '1358483492576'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      set-cookie:
+      - connect.sid=giQmqyGS7wF207ldKUIZixSq.TGJ%2F5l0wKc%2BHXyCbxBSvRTrZeEylFchGlZDU%2Bo%2FvwDs;
+        path=/; httpOnly
+      date:
+      - Fri, 18 Jan 2013 04:31:32 GMT
+      connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '{"id":"50f02b7e6a44c1b264004e34","badges":{"votes":0,"viewingMemberVoted":false,"subscribed":false,"fogbugz":"","checkItems":6,"checkItemsChecked":0,"comments":0,"attachments":0,"description":false,"due":null},"checkItemStates":[],"closed":false,"desc":"","due":null,"idBoard":"50ce927d006f9d1b63010458","idChecklists":["50f02b8d6a44c1b264004e37","50f02bae6a44c1b264004e3c"],"idList":"50ce92ad006f9d1b6301048b","idMembers":[],"idShort":8,"idAttachmentCover":null,"manualCoverAttachment":false,"labels":[],"name":"Record
+        interval in background for project''s time zone","pos":131071.5,"url":"https://trello.com/card/record-interval-in-background-for-project-s-time-zone/50ce927d006f9d1b63010458/8"}'
+    http_version: '1.1'
+  recorded_at: Fri, 18 Jan 2013 04:31:32 GMT
+- request:
+    method: get
+    uri: https://api.trello.com/1/cards/50f02b7e6a44c1b264004e34/labels
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="5bbd5c97a58e4be665d746dec285c8aa",
+        oauth_signature="mSEBmpKob1EZ0TM5A4afEi6rtaI%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1358483492", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+        oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '2'
+      x-server-time:
+      - '1358483492780'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      set-cookie:
+      - connect.sid=XdeeLauJOBCY1jiMXHmCTgBB.koAYMignzu%2BrjyInxa5tLcmpI%2BY94xXqZFF6wfPxrOM;
+        path=/; httpOnly
+      date:
+      - Fri, 18 Jan 2013 04:31:32 GMT
+      connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! '[]'
+    http_version: '1.1'
+  recorded_at: Fri, 18 Jan 2013 04:31:32 GMT
+recorded_with: VCR 2.3.0

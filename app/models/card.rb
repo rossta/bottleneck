@@ -16,7 +16,8 @@ class Card < ActiveRecord::Base
     url:      :trello_url,
     list_id:  :trello_list_id,
     pos:      :position,
-    due:      :due_at
+    due:      :due_at,
+    labels:   :labels
   }
 
   belongs_to :trello_account
@@ -25,10 +26,14 @@ class Card < ActiveRecord::Base
 
   hash_key :interval, marshal: true
   set :list_history
+  list :label_list, marshal: true
 
   delegate :name, :labels, to: :trello_card, allow_nil: true, prefix: true
 
   attr_accessor :trello_token, :trello_card
+
+  before_save :denormalize_project
+  after_create :update_label_list
 
   def self.fetch(trello_card, trello_account)
     card = find_or_initialize_by_uid(trello_card.id)
@@ -48,11 +53,20 @@ class Card < ActiveRecord::Base
 
   def label_display_names
     return "" if labels.empty?
-    "(#{(labels || []).map(&:name).join(', ')})"
+    "(#{label_names.join(', ')})"
   end
 
   def labels
-    trello_card_labels || []
+    @labels || (persisted? ? label_list.values : [])
+  end
+
+  def labels=(given_labels)
+    @labels = given_labels
+    update_label_list if persisted?
+  end
+
+  def label_names
+    labels.map { |label| label[:name] }
   end
 
   def trello_card
@@ -80,10 +94,17 @@ class Card < ActiveRecord::Base
     list_counts.map { |lc| { x: lc.x, y: lc.y } }
   end
 
-  def after_save
-    return unless list_id && list_id.changed?
+  private
+
+  def denormalize_project
+    return unless list_id && list_id_changed?
     self.project = list.project
-    save
+  end
+
+  def update_label_list
+    return unless @labels
+    label_list.clear
+    @labels.each { |label| label_list << label }
   end
 
 end

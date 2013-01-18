@@ -10,7 +10,7 @@ class CumulativeFlow
     # classic9
     # munin
 
-    palette = new Rickshaw.Color.Palette( { scheme: 'munin' } )
+    palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } )
 
     @data = _(@data).sortBy((d) ->
       -d.position
