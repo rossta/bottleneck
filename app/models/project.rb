@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
   has_many :lists, order: 'id ASC', dependent: :destroy
   has_many :cards, through: :lists
 
-  delegate :token, to: :trello_account, prefix: :trello, allow_nil: true
+  delegate :token, :client, to: :trello_account, prefix: :trello, allow_nil: true
 
   trello_api_adapter :trello_board, {
     name:             :trello_name,
@@ -27,11 +27,11 @@ class Project < ActiveRecord::Base
   resourcify
 
   def trello_board
-    @trello_board ||= authorize { Trello::Board.find(uid) }
+    @trello_board ||= trello_client.find(:boards, uid)
   end
 
   def trello_lists
-    @trello_lists ||= authorize { trello_board.lists }
+    @trello_lists ||= trello_board.lists
   end
 
   def imported?

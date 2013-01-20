@@ -6,7 +6,7 @@ class List < ActiveRecord::Base
   attr_accessible :name, :uid, :role
   attr_accessor :trello_list
 
-  delegate :token, to: :trello_account, prefix: :trello, allow_nil: true
+  delegate :token, :client, to: :trello_account, prefix: :trello, allow_nil: true
 
   trello_api_adapter :trello_list, {
     name:     :name,
@@ -39,11 +39,11 @@ class List < ActiveRecord::Base
   end
 
   def trello_list
-    @trello_list ||= authorize { Trello::List.find(uid) }
+    @trello_list ||= trello_client.find(:lists, uid)
   end
 
   def trello_cards
-    @trello_cards ||= authorize { trello_list.cards }
+    @trello_cards ||= trello_list.cards
   end
 
   def fetch_cards

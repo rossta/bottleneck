@@ -9,21 +9,10 @@ describe Card do
   it { should belong_to(:list) }
   it { should belong_to(:trello_account) }
 
-  describe "#trello_token" do
-    it "delegates to project" do
-      card.project = stub_model(Project, trello_token: "12345678")
-      card.trello_token.should eq("12345678")
-    end
-
-    it "returns nil if no project" do
-      card.trello_token.should be_nil
-    end
-  end
-
   context "trello api", vcr: { record: :new_episodes }  do
     before do
       card.uid = generate(:card_uid)
-      card.trello_token = generate(:trello_token)
+      card.trello_account = build(:trello_account)
     end
 
     describe "#trello_card" do
@@ -31,14 +20,14 @@ describe Card do
         card.trello_card.should be_present
       end
 
-      it "is nil without uid and trello_token" do
+      it "is nil without uid and trello_account" do
         card.uid = nil
-        card.trello_token = nil
+        card.trello_account = nil
         card.trello_card.should be_nil
       end
     end
 
-    describe "#labels", vcr: { record: :new_episodes } do
+    describe "#labels" do
       it "is populated from trello card" do
         card.fetch
         card.labels.should be_empty

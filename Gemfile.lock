@@ -8,9 +8,9 @@ GIT
       debugger-ruby_core_source (~> 1.1.5)
 
 GIT
-  remote: git://github.com/jeremytregunna/ruby-trello.git
-  revision: d7fb81fc0bbfb3154f35d876f79e673788657fee
-  branch: master
+  remote: git://github.com/rossta/ruby-trello.git
+  revision: ebf2a56d372a22886369f9a2f013c123628ac524
+  branch: threadsafe_client
   specs:
     ruby-trello (0.4.4.2)
       activemodel

@@ -9,20 +9,30 @@ class TrelloAccount < ActiveRecord::Base
     url:       :trello_url
   }
 
-  trello_token :token
-
   has_many :projects
 
   def self.fetch(trello_name)
     Trello::Member.find(trello_name)
   end
 
+  def client
+    @client ||= Trello::Client.new({
+      :consumer_key => ENV['TRELLO_USER_KEY'],
+      :consumer_secret => ENV['TRELLO_USER_SECRET'],
+      :oauth_token => token,
+      :oauth_token_secret => secret
+    })
+  end
+
   def trello_member
-    @trello_member ||= authorize { Trello::Member.find(name) }
+    @trello_member ||= client.find(:members, name)
   end
 
   def trello_boards
-    @trello_boards ||= authorize { trello_member.boards }
+    @trello_boards ||= trello_member.boards
   end
+
+  def trello_token; token; end
+  def trello_secret; secret; end
 
 end

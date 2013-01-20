@@ -28,7 +28,8 @@ class Card < ActiveRecord::Base
   set :list_history
   list :label_list, marshal: true
 
-  delegate :name, :labels, to: :trello_card, allow_nil: true, prefix: true
+  delegate :labels, to: :trello_card, allow_nil: true, prefix: true
+  delegate :token, :client, to: :trello_account, allow_nil: true, prefix: :trello
 
   attr_accessor :trello_token, :trello_card
 
@@ -40,10 +41,6 @@ class Card < ActiveRecord::Base
     card.trello_card = trello_card
     card.trello_account = trello_account
     card.fetch
-  end
-
-  def name
-    read_attribute(:name) || trello_card_name
   end
 
   def display_name
@@ -70,11 +67,13 @@ class Card < ActiveRecord::Base
   end
 
   def trello_card
-    @trello_card ||= authorize { Trello::Card.find(uid) }
-  end
-
-  def trello_token
-    @trello_token ||= project.try(:trello_token)
+    @trello_card ||= begin
+      if trello_client && uid
+        trello_client.find(:cards, uid)
+      else
+        nil
+      end
+    end
   end
 
   def record_interval(now = Clock.time, opts = {})
