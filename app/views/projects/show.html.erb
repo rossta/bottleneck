@@ -7,13 +7,13 @@
   <article>
     <h5>Today: <%= today.to_s(:short) %></h5>
     <p>Time zone      : <%= Time.zone %>
-    <p>Total WIP      : <%= @project.wip_count(today) %></p>
-    <p>Total Capacity : <%= @project.capacity_count(today) %></p>
-    <p>Cycle Time     : <%= @project.cycle_time(today) %></p>
+    <p>Total WIP      : <%= @project.wip_count(today) %> cards</p>
+    <p>Total Capacity : <%= @project.capacity_count(today) %> cards</p>
+    <p>Lead Time      : <%= @project.lead_time(today) %> days</p>
     <p>Arrival Rate   :
-        <%= @project.wip_count(today - @project.cycle_time(today).days) %>
+        <%= @project.wip_count(today - @project.lead_time(today).days)  %>
         /
-        <%= @project.cycle_time(today) %>
+        <%= @project.lead_time(today) %>
         =
         <%= @project.arrival_rate(today) %> cards / day</p>
   </article>

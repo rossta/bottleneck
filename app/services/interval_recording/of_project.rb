@@ -29,6 +29,9 @@ class IntervalRecording::OfProject < IntervalRecording::Base
 
     # done count today
     interval.store(date_key(today, :done_count), done_card_count)
+
+    # lead time today
+    interval.store(date_key(today, :lead_time), lead_time)
   end
 
   def record_end_of_day_summary
@@ -54,6 +57,25 @@ class IntervalRecording::OfProject < IntervalRecording::Base
 
   def done_card_count
     @done_card_count ||= lists.done.map { |l| l.cumulative_total(today) }.inject(&:+)
+  end
+
+  def lead_time
+    @lead_time ||= begin
+      days_ago = 0
+      done      = project.done_count(today)
+      capacity  = project.capacity_count(today)
+
+      # back track one day at a time until capacity
+      # was less than or equal to currently done
+      # "times out" over 100
+      while done < capacity
+        days_ago += 1
+        break if days_ago > 100
+        capacity = project.capacity_count(today - days_ago.days)
+      end
+
+      days_ago
+    end
   end
 
   def cumulative_card_count

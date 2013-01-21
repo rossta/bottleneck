@@ -104,23 +104,13 @@ class Project < ActiveRecord::Base
 
   # Time to market:
   # days elapsed from when total capacity equaled total now completed
-  def cycle_time(date)
-    days_ago = 0
-    done      = done_count(date)
-    capacity  = capacity_count(date)
-
-    # back track one day at a time until capacity
-    # was less than or equal to currently done
-    while done < capacity
-      days_ago += 1
-      capacity = capacity_count(date - days_ago.days)
-    end
-    days_ago
+  def lead_time(date)
+    interval[date_key(date, :lead_time)].to_i
   end
 
-  # Arrival rate = WIP (start of cycle) / Cycle Time
+  # Arrival rate = WIP (start of cycle) / Lead Time
   def arrival_rate(date)
-    cycle = cycle_time(date)
+    cycle = lead_time(date)
     return 0 if cycle.zero?
     (wip_count(date - cycle.days) / cycle).to_f
   end
