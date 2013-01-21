@@ -54,6 +54,8 @@ group :development do
   gem "quiet_assets", ">= 1.0.1"
   gem "foreman"
   gem "supporting_cast", branch: "master"
+  gem "guard-rspec"
+  gem 'rb-fsevent', require: false
 end
 
 group :test do
