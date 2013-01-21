@@ -10,6 +10,6 @@
   <script type="text/javascript">
     var seriesData = <%= raw flow.to_json %>;
 
-    new CumulativeFlow(seriesData).render();
+    new TimeSeries(seriesData).render();
   </script>
 </div>

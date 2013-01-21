@@ -4,7 +4,7 @@ class OutputsController < ApplicationController
 
   def show
     @output = Output.new(
-      start_time: 11.days.ago,
+      start_time: 14.days.ago,
       end_time: Clock.time,
       project: @project
     )

@@ -3,5 +3,20 @@
 <%= render 'projects/sub_nav' %>
 <section class="row">
   <div class="twelve columns">
+    <h3><%= @output.title %></h3>
+    <div id="output">
+      <div id="chart_container">
+        <div id="chart"></div>
+        <div id="y_axis"></div>
+        <div id="timeline"></div>
+        <div id="slider"></div>
+      </div>
+      <div id="legend"></div>
+      <script type="text/javascript">
+        var seriesData = <%= raw @output.to_json %>;
+
+        new TimeSeries(seriesData).render();
+      </script>
+    </div>
   </div>
 </section>

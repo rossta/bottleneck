@@ -1,4 +1,4 @@
-class CumulativeFlow
+class TimeSeries
   constructor: (@data) ->
 
   render: ->
@@ -68,4 +68,4 @@ class CumulativeFlow
 
     graph.render()
 
-  window.CumulativeFlow = CumulativeFlow
+  window.TimeSeries = TimeSeries

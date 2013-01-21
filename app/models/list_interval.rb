@@ -2,6 +2,7 @@ class ListInterval
   DateCount = Struct.new(:date, :count) do
     def x; date.to_time.to_i; end
     def y; (count || 0).to_i; end
+    def data; { x: x, y: y }; end
   end
 
   attr_reader :list, :beg_of_period, :end_of_period
@@ -13,7 +14,7 @@ class ListInterval
   end
 
   def data
-    date_counts.map { |dc| { x: dc.x, y: dc.y } }
+    date_counts.map(&:data)
   end
 
   def dates
