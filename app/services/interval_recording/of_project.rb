@@ -2,7 +2,7 @@ class IntervalRecording::OfProject < IntervalRecording::Base
   records :project
 
   delegate :interval, :card_history, :list_history,
-    :cards, :zone_time_now, :lists,
+    :cards, :zone_time_now, :lists, :current_cards,
     to: :project
 
   def after_record
@@ -18,18 +18,17 @@ class IntervalRecording::OfProject < IntervalRecording::Base
   end
 
   def record_daily_summary
-    card_cumulative = card_history.size
+    # list ids for today
+    interval.store(date_key(today, :list_ids), list_ids)
 
-    redis.pipelined do
-      # list ids for today
-      interval.store(date_key(today, :list_ids), list_ids)
+    # all count today
+    interval.store(date_key(today, :card_count), card_count)
 
-      # card count for today
-      interval.store(date_key(today, :card_count), card_count)
+    # wip count today
+    interval.store(date_key(today, :wip_count), wip_card_count)
 
-      # cumulative total by today
-      interval.store(date_key(today, :cumulative_total), card_cumulative)
-    end
+    # done count today
+    interval.store(date_key(today, :done_count), done_card_count)
   end
 
   def record_end_of_day_summary
@@ -41,12 +40,24 @@ class IntervalRecording::OfProject < IntervalRecording::Base
     # increment interval count
     interval.incr(:total, 1)
 
-    # increment total card count
-    interval.incr(:cards, card_count)
+    # store total card count
+    interval.store(:cards, cumulative_card_count)
   end
 
   def card_count
-    @count ||= cards.count
+    @count ||= current_cards.count
+  end
+
+  def wip_card_count
+    @wip_card_count ||= current_cards.joins(:list).merge(List.wip).count
+  end
+
+  def done_card_count
+    @done_card_count ||= lists.done.map { |l| l.cumulative_total(today) }.inject(&:+)
+  end
+
+  def cumulative_card_count
+    card_history.size
   end
 
   def list_ids

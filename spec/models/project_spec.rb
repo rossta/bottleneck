@@ -53,21 +53,31 @@ describe Project do
       project.record_interval(time)
     end
 
-    it "records empty card list" do
+    it "records lists empty of cards" do
       list.cards = []
       project.record_interval(now)
       project.interval[date_key(today, :card_count)].to_i.should eq(0)
       project.interval[date_key(today, :cumulative_total)].to_i.should eq(0)
-      project.card_history.size.should eq(0)
+      project.card_history.size.should eq(3)
     end
 
-    it "records empty lists" do
+    it "records empty of lists" do
       project.lists = []
       project.record_interval(now)
       project.interval[date_key(today, :card_count)].to_i.should eq(0)
       project.interval[date_key(today, :cumulative_total)].to_i.should eq(0)
       project.list_history.size.should eq(0)
-      project.card_history.size.should eq(0)
+      project.card_history.size.should eq(3)
+    end
+
+    it "records lists then empty of lists" do
+      project.record_interval(now)
+      project.lists = []
+      project.record_interval(now)
+      project.interval[date_key(today, :card_count)].to_i.should eq(0)
+      project.interval[date_key(today, :cumulative_total)].to_i.should eq(0)
+      project.list_history.size.should eq(1)
+      project.card_history.size.should eq(3)
     end
 
     context "end of day" do

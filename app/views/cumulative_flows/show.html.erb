@@ -3,16 +3,7 @@
 <%= render 'projects/sub_nav' %>
 <section class="row">
   <div class="twelve columns">
-    <h3><%= @flow.title %></h3>
-    <div id="flow">
-      <div id="chart_container">
-        <div id="chart"></div>
-        <div id="y_axis"></div>
-        <div id="timeline"></div>
-        <div id="slider"></div>
-      </div>
-      <div id="legend"></div>
-    </div>
+    <%= render 'cumulative_flows/show', flow: @flow %>
     <div id="lists" style="margin-top:30px">
       <% if @project.imported? %>
         <%= link_to 'Edit Cumulative Flow', edit_project_flow_path(@project) %>
@@ -28,8 +19,3 @@
     </div>
   </div>
 </section>
-<script type="text/javascript">
-  var seriesData = <%= raw @flow.to_json %>;
-
-  new CumulativeFlow(seriesData).render();
-</script>

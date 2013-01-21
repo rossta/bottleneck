@@ -18,16 +18,14 @@ class IntervalRecording::OfList < IntervalRecording::Base
     # puts "list_id: #{list.id},#{date_key(today, :cumulative_total)} count: #{card_ids.count}, history #{card_history.size}"
     card_cumulative = card_history.size
 
-    redis.multi do
-      # card count for today
-      interval.store(date_key(today, :card_count), card_count)
+    # card count for today
+    interval.store(date_key(today, :card_count), card_count)
 
-      # card ids for today
-      interval.store(date_key(today, :card_ids), card_ids)
+    # card ids for today
+    interval.store(date_key(today, :card_ids), card_ids)
 
-      # cumulative total by today
-      interval.store(date_key(today, :cumulative_total), card_cumulative)
-    end
+    # cumulative total by today
+    interval.store(date_key(today, :cumulative_total), card_cumulative)
   end
 
   def record_end_of_day_summary
@@ -40,7 +38,7 @@ class IntervalRecording::OfList < IntervalRecording::Base
     interval.incr(:total, 1)
 
     # card count all time
-    interval.incr(:card_count, card_count)
+    interval.store(:card_count, card_count)
   end
 
   def card_count

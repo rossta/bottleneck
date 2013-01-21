@@ -97,6 +97,12 @@ class Card < ActiveRecord::Base
     interval[redis_key(:list_total, given_list_id)] || 0
   end
 
+  def clear_history
+    interval.clear
+    list_history.clear
+    label_list.clear
+  end
+
   private
 
   def denormalize_project

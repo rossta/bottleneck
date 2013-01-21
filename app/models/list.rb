@@ -3,7 +3,14 @@ class List < ActiveRecord::Base
   include RedisKeys
   include TrelloFetchable
 
-  attr_accessible :name, :uid, :role
+  ROLES = [
+    BACKLOG = "Backlog",
+    WIP = "WIP",
+    DONE = "Done",
+    IGNORE = "Ignore"
+  ]
+
+  attr_accessible :name, :uid, :role, :position
   attr_accessor :trello_list
 
   delegate :token, :client, to: :trello_account, prefix: :trello, allow_nil: true
@@ -22,14 +29,11 @@ class List < ActiveRecord::Base
   set :card_history
 
   default_scope order("#{table_name}.position ASC")
-  scope :reverse_order, reorder("#{table_name}.position DESC")
 
-  ROLES = [
-    BACKLOG = "Backlog",
-    WIP = "WIP",
-    DONE = "Done",
-    IGNORE = "Ignore"
-  ]
+  scope :reverse_order, reorder("#{table_name}.position DESC")
+  scope :backlog, where(role: BACKLOG)
+  scope :wip, where(role: WIP)
+  scope :done, where(role: DONE)
 
   def self.fetch(trello_list, trello_account)
     list = find_or_initialize_by_uid(trello_list.id)
@@ -54,12 +58,20 @@ class List < ActiveRecord::Base
     cards.map(&:name)
   end
 
+  def card_count
+    cards.count
+  end
+
   def record_interval(now = Clock.time)
     IntervalRecording::OfList.new(of: self, at: now).record
   end
 
   def interval_counts(dates)
     interval.bulk_values *date_keys(dates, card_count_key)
+  end
+
+  def cumulative_total(date = Clock.date)
+    interval[date_key(date, :cumulative_total)].to_i
   end
 
   def card_count_key
@@ -92,6 +104,11 @@ class List < ActiveRecord::Base
       :data => ListInterval.new(self, beg_of_period, end_of_period).data,
       :position => position
     }
+  end
+
+  def clear_history
+    interval.clear
+    card_history.clear
   end
 
 end

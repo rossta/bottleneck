@@ -9,7 +9,8 @@ class Project < ActiveRecord::Base
   belongs_to :trello_account
   belongs_to :owner, class_name: 'User'
   has_many :lists, order: 'id ASC', dependent: :destroy
-  has_many :cards, through: :lists
+  has_many :cards # includes all
+  has_many :current_cards, through: :lists, source: :cards
 
   delegate :token, :client, to: :trello_account, prefix: :trello, allow_nil: true
 
@@ -78,6 +79,50 @@ class Project < ActiveRecord::Base
 
   def time_in_zone
     Clock.zone_time(time_zone)
+  end
+
+  def clear_history
+    interval.clear
+    card_history.clear
+    list_history.clear
+    lists.map(&:clear_history)
+    cards.map(&:clear_history)
+  end
+
+  def wip_count(date)
+    interval[date_key(date, :wip_count)].to_i
+  end
+
+  def done_count(date)
+    interval[date_key(date, :done_count)].to_i
+  end
+
+  # WIP + Done
+  def capacity_count(date)
+    wip_count(date) + done_count(date)
+  end
+
+  # Time to market:
+  # days elapsed from when total capacity equaled total now completed
+  def cycle_time(date)
+    days_ago = 0
+    done      = done_count(date)
+    capacity  = capacity_count(date)
+
+    # back track one day at a time until capacity
+    # was less than or equal to currently done
+    while done < capacity
+      days_ago += 1
+      capacity = capacity_count(date - days_ago.days)
+    end
+    days_ago
+  end
+
+  # Arrival rate = WIP (start of cycle) / Cycle Time
+  def arrival_rate(date)
+    cycle = cycle_time(date)
+    return 0 if cycle.zero?
+    (wip_count(date - cycle.days) / cycle).to_f
   end
 
 end

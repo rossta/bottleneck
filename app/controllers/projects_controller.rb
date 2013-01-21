@@ -1,13 +1,21 @@
 class ProjectsController < ApplicationController
   check_authorization
 
+  before_filter :find_project, only: [:show, :edit, :update, :refresh, :clear]
+  around_filter :project_time_zone, only: [:show, :edit, :update, :refresh, :clear],
+    if: :current_project
   before_filter :build_trello_account, only: [:new, :create]
 
   respond_to :html, :json
 
   def show
-    @project = Project.find(params[:id])
     authorize! :read, @project
+
+    @flow = CumulativeFlow.new(
+      start_time: 7.days.ago,
+      end_time: Clock.time,
+      project: @project
+    )
   end
 
   def new
@@ -64,6 +72,10 @@ class ProjectsController < ApplicationController
   end
 
   protected
+
+  def find_project
+    @project ||= Project.find(params[:id])
+  end
 
   def build_trello_account
     if trello_account_id = (session[:trello_account_id] || params[:trello_account_id])
