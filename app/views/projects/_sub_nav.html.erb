@@ -5,6 +5,9 @@
   <dd class="<%= 'active' if current_page?(project_flow_path(@project)) %>">
     <a href="<%= project_flow_path(@project) %>">Flow</a>
   </dd>
+  <dd class="<%= 'active' if current_page?(project_output_path(@project)) %>">
+    <a href="<%= project_output_path(@project) %>">Output</a>
+  </dd>
   <dd class="<%= 'active' if current_page?(edit_project_path(@project)) %>">
     <a href="<%= edit_project_path(@project) %>">Settings</a>
   </dd>

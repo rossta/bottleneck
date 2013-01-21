@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
     authorize! :read, @project
 
     @flow = CumulativeFlow.new(
-      start_time: 7.days.ago,
+      start_time: 14.days.ago,
       end_time: Clock.time,
       project: @project
     )

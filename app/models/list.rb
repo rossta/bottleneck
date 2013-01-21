@@ -98,14 +98,6 @@ class List < ActiveRecord::Base
     CardCount.new(card, count)
   end
 
-  def interval_json(beg_of_period, end_of_period)
-    {
-      :name => name,
-      :data => ListInterval.new(self, beg_of_period, end_of_period).data,
-      :position => position
-    }
-  end
-
   def clear_history
     interval.clear
     card_history.clear
