@@ -2,41 +2,6 @@
 <%= render 'projects/sub_nav' %>
 <section class="row">
   <div class="six columns">
-    <% if @project.imported? %>
-      <% onready 'lists' do %>
-        new ProjectListForm('.edit_list').enable()
-      <% end %>
-      <table class="six">
-        <thead>
-          <tr>
-            <th>List</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @project.lists.each do |list| %>
-            <tr class="">
-              <td><%= list.name %></td>
-              <td>
-                <%= simple_form_for [@project, list] do |f| %>
-                  <%= f.input :role, collection: List::ROLES,
-                    label_html: { class: "hidden" },
-                    input_html: { value: f.object.role } %>
-                  <%= f.submit 'Save' %>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <% onready 'spinner' do %>
-        new ProjectSpinner('#importing').spin()
-      <% end %>
-      <div class="panel">
-        <h5 class="align-center">Importing</h5>
-        <div id="importing"></div>
-      </div>
-    <% end %>
+    <%= render 'cumulative_flows/edit' %>
   </div>
 </section>

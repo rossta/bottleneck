@@ -1,12 +1,12 @@
 <% title "#{@project.name}" %>
 <%= render_title_html %>
 <%= render 'projects/sub_nav' %>
-<section class="row">
+<section id="<%= dom_id(@project) %>" class="row">
   <div class="twelve columns">
     <%= render 'cumulative_flows/show', flow: @flow %>
-    <div id="lists" style="margin-top:30px">
+    <%= render 'projects/summary', date: today %>
+    <div id="lists" style="margin-top:50px">
       <% if @project.imported? %>
-        <%= link_to 'Edit Cumulative Flow', edit_project_flow_path(@project) %>
         <% @project.lists.each do |list| %>
           <article id="<%= dom_id(list) %>" class="<%= dom_class(list) %>">
             <h4><%= link_to list.name, [@project, list] %></h4>

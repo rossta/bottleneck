@@ -6,7 +6,7 @@ describe Project do
   let(:project) { Project.new }
 
   describe "#trello_board", vcr: { record: :new_episodes } do
-    let(:project) { build(:project) }
+    let(:project) { build(:trello_linked_project) }
 
     it "retrieves trello board via trello account api" do
       trello_board = project.trello_board

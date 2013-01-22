@@ -65,5 +65,5 @@ group :test do
   gem "shoulda-matchers"
   gem "vcr", '~> 2.3'
   gem "fakeweb"
-  # gem "poltergeist" Capybara 2 compatability coming soon: https://github.com/jonleighton/poltergeist/pull/208
+  # gem "poltergeist" #Capybara 2 compatability coming soon: https://github.com/jonleighton/poltergeist/pull/208
 end

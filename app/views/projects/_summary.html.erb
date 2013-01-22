@@ -1,0 +1,37 @@
+<article id="date-summary">
+  <h5>Today: <%= date.to_s(:short) %> <small><%= Time.zone.name %></small></h5>
+  <table>
+    <tr>
+      <td>Total WIP</td>
+      <td><%= @project.wip_count(date) %> cards</td>
+    </tr>
+    <tr>
+      <td>Lead Time</td>
+      <td><%= @project.lead_time(date) %> days</td>
+    </tr>
+    <tr>
+      <td>Arrival Rate</td>
+      <td>
+        <%= @project.wip_count(date - @project.lead_time(date).days)  %>
+        /
+        <%= @project.lead_time(date) %>
+        =
+        <%= @project.arrival_rate(date) %> cards / day
+      </td>
+    </tr>
+    <tr>
+      <td>Total Capacity</td>
+      <td><%= @project.capacity_count(date) %> cards</td>
+    </tr>
+  </table>
+  <table>
+    <tr><td>Avg Lead Time over range</td></tr>
+    <tr><td>Avg WIP over range</td></tr>
+    <tr><td>Avg Arrival Rate over range</td></tr>
+    <tr><td>Slow movers in WIP</td></tr>
+    <tr><td>Slow movers in each list</td></tr>
+    <tr><td>Fast movers in WIP</td></tr>
+    <tr><td>Fast movers in each list</td></tr>
+  </table>
+</article>
+

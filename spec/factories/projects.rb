@@ -5,10 +5,9 @@ FactoryGirl.define do
     name 'Bottleneck'
     uid { generate(:project_uid) }
     time_zone 'Pacific Time (US & Canada)'
-    trello_account
   end
 
-  factory :project_with_trello_account, parent: :project do
+  factory :trello_linked_project, parent: :project do
     trello_account
   end
 end
