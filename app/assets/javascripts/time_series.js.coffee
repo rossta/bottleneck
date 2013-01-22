@@ -10,7 +10,7 @@ class TimeSeries
     # classic9
     # munin
 
-    palette = new Rickshaw.Color.Palette( { scheme: 'classic9' } )
+    palette = new Rickshaw.Color.Palette(scheme: 'classic9')
 
     @data = _(@data).sortBy((d) ->
       -d.position
@@ -68,4 +68,4 @@ class TimeSeries
 
     graph.render()
 
-  window.TimeSeries = TimeSeries
+window.TimeSeries = TimeSeries

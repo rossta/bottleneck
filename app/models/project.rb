@@ -25,6 +25,8 @@ class Project < ActiveRecord::Base
   set :list_history
   set :card_history
 
+  attr_writer :imported
+
   resourcify
 
   def trello_board
@@ -36,7 +38,7 @@ class Project < ActiveRecord::Base
   end
 
   def imported?
-    lists.any?
+    !!@imported || lists.any?
   end
 
   def fetch_lists
@@ -115,4 +117,19 @@ class Project < ActiveRecord::Base
     (wip_count(date - cycle.days) / cycle).to_f
   end
 
+  def average_lead_time(date_range)
+    average_over_range :lead_time, date_range
+  end
+
+  def average_wip_count(date_range)
+    average_over_range :wip_count, date_range
+  end
+
+  def average_arrival_rate(date_range)
+    average_over_range :arrival_rate, date_range
+  end
+
+  def average_over_range(method, date_range)
+    (date_range.to_a.map { |date| send(method, date) }.inject(&:+) / date_range.to_a.length).round(2)
+  end
 end

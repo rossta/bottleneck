@@ -5,12 +5,12 @@ class ListInterval
     def data; { x: x, y: y }; end
   end
 
-  attr_reader :list, :beg_of_period, :end_of_period
+  attr_reader :list, :start_time, :end_time
 
   delegate :name, :position, to: :list
 
-  def initialize(list, beg_of_period, end_of_period)
-    @list, @beg_of_period, @end_of_period = list, beg_of_period, end_of_period
+  def initialize(list, start_time, end_time)
+    @list, @start_time, @end_time = list, start_time, end_time
   end
 
   def data
@@ -18,7 +18,7 @@ class ListInterval
   end
 
   def dates
-    @dates ||= Range.new(beg_of_period.to_date, end_of_period.to_date)
+    @dates ||= Range.new(start_time.to_date, end_time.to_date)
   end
 
   def counts

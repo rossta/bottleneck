@@ -31,6 +31,7 @@ Bottleneck::Application.routes.draw do
     resources :cards
     resource :cumulative_flow, path: :flow, as: :flow, only: [:show, :edit]
     resource :output, path: :output, as: :output, only: [:show]
+    resource :breakdown, path: :breakdown, as: :breakdown, only: [:show]
   end
 
   admin_constraint = lambda do |request|

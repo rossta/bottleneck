@@ -3,6 +3,10 @@
 <%= render 'projects/sub_nav' %>
 <section id="<%= dom_id(@project) %>" class="row">
   <div class="twelve columns">
-    <%= render 'show', output: @output %>
+    <% if @project.imported? %>
+      <%= yield %>
+    <% else %>
+      <%= render 'projects/importing' %>
+    <% end %>
   </div>
 </section>

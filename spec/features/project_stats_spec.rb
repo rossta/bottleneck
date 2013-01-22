@@ -6,6 +6,7 @@ feature "Manage project" do
 
   before do
     project.add_moderator(user)
+    project.lists << create(:list)
     login_as user
   end
 
@@ -26,6 +27,15 @@ feature "Manage project" do
     within "#project_#{project.id}" do
       page.should have_content("Output")
       page.should have_css("#chart")
+    end
+  end
+
+  scenario "View breakdown", js: true  do
+    visit project_path(project)
+    click_link "Breakdown"
+
+    within "#project_#{project.id}" do
+      page.should have_content("Breakdown")
     end
   end
 end

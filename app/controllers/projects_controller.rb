@@ -16,6 +16,7 @@ class ProjectsController < ApplicationController
       end_time: Clock.time,
       project: @project
     )
+    @range = @flow.dates
   end
 
   def new

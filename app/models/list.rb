@@ -89,9 +89,24 @@ class List < ActiveRecord::Base
     def attributes; { x: x, y: y }; end
   end
 
+  PositionCount = Struct.new(:position, :card, :count) do
+    def x; position.to_i; end
+    def y; (count || 0).to_i; end
+    def to_json; { name: card.name, data: [{ x: x, y: y }] }; end
+  end
+
   def card_days
     counts = cards.map { |card| card.list_day_count(id) }
     cards.zip(counts).map { |tuple| new_card_count(*tuple) }.map(&:attributes)
+  end
+
+  def card_days_alt
+    position = 0
+    counts = cards.map { |card| card.list_day_count(id) }
+    cards.zip(counts).map { |tuple|
+      position += 1;
+      PositionCount.new(position, *tuple)
+    }.map(&:to_json)
   end
 
   def new_card_count(card, count)

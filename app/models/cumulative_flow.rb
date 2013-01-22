@@ -18,14 +18,18 @@ class CumulativeFlow
     "#{interval_in_days} days trailing"
   end
 
+  def dates
+    @dates ||= Range.new(start_time.to_date, end_time.to_date)
+  end
+
   def to_json
     project.lists.reverse_order.map { |list| list_interval_json(list, start_time, end_time) }.to_json
   end
 
-  def list_interval_json(list, beg_of_period, end_of_period)
+  def list_interval_json(list, start_time, end_time)
     {
       :name => list.name,
-      :data => ListInterval.new(list, beg_of_period, end_of_period).data,
+      :data => ListInterval.new(list, start_time, end_time).data,
       :position => list.position
     }
   end
