@@ -1,7 +1,7 @@
 <article id="date-summary">
   <h5>Today: <%= date.to_s(:short) %> <small><%= Time.zone.name %></small></h5>
   <table>
-    <tr>
+    <tr data='total-wip'>
       <td>Total WIP</td>
       <td><%= @project.wip_count(date) %> cards</td>
     </tr>
