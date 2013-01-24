@@ -18,7 +18,7 @@ class Interval::CardRecording < Interval::Base
   end
 
   def record_end_of_day_summary
-    return if interval.has_key?(date_key(now))
+    return if interval.has_key?(date_key(today))
 
     # timestamp
     interval.store(date_key(today), now.to_i)
