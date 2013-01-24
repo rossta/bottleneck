@@ -1,4 +1,4 @@
-module IntervalRecording
+module Interval
   class Base
     include RedisKeys
 
@@ -18,8 +18,8 @@ module IntervalRecording
     end
 
     def record
-      record_all_time_summary
-      record_daily_summary
+      update_all_time_summary
+      update_daily_summary
       record_end_of_day_summary if near_end_of_day?
 
       after_record
@@ -39,8 +39,8 @@ module IntervalRecording
 
     protected
 
-    def record_all_time_summary; end
-    def record_daily_summary; end
+    def update_all_time_summary; end
+    def update_daily_summary; end
     def record_end_of_day_summary; end
     def after_record; end
   end

@@ -1,7 +1,9 @@
 class Card < ActiveRecord::Base
   include Redis::Objects
   include RedisKeys
-  include TrelloFetchable
+
+  include Extensions::Age
+  include Extensions::TrelloFetchable
 
   attr_accessible :uid, :due, :position, :trello_board_id, :trello_closed,
     :trello_list_id, :name, :trello_short_id, :trello_url
@@ -35,6 +37,9 @@ class Card < ActiveRecord::Base
 
   before_save :denormalize_project
   after_create :update_label_list
+
+  scope :backlog, joins(:list).merge(List.backlog)
+  scope :wip, joins(:list).merge(List.wip)
 
   def self.fetch(trello_card, trello_account)
     card = find_or_initialize_by_uid(trello_card.id)
@@ -77,7 +82,7 @@ class Card < ActiveRecord::Base
   end
 
   def record_interval(now = Clock.time, opts = {})
-    IntervalRecording::OfCard.new(of: self, at: now).record
+    Interval::CardRecording.new(of: self, at: now).record
   end
 
   ListCount = Struct.new(:list, :count) do
@@ -101,6 +106,14 @@ class Card < ActiveRecord::Base
     interval.clear
     list_history.clear
     label_list.clear
+  end
+
+  def state
+    list.try(:role) || 'Archived'
+  end
+
+  def days_in_state(state)
+    interval[redis_key(:state, state.downcase)].to_i
   end
 
   private

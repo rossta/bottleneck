@@ -1,4 +1,4 @@
-class IntervalRecording::OfProject < IntervalRecording::Base
+class Interval::ProjectRecording < Interval::Base
   records :project
 
   delegate :interval, :card_history, :list_history,
@@ -9,7 +9,7 @@ class IntervalRecording::OfProject < IntervalRecording::Base
     lists.map { |list| list.record_interval(now) }
   end
 
-  def record_all_time_summary
+  def update_all_time_summary
     # list ids all time
     list_history.merge(list_ids) if list_ids.any?
 
@@ -17,7 +17,7 @@ class IntervalRecording::OfProject < IntervalRecording::Base
     card_history.merge(card_ids) if card_ids.any?
   end
 
-  def record_daily_summary
+  def update_daily_summary
     # list ids for today
     interval.store(date_key(today, :list_ids), list_ids)
 
@@ -40,7 +40,7 @@ class IntervalRecording::OfProject < IntervalRecording::Base
     # end of day timestamp
     interval.store(date_key(today), now.to_i)
 
-    # increment interval count
+    # increment age
     interval.incr(:total, 1)
 
     # store total card count

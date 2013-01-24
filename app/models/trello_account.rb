@@ -1,5 +1,5 @@
 class TrelloAccount < ActiveRecord::Base
-  include TrelloFetchable
+  include Extensions::TrelloFetchable
   attr_accessible :name, :token, :secret
 
   trello_api_adapter :trello_member, {

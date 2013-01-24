@@ -6,7 +6,13 @@
   <script type="text/javascript">
     new CardCountChart("#<%= dom_id(list, 'card_counts') %>", <%= raw list.card_days.to_json %>);
   </script>
-  <% else -%>
+
+  <ul>
+    <% list.cards.each do |card| %>
+      <li><%= link_to card.name, [@project, card] %></li>
+    <% end %>
+  </ul>
+  <% else %>
     <p>There are no cards currently recorded for this list.</p>
   <% end -%>
 </article>

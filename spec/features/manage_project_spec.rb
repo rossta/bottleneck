@@ -34,20 +34,57 @@ feature "Manage project" do
     page.should have_content("Settings")
   end
 
-  scenario "Configure project settings"  do
-    project = create(:project)
-    project.add_moderator(user)
+  context "sub pages" do
+    let(:project) { create(:project) }
 
-    visit project_path(project)
-    click_link "Settings"
+    before do
+      project.add_moderator(user)
+      project.lists << create(:list)
+    end
 
-    fill_in "Name", with: "New Project Name"
-    select "(GMT-06:00) Central Time (US & Canada)", from: "Time zone"
+    scenario "Configure project settings"  do
+      visit project_path(project)
+      click_link "Settings"
 
-    click_button "Save"
-    click_link "Settings"
+      within(".edit_project") do
+        fill_in "Name", with: "New Project Name"
+        select "(GMT-06:00) Central Time (US & Canada)", from: "Time zone"
+        click_button "Save"
+      end
 
-    page.should have_content("New Project Name")
-    page.should have_content("Central Time")
+      click_link "Settings"
+
+      page.should have_content("New Project Name")
+      page.should have_content("Central Time")
+    end
+
+    scenario "View cumulative flow", js: true  do
+      visit project_path(project)
+      click_link "Flow"
+
+      within "#project_#{project.id}" do
+        page.should have_content("Cumulative Flow")
+        page.should have_css("#chart")
+      end
+    end
+
+    scenario "View output", js: true  do
+      visit project_path(project)
+      click_link "Output"
+
+      within "#project_#{project.id}" do
+        page.should have_content("Output")
+        page.should have_css("#chart")
+      end
+    end
+
+    scenario "View breakdown", js: true  do
+      visit project_path(project)
+      click_link "Breakdown"
+
+      within "#project_#{project.id}" do
+        page.should have_content("Breakdown")
+      end
+    end
   end
 end

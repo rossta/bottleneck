@@ -4,13 +4,5 @@
 <section id="<%= dom_id(@project) %>" class="row">
   <div class="twelve columns">
     <%= render 'cumulative_flows/show', flow: @flow %>
-    <div id="lists" style="margin-top:50px">
-      <% @project.lists.each do |list| %>
-        <article id="<%= dom_id(list) %>" class="<%= dom_class(list) %>">
-          <h4><%= link_to list.name, [@project, list] %></h4>
-          <%= render 'lists/cards', list: list %>
-        </article>
-      <% end %>
-    </div>
   </div>
 </section>

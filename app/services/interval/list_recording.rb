@@ -1,4 +1,4 @@
-class IntervalRecording::OfList < IntervalRecording::Base
+class Interval::ListRecording < Interval::Base
   records :list
 
   delegate :cards, :card_history, :interval, :card_ids,
@@ -9,12 +9,12 @@ class IntervalRecording::OfList < IntervalRecording::Base
     card_count
   end
 
-  def record_all_time_summary
+  def update_all_time_summary
     # card ids all time
     card_history.merge(card_ids) if card_ids.any?
   end
 
-  def record_daily_summary
+  def update_daily_summary
     # puts "list_id: #{list.id},#{date_key(today, :cumulative_total)} count: #{card_ids.count}, history #{card_history.size}"
     card_cumulative = card_history.size
 

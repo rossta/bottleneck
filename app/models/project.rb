@@ -1,7 +1,9 @@
 class Project < ActiveRecord::Base
   include Redis::Objects
   include RedisKeys
-  include TrelloFetchable
+
+  include Extensions::Age
+  include Extensions::TrelloFetchable
 
   attr_accessible :name, :uid, :trello_url, :trello_organization_id, :trello_closed,
     :time_zone
@@ -56,7 +58,7 @@ class Project < ActiveRecord::Base
   end
 
   def record_interval(now = zone_time_now)
-    IntervalRecording::OfProject.new(of: self, at: now).record
+    Interval::ProjectRecording.new(of: self, at: now).record
   end
 
   def timestamp_adjustment
@@ -130,6 +132,8 @@ class Project < ActiveRecord::Base
   end
 
   def average_over_range(method, date_range)
+    date_range = age_range(date_range.last) if date_range.first < create_date
     (date_range.to_a.map { |date| send(method, date) }.inject(&:+) / date_range.to_a.length).round(2)
   end
+
 end

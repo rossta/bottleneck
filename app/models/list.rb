@@ -1,7 +1,9 @@
 class List < ActiveRecord::Base
   include Redis::Objects
   include RedisKeys
-  include TrelloFetchable
+
+  include Extensions::Age
+  include Extensions::TrelloFetchable
 
   ROLES = [
     BACKLOG = "Backlog",
@@ -35,6 +37,20 @@ class List < ActiveRecord::Base
   scope :wip, where(role: WIP)
   scope :done, where(role: DONE)
 
+  def self.arel_role(role, t = arel_table)
+    t[:role].eq(role)
+  end
+
+  def self.arel_roles(role, *or_roles)
+    table = self.arel_table
+    match = arel_role(role)
+    or_roles.each do |or_role|
+      match = match.or(arel_role(or_role))
+    end
+    match
+  end
+  scope :flow, where(arel_roles(BACKLOG, WIP, DONE))
+
   def self.fetch(trello_list, trello_account)
     list = find_or_initialize_by_uid(trello_list.id)
     list.trello_list = trello_list
@@ -63,7 +79,7 @@ class List < ActiveRecord::Base
   end
 
   def record_interval(now = Clock.time)
-    IntervalRecording::OfList.new(of: self, at: now).record
+    Interval::ListRecording.new(of: self, at: now).record
   end
 
   def interval_counts(dates)
