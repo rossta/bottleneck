@@ -99,7 +99,12 @@ class Card < ActiveRecord::Base
   end
 
   def list_day_count(given_list_id)
-    interval[redis_key(:list_total, given_list_id)] || 0
+    interval[redis_key(:list_total, given_list_id)].to_i
+  end
+
+  def current_list_day_count
+    return 0 unless list_id
+    list_day_count(list_id)
   end
 
   def clear_history

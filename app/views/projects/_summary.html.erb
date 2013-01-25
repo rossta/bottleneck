@@ -35,7 +35,15 @@
       <td>Avg Arrival Rate over range</td>
       <td><%= @project.average_arrival_rate(@range) %> cards / day</td>
     </tr>
-    <tr><td>Slow movers in WIP</td></tr>
+    <tr>
+      <td>Slow movers in WIP</td>
+      <td>
+        <%- slow_wip_card = @project.lists.wip.map(&:cards).flatten.max { |c| c.current_list_day_count } -%>
+        <% if slow_wip_card -%>
+        <%= link_to slow_wip_card.name, [@project, slow_wip_card] %>: <%= slow_wip_card.current_list_day_count %> days in <%= link_to slow_wip_card.list.name, [@project, slow_wip_card.list] %>
+        <% end %>
+      </td>
+    </tr>
     <tr><td>Slow movers in each list</td></tr>
     <tr><td>Fast movers in WIP</td></tr>
     <tr><td>Fast movers in each list</td></tr>
