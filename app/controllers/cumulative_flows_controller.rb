@@ -6,7 +6,8 @@ class CumulativeFlowsController < ApplicationController
     @flow = CumulativeFlow.new(
       start_time: 14.days.ago,
       end_time: Clock.time,
-      project: @project
+      project: @project,
+      collapsed: !!params[:collapsed]
     )
   end
 

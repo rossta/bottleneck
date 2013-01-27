@@ -1,8 +1,10 @@
 require 'redis'
 require 'redis/objects'
 
-url = ENV['REDISTOGO_URL']
-uri = URI.parse(url)
-Redis.current = Redis.new(host: uri.host, port: uri.port, password: uri.password)
+klass = Bottleneck::Application.config.redis_class
+url   = ENV['REDISTOGO_URL']
+uri   = URI.parse(url)
+redis = klass.new(host: uri.host, port: uri.port, password: uri.password)
 
-Resque.redis = Redis.current
+Redis.current = redis
+Resque.redis = redis

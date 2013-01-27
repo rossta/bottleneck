@@ -38,4 +38,6 @@ Bottleneck::Application.configure do
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'example.com' }
 
+  require 'mock_redis'
+  config.redis_class = MockRedis
 end

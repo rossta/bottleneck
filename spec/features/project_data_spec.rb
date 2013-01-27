@@ -16,7 +16,7 @@ feature "Project Data" do
 
     within("[data='total-wip']") do
       page.should have_content("Total WIP")
-      page.should have_content("8 cards")
+      page.should have_content("5 cards")
     end
   end
 end

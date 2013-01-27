@@ -11,18 +11,20 @@ class TimeSeries
     # munin
 
     palette = new Rickshaw.Color.Palette(scheme: 'classic9')
+    palette.runningIndex = 6;
 
     @data = _(@data).sortBy((d) ->
       -d.position
     )
 
     _(@data).each((d) ->
-      d.color = palette.color()
+      console.log(d)
+      d.color = palette.color(d.name)
     )
 
     graph = new Rickshaw.Graph
       element: document.querySelector("#chart")
-      width: 550
+      width: _.min([550, $(window).width() - 80]),
       height: 250
       stroke: true
       renderer: 'area'

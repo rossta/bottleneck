@@ -3,6 +3,7 @@ class CumulativeFlow
 
   attribute :start_time
   attribute :end_time
+  attribute :collapsed, Boolean, default: false
 
   attr_accessor :project
 
@@ -22,16 +23,24 @@ class CumulativeFlow
     @dates ||= Range.new(start_time.to_date, end_time.to_date)
   end
 
+  def collapsed?; collapsed; end
+
   def to_json
-    project.lists.flow.reverse_order.map { |list| list_interval_json(list, start_time, end_time) }.to_json
+    if collapsed
+      [
+        ListVectorInterval.new(lists.backlog, start_time, end_time).to_json,
+        ListVectorInterval.new(lists.wip, start_time, end_time).to_json,
+        ListVectorInterval.new(lists.done, start_time, end_time).to_json,
+      ].to_json
+    else
+      lists.flow.reverse_order.map { |list|
+        ListInterval.new(list, start_time, end_time).to_json
+      }.to_json
+    end
   end
 
-  def list_interval_json(list, start_time, end_time)
-    {
-      :name => list.name,
-      :data => ListInterval.new(list, start_time, end_time).data,
-      :position => list.position
-    }
+  def lists
+    project.lists
   end
 
 end

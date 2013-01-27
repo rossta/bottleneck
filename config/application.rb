@@ -75,5 +75,7 @@ module Bottleneck
 
     # Prevent environment initialization on precompile
     config.assets.initialize_on_precompile = false
+
+    config.redis_class = Redis
   end
 end

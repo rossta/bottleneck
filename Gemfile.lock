@@ -157,6 +157,7 @@ GEM
     mime-types (1.19)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
+    mock_redis (0.6.3)
     modular-scale (1.0.2)
       compass (>= 0.11.5)
       sassy-math (>= 1.2)
@@ -317,6 +318,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   launchy
+  mock_redis
   oauth
   pg (>= 0.14.1)
   quiet_assets (>= 1.0.1)

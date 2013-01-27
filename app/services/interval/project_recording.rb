@@ -24,6 +24,9 @@ class Interval::ProjectRecording < Interval::Base
     # all count today
     interval.store(date_key(today, :card_count), card_count)
 
+    # backlog count today
+    interval.store(date_key(today, :backlog_count), backlog_card_count)
+
     # wip count today
     interval.store(date_key(today, :wip_count), wip_card_count)
 
@@ -49,6 +52,10 @@ class Interval::ProjectRecording < Interval::Base
 
   def card_count
     @count ||= current_cards.count
+  end
+
+  def backlog_card_count
+    @backlog_card_count ||= current_cards.joins(:list).merge(List.backlog).count
   end
 
   def wip_card_count

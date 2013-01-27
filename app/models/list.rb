@@ -83,7 +83,7 @@ class List < ActiveRecord::Base
   end
 
   def interval_counts(dates)
-    interval.bulk_values *date_keys(dates, card_count_key)
+    interval.bulk_values(*date_keys(dates, card_count_key)).map(&:to_i)
   end
 
   def cumulative_total(date = Clock.date)
