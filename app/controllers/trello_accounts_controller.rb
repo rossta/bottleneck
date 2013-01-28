@@ -23,7 +23,7 @@ class TrelloAccountsController < ApplicationController
       ta.token = @access_token.token
       ta.secret = @access_token.secret
     end
-    respond_with @trello_account, location: new_project_path
+    redirect_to new_project_path(trello_account_id: @trello_account.id)
   end
 
   private
