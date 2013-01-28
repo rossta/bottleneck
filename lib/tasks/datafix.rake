@@ -24,4 +24,20 @@ namespace :datafix do
       end
     end
   end
+
+  desc "Add Public Trello Development Board to Bottleneck user"
+  task :add_public_trello_development_to_bottleneck => :environment do
+    user = User.find_by_name!("bottleneck")
+
+    last_project    = user.owned_projects.last
+    trello_account  = last_project.trello_account
+    trello_board    = trello_account.client.find(:board, "4d5ea62fd76aa1136000000c")
+
+    unless user.owned_projects.find_by_name(trello_board.name)
+      form = ProjectForm.new(name: trello_board.name, uid: trello_board.id)
+      form.trello_account = trello_account
+      form.owner = user
+      form.save
+    end
+  end
 end
