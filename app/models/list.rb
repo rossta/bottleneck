@@ -103,34 +103,12 @@ class List < ActiveRecord::Base
     def x; card.name; end
     def y; count; end
     def attributes; { x: x, y: y }; end
-    def data; { name: card.name, count: count }; end
-  end
-
-  PositionCount = Struct.new(:name, :position, :count) do
-    def x; position.to_i; end
-    def y; (count || 0).to_i; end
-    def data; { x: x, y: y }; end
+    def data; { id: card.id, name: card.name, count: count }; end
   end
 
   def card_days
     counts = cards.map { |card| card.list_day_count(id) || 0 }
-    cards.zip(counts).map { |tuple| new_card_count(*tuple) }.map(&:attributes)
-  end
-
-  def card_days_alt
-    cards.map { |card| CardCount.new(card, card.list_day_count(id) || 0) }.map(&:data)
-  end
-
-  def card_days_positions
-    position = 0
-    counts = cards.map { |card| card.list_day_count(id) }
-    data = cards.zip(counts).map { |card, count|
-      PositionCount.new(card.name, cards.index(card), count)
-    }
-    [{
-      names: data.map(&:name),
-      data: data.map(&:data)
-    }]
+    cards.zip(counts).map { |tuple| new_card_count(*tuple) }.map(&:data)
   end
 
   def new_card_count(card, count)

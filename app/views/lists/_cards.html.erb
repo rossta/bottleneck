@@ -25,22 +25,18 @@ label {
   right: 10px;
 }
 </style>
-<article="panel">
+<article="panel row">
   <% if list.cards.any? -%>
   <h5>Days in List</h5>
-  <div id="y-axis"></div>
-  <div id="x-axis"></div>
-  <div id="<%= dom_id(list, 'card_counts') %>_alt">
-    <label><input type="checkbox"> Sort </label>
+  <div id="<%= dom_id(list, 'card_counts') %>">
+    <div class="bar chart"></div>
+    <div class="legend"></div>
   </div>
-
-  <div id="<%= dom_id(list, 'card_counts') %>"></div>
   <script type="text/javascript">
-    new CardCountChartAlt("#<%= dom_id(list, 'card_counts') %>_alt", <%= raw list.card_days_alt.to_json %>).render();
-    // new CardCountChart("#<%#= dom_id(list, 'card_counts') %>", <%#= raw list.card_days.to_json %>);
+    new CardCountChart("#<%= dom_id(list, 'card_counts') %>", <%= raw list.card_days.to_json %>);
   </script>
 
-  <ul>
+  <ul class="block-list">
     <% list.cards.each do |card| %>
       <li><%= link_to card.name, [@project, card] %></li>
     <% end %>

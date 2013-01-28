@@ -246,3 +246,8 @@ $topBarDropToggleColor: #fff;
 
 ul, dl, ol { list-style-position:inside;}
 dt { float:left; margin-right: 0.5em;}
+
+.tabs dd.active, .tabs li.active {
+  border-top: 1px solid #E6E6E6;
+  margin-top: -1px;
+}
