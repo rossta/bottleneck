@@ -25,7 +25,7 @@ class TrelloAccount < ActiveRecord::Base
   end
 
   def trello_member
-    @trello_member ||= client.find(:members, name)
+    @trello_member ||= client.find(:members, 'me')
   end
 
   def trello_boards
