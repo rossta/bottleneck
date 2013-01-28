@@ -30,6 +30,7 @@ gem "active_model_serializers"
 gem "dalli"
 gem 'redis-objects', "~> 0.6"
 gem "rolify", ">= 3.2.0"
+gem 'acts-as-taggable-on', '~> 2.3.1'
 
 # Utilities
 gem "resque"
@@ -38,7 +39,7 @@ gem "oauth"
 # APIs
 gem "sendgrid", ">= 1.0.1"
 # gem 'ruby-trello', git: 'git://github.com/jeremytregunna/ruby-trello.git', branch: "master"
-gem 'ruby-trello', git: 'git://github.com/rossta/ruby-trello.git', branch: "threadsafe_client"
+gem 'ruby-trello', git: 'git://github.com/rossta/ruby-trello.git', branch: "master"
 
 group :development, :test do
   gem "factory_girl_rails", ">= 4.1.0"

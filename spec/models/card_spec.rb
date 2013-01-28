@@ -33,18 +33,21 @@ describe Card do
         card.labels.should be_empty
       end
 
-      it "persists labels array" do
-        card.labels = [{"name" => "Bug", "color" => "red"}]
+      it "acts as taggable via trello labels" do
+        card.trello_labels = [mock("Trello::Label", name: "Bug", color: "red")]
         card.save
-
-        Card.find(card.id).labels.should eq([{"name" => "Bug", "color" => "red"}])
+        card.reload
+        card.labels
+        card.label_list.should eq(["Bug"])
       end
 
-      it "converts array of objects responding to '#attributes' to hashes" do
-        card.labels = [mock("Label", attributes: {"name" => "Bug", "color" => "red"})]
+      it "is tagged with label" do
+        card.label_list = "Bug"
         card.save
 
-        Card.find(card.id).labels.should eq([{"name" => "Bug", "color" => "red"}])
+        Card.tagged_with(["Bug"]).should include(card)
+        Card.tagged_with(["Bug"], on: :labels).should include(card)
+        Card.tagged_with(["Bug"], on: :tags).should be_empty
       end
     end
   end
@@ -59,10 +62,18 @@ describe Card do
       card.display_name.should eq("Card on trello")
     end
 
-    it "returns trello card name if no trello name" do
+    it "returns trello card name with label list" do
       card.name = "Card on trello"
-      card.labels = [{name: "Bug", color: "red"}]
-      card.display_name.should eq("Card on trello (Bug)")
+      card.label_list = "Bug, Chore"
+      card.save
+      card.reload.display_name.should eq("Card on trello (Chore, Bug)")
+    end
+
+    it "returns trello card name with trello labels converted to label list" do
+      card.name = "Card on trello"
+      card.trello_labels = [mock("Trello::Label", name: "Bug", color: "red")]
+      card.save
+      card.reload.display_name.should eq("Card on trello (Bug)")
     end
   end
 

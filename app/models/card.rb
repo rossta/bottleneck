@@ -18,8 +18,8 @@ class Card < ActiveRecord::Base
     url:      :trello_url,
     list_id:  :trello_list_id,
     pos:      :position,
-    due:      :due_at,
-    labels:   :labels
+    labels:   :trello_labels,
+    due:      :due_at
   }
 
   belongs_to :trello_account
@@ -28,15 +28,15 @@ class Card < ActiveRecord::Base
 
   hash_key :interval, marshal: true
   set :list_history
-  list :label_list, marshal: true
 
-  delegate :labels, to: :trello_card, allow_nil: true, prefix: true
+  # delegate :labels, to: :trello_card, allow_nil: true, prefix: true
   delegate :token, :client, to: :trello_account, allow_nil: true, prefix: :trello
 
   attr_accessor :trello_token, :trello_card
 
   before_save :denormalize_project
-  after_create :update_label_list
+
+  acts_as_taggable_on :labels
 
   scope :backlog, joins(:list).merge(List.backlog)
   scope :wip, joins(:list).merge(List.wip)
@@ -54,21 +54,12 @@ class Card < ActiveRecord::Base
   end
 
   def label_display_names
-    return "" if labels.empty?
-    "(#{label_names.join(', ')})"
+    return "" if label_list.empty?
+    "(#{label_list.join(', ')})"
   end
 
-  def labels
-    @labels || (persisted? ? label_list.values : [])
-  end
-
-  def labels=(given_labels)
-    @labels = given_labels.map { |label| label.respond_to?(:attributes) ? label.attributes : label }
-    update_label_list if persisted?
-  end
-
-  def label_names
-    labels.map { |label| label[:name] }
+  def trello_labels=(trello_labels)
+    self.label_list = trello_labels.map { |trello_label| trello_label.name }.join(", ")
   end
 
   def trello_card
@@ -127,11 +118,4 @@ class Card < ActiveRecord::Base
     return unless list_id && list_id_changed?
     self.project = list.project
   end
-
-  def update_label_list
-    return unless @labels
-    label_list.clear
-    @labels.each { |label| label_list << label }
-  end
-
 end

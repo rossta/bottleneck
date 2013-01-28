@@ -51,4 +51,53 @@ http_interactions:
       string: ! '{"id":"50ce59a6c74c3e366300830b","avatarHash":null,"bio":"","fullName":"Bottleneck","initials":"B","memberType":null,"status":"active","url":"https://trello.com/bottleneck","username":"bottleneck","avatarSource":"none","confirmed":true,"email":"rosskaff+bottleneck@gmail.com","gravatarHash":"109e173a1f14a57ee2b737aeab1d8b16","idBoards":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idBoardsInvited":[],"idBoardsPinned":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idOrganizations":[],"idOrganizationsInvited":[],"idPremOrgsAdmin":[],"loginTypes":["password"],"prefs":{"sendSummaries":true,"minutesBetweenSummaries":60,"minutesBeforeDeadlineToNotify":1440,"colorBlind":false},"trophies":[],"uploadedAvatarHash":null}'
     http_version: '1.1'
   recorded_at: Wed, 16 Jan 2013 03:01:53 GMT
+- request:
+    method: get
+    uri: https://api.trello.com/1/members/me
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*; q=0.5, application/xml'
+      accept-encoding:
+      - gzip, deflate
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="ab79ece7ea35723282a0299ae97712a0",
+        oauth_signature="RttoLz5pLkXp2pxHJ9eiEjg00yo%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359384402", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+        oauth_version="1.0"
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      x-server-time:
+      - '1359384402887'
+      cache-control:
+      - max-age=0, must-revalidate, no-cache, no-store
+      expires:
+      - Thu, 01 Jan 1970 00:00:00
+      content-type:
+      - application/json
+      access-control-allow-origin:
+      - ! '*'
+      access-control-allow-methods:
+      - GET, PUT, POST, DELETE
+      content-length:
+      - '743'
+      set-cookie:
+      - connect.sid=jP411wv8IEuwQzyxbSyw4BNV.9zj4zZrE0m52yOnasLS2iN7fg0EzoUMOXHFZrrVLS9g;
+        path=/; httpOnly
+      date:
+      - Mon, 28 Jan 2013 14:46:42 GMT
+    body:
+      encoding: US-ASCII
+      string: ! '{"id":"50ce59a6c74c3e366300830b","avatarHash":null,"bio":"","fullName":"Bottleneck","initials":"B","memberType":"normal","status":"active","url":"https://trello.com/bottleneck","username":"bottleneck","avatarSource":"none","confirmed":true,"email":"rosskaff+bottleneck@gmail.com","gravatarHash":"109e173a1f14a57ee2b737aeab1d8b16","idBoards":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idBoardsInvited":[],"idBoardsPinned":["50ce59a6c74c3e366300830c","50ce927d006f9d1b63010458"],"idOrganizations":[],"idOrganizationsInvited":[],"idPremOrgsAdmin":[],"loginTypes":["password"],"prefs":{"sendSummaries":true,"minutesBetweenSummaries":60,"minutesBeforeDeadlineToNotify":1440,"colorBlind":false},"trophies":[],"uploadedAvatarHash":null}'
+    http_version: '1.1'
+  recorded_at: Mon, 28 Jan 2013 14:46:42 GMT
 recorded_with: VCR 2.3.0

@@ -20,7 +20,7 @@ class TrelloAccountsController < ApplicationController
     Rails.logger.info params.inspect
     @access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
     @trello_account = TrelloAccount.create do |ta|
-      ta.token = @access_token.token
+      ta.token  = @access_token.token
       ta.secret = @access_token.secret
     end
     redirect_to new_project_path(trello_account_id: @trello_account.id)
