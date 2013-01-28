@@ -1,5 +1,5 @@
 class TimeSeries
-  constructor: (@data) ->
+  constructor: (@data, @options = {}) ->
 
   render: ->
     # spectrum14
@@ -11,7 +11,7 @@ class TimeSeries
     # munin
 
     palette = new Rickshaw.Color.Palette(scheme: 'classic9')
-    palette.runningIndex = 6;
+    palette.runningIndex = @options.colorIndex || 0;
 
     @data = _(@data).sortBy((d) ->
       -d.position

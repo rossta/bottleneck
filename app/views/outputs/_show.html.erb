@@ -10,6 +10,6 @@
   <script type="text/javascript">
     var seriesData = <%= raw @output.to_json %>;
 
-    new TimeSeries(seriesData).render();
+    new TimeSeries(seriesData, { colorIndex: 0 }).render();
   </script>
 </div>

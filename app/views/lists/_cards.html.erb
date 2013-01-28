@@ -1,10 +1,43 @@
 <!-- Card Count Chart -->
+<style type="text/css">
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill-opacity: .9;
+}
+
+.x.axis path {
+  display: none;
+}
+
+label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+</style>
 <article="panel">
   <% if list.cards.any? -%>
   <h5>Days in List</h5>
+  <div id="y-axis"></div>
+  <div id="x-axis"></div>
+  <div id="<%= dom_id(list, 'card_counts') %>_alt">
+    <label><input type="checkbox"> Sort </label>
+  </div>
+
   <div id="<%= dom_id(list, 'card_counts') %>"></div>
   <script type="text/javascript">
-    new CardCountChart("#<%= dom_id(list, 'card_counts') %>", <%= raw list.card_days.to_json %>);
+    new CardCountChartAlt("#<%= dom_id(list, 'card_counts') %>_alt", <%= raw list.card_days_alt.to_json %>).render();
+    // new CardCountChart("#<%#= dom_id(list, 'card_counts') %>", <%#= raw list.card_days.to_json %>);
   </script>
 
   <ul>

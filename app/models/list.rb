@@ -101,28 +101,36 @@ class List < ActiveRecord::Base
 
   CardCount = Struct.new(:card, :count) do
     def x; card.name; end
-    def y; (count || 0).to_i; end
+    def y; count; end
     def attributes; { x: x, y: y }; end
+    def data; { name: card.name, count: count }; end
   end
 
-  PositionCount = Struct.new(:position, :card, :count) do
+  PositionCount = Struct.new(:name, :position, :count) do
     def x; position.to_i; end
     def y; (count || 0).to_i; end
-    def to_json; { name: card.name, data: [{ x: x, y: y }] }; end
+    def data; { x: x, y: y }; end
   end
 
   def card_days
-    counts = cards.map { |card| card.list_day_count(id) }
+    counts = cards.map { |card| card.list_day_count(id) || 0 }
     cards.zip(counts).map { |tuple| new_card_count(*tuple) }.map(&:attributes)
   end
 
   def card_days_alt
+    cards.map { |card| CardCount.new(card, card.list_day_count(id) || 0) }.map(&:data)
+  end
+
+  def card_days_positions
     position = 0
     counts = cards.map { |card| card.list_day_count(id) }
-    cards.zip(counts).map { |tuple|
-      position += 1;
-      PositionCount.new(position, *tuple)
-    }.map(&:to_json)
+    data = cards.zip(counts).map { |card, count|
+      PositionCount.new(card.name, cards.index(card), count)
+    }
+    [{
+      names: data.map(&:name),
+      data: data.map(&:data)
+    }]
   end
 
   def new_card_count(card, count)
