@@ -14,7 +14,7 @@ class ProjectRecorder
   end
 
   def self.record_project(project)
-    puts "Fetching project #{project_id} and recording interval"
+    puts "Fetching project #{project.id} and recording interval"
     Time.use_zone(project.time_zone) do
       project.fetch
       project.record_interval

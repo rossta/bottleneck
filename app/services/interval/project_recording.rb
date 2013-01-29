@@ -24,6 +24,11 @@ class Interval::ProjectRecording < Interval::Base
     # all count today
     interval.store(date_key(today, :card_count), card_count)
 
+    # card label counts for today
+    card_label_counts.each do |label|
+      interval.store(date_key(today, :card_count, label.name), label.count)
+    end
+
     # backlog count today
     interval.store(date_key(today, :backlog_count), backlog_card_count)
 
@@ -52,6 +57,10 @@ class Interval::ProjectRecording < Interval::Base
 
   def card_count
     @count ||= current_cards.count
+  end
+
+  def card_label_counts
+    @card_label_counts ||= cards.tag_counts_on(:labels)
   end
 
   def backlog_card_count
@@ -96,5 +105,4 @@ class Interval::ProjectRecording < Interval::Base
   def card_ids
     @card_ids ||= project.card_ids
   end
-
 end

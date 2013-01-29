@@ -24,6 +24,11 @@ class Interval::ListRecording < Interval::Base
     # card ids for today
     interval.store(date_key(today, :card_ids), card_ids)
 
+    # card label counts for today
+    cards.tag_counts_on(:labels).each do |label|
+      interval.store(date_key(today, :card_count, label.name), label.count)
+    end
+
     # cumulative total by today
     interval.store(date_key(today, :cumulative_total), card_cumulative)
   end

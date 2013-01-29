@@ -10,6 +10,8 @@ module Bootstrap
       midday = time_zone.parse("#{today} 12 PM")
       end_of_day = time_zone.parse("#{today} 11 PM")
 
+      puts "set up project"
+
       project = user.owned_projects.find_or_create_by_name("Scarecrow")
       project.time_zone = time_zone.name
       project.save!
@@ -26,6 +28,8 @@ module Bootstrap
         ['done', List::DONE]
       ]
 
+      puts "set up lists"
+
       list_config.each_with_index do |config, i|
         name, role = *config
         list = project.lists.find_or_create_by_name(name.titleize)
@@ -33,12 +37,16 @@ module Bootstrap
         instance_variable_set("@#{name}", list)
       end
 
-      # create 30 cards
+      puts "set up cards"
+      label_set = %w[ Bug Chore Story Story ]
       1.upto(30).each do |num|
-        card = project.cards.find_or_create_by_name("Card #{num}")
+        card = project.cards.find_or_initialize_by_name("Card #{num}")
+        card.label_list = label_set.sample
         instance_variable_set("@card_#{num}", card)
+        card.save
       end
 
+      puts "record from 15 days ago"
       days_ago = 15.days
 
       # Day 0, Sunday
