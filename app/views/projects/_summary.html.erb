@@ -40,7 +40,7 @@
       <td>
         <%- slow_wip_card = @project.lists.wip.map(&:cards).flatten.max { |c| c.current_list_day_count } -%>
         <% if slow_wip_card -%>
-        <%= link_to slow_wip_card.display_name, [@project, slow_wip_card] %>: <%= slow_wip_card.current_list_day_count %> days in <%= link_to slow_wip_card.list.name, [@project, slow_wip_card.list] %>
+        <%= link_to truncate(slow_wip_card.display_name, length: 24), [@project, slow_wip_card] %>: <%= slow_wip_card.current_list_day_count %> days in <%= link_to slow_wip_card.list.name, [@project, slow_wip_card.list] %>
         <% end %>
       </td>
     </tr>

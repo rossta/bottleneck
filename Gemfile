@@ -67,5 +67,6 @@ group :test do
   gem "vcr", '~> 2.3'
   gem "fakeweb"
   gem "mock_redis"
+  gem 'capybara-mechanize', git: "git://github.com/leifg/capybara-mechanize.git"
   # gem "poltergeist" #Capybara 2 compatability coming soon: https://github.com/jonleighton/poltergeist/pull/208
 end

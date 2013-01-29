@@ -16,6 +16,12 @@ feature "Manage project" do
     click_button "Enter"
 
     page.should have_content("Import a Project")
+
+    within("[data-id='#{trello_account.trello_boards.first.id}']") do
+      click_button "Import"
+    end
+
+    page.should have_content("Your project was successfully imported")
   end
 
   scenario "Import a project", vcr: { record: :new_episodes, re_record_interval: 7.days } do
