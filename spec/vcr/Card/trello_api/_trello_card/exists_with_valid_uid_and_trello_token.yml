@@ -12,9 +12,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="e65efce998a29ea1137915b7b5c529ca",
-        oauth_signature="sQ4X4%2FZxlPEUMDB5n1Rj8AQe6NM%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1359424416", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="f71d0471638cf869ed458f376a636336",
+        oauth_signature="2lH0vljGArR%2B6SEyo0ia51Cxeb4%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359467918", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -26,7 +26,7 @@ http_interactions:
       x-powered-by:
       - Express
       x-server-time:
-      - '1359424417100'
+      - '1359467918767'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
@@ -40,14 +40,14 @@ http_interactions:
       content-length:
       - '817'
       set-cookie:
-      - connect.sid=BzBFthCfcW0jsnBcfvITf1b0.dloSv32npZTtz938t3vhac2BPZZpVXmVGv5E%2F7MqFc4;
+      - connect.sid=NNEUrvlXvLSQjALXquMxdklf.NRtJWnJRY3HHDpcAPYMMv%2FQF4yk6FJRAn%2B68AFXldk4;
         path=/; httpOnly
       date:
-      - Tue, 29 Jan 2013 01:53:37 GMT
+      - Tue, 29 Jan 2013 13:58:38 GMT
     body:
       encoding: US-ASCII
       string: ! '{"id":"50f02b7e6a44c1b264004e34","badges":{"votes":0,"viewingMemberVoted":false,"subscribed":false,"fogbugz":"","checkItems":6,"checkItemsChecked":2,"comments":0,"attachments":0,"description":false,"due":null},"checkItemStates":[{"idCheckItem":"50f02d038e5be1580d004ce7","state":"complete"},{"idCheckItem":"50f02d0c8e5be1580d004ce8","state":"complete"}],"closed":false,"desc":"","due":null,"idBoard":"50ce927d006f9d1b63010458","idChecklists":["50f02b8d6a44c1b264004e37","50f02bae6a44c1b264004e3c"],"idList":"50ce92b4006f9d1b6301048f","idMembers":[],"idShort":8,"idAttachmentCover":null,"manualCoverAttachment":false,"labels":[],"name":"Record
         interval in background for project''s time zone","pos":589823,"url":"https://trello.com/card/record-interval-in-background-for-project-s-time-zone/50ce927d006f9d1b63010458/8"}'
     http_version: '1.1'
-  recorded_at: Tue, 29 Jan 2013 01:53:37 GMT
+  recorded_at: Tue, 29 Jan 2013 13:58:38 GMT
 recorded_with: VCR 2.3.0

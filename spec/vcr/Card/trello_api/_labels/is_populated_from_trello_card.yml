@@ -12,9 +12,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="8fb39c56c3542c7175a67c52ba28cad0",
-        oauth_signature="4MksjUEjOvizumspB0wOCE%2B1pVY%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1359424415", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="3ec5807eac8520f4aa514a6cc85711f2",
+        oauth_signature="hYgEqv82V2cfv3kpX5Df9iL8gKU%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359467918", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -26,7 +26,7 @@ http_interactions:
       x-powered-by:
       - Express
       x-server-time:
-      - '1359424416199'
+      - '1359467919189'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
@@ -40,16 +40,16 @@ http_interactions:
       content-length:
       - '817'
       set-cookie:
-      - connect.sid=YSav%2Bh1yjE7W3OngjpoV%2FOhr.hq1AEbk0MVnQ48DIkwFBavwVF3G7%2Bn6NrmFPaK%2FWzto;
+      - connect.sid=89EXsATb1RB9LO4BwJG9I%2B%2FO.0XpwjDRO1SnjwYTvMQ9MxCwIzCp4xGmyIpGOFOu%2BKf8;
         path=/; httpOnly
       date:
-      - Tue, 29 Jan 2013 01:53:36 GMT
+      - Tue, 29 Jan 2013 13:58:39 GMT
     body:
       encoding: US-ASCII
       string: ! '{"id":"50f02b7e6a44c1b264004e34","badges":{"votes":0,"viewingMemberVoted":false,"subscribed":false,"fogbugz":"","checkItems":6,"checkItemsChecked":2,"comments":0,"attachments":0,"description":false,"due":null},"checkItemStates":[{"idCheckItem":"50f02d038e5be1580d004ce7","state":"complete"},{"idCheckItem":"50f02d0c8e5be1580d004ce8","state":"complete"}],"closed":false,"desc":"","due":null,"idBoard":"50ce927d006f9d1b63010458","idChecklists":["50f02b8d6a44c1b264004e37","50f02bae6a44c1b264004e3c"],"idList":"50ce92b4006f9d1b6301048f","idMembers":[],"idShort":8,"idAttachmentCover":null,"manualCoverAttachment":false,"labels":[],"name":"Record
         interval in background for project''s time zone","pos":589823,"url":"https://trello.com/card/record-interval-in-background-for-project-s-time-zone/50ce927d006f9d1b63010458/8"}'
     http_version: '1.1'
-  recorded_at: Tue, 29 Jan 2013 01:53:36 GMT
+  recorded_at: Tue, 29 Jan 2013 13:58:39 GMT
 - request:
     method: get
     uri: https://api.trello.com/1/cards/50f02b7e6a44c1b264004e34/labels
@@ -62,9 +62,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="3f64cdb0dfae4ba75be22e7f31493574",
-        oauth_signature="%2Fi7qXHqAV1YGTQaf8o5LTEXYAvY%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1359424416", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="7381f673c2318c681c0e961cef034ca9",
+        oauth_signature="kAK4DbbsJIIg9FeIdrV2rf%2FYmGc%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359467919", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -76,7 +76,7 @@ http_interactions:
       x-powered-by:
       - Express
       x-server-time:
-      - '1359424416448'
+      - '1359467919427'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
@@ -90,13 +90,13 @@ http_interactions:
       content-length:
       - '2'
       set-cookie:
-      - connect.sid=ZUSMr6NThtA75xUb3P5YrbU3.MkQPv0gXjvgkt9PWZSvqiXLZm7XkwxKW1OC%2BxVQaT5M;
+      - connect.sid=%2FGpZXO4qprp53smThrDfPZzC.ZlT7AQgcBUHCEvNlnZAbLV02%2BDKGovpDcf5UNvV5gkM;
         path=/; httpOnly
       date:
-      - Tue, 29 Jan 2013 01:53:36 GMT
+      - Tue, 29 Jan 2013 13:58:39 GMT
     body:
       encoding: US-ASCII
       string: ! '[]'
     http_version: '1.1'
-  recorded_at: Tue, 29 Jan 2013 01:53:36 GMT
+  recorded_at: Tue, 29 Jan 2013 13:58:39 GMT
 recorded_with: VCR 2.3.0
