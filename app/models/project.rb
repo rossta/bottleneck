@@ -14,6 +14,8 @@ class Project < ActiveRecord::Base
   has_many :cards # includes all
   has_many :current_cards, through: :lists, source: :cards
 
+  scope :trello_based, where('trello_account_id IS NOT NULL')
+
   delegate :token, :client, to: :trello_account, prefix: :trello, allow_nil: true
 
   trello_api_adapter :trello_board, {
