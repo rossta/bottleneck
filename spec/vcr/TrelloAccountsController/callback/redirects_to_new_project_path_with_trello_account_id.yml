@@ -1,0 +1,81 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://trello.com/1/OAuthGetRequestToken
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*'
+      user-agent:
+      - OAuth gem v0.4.7
+      authorization:
+      - OAuth oauth_callback="http%3A%2F%2Ftest.host%2Ftrello_accounts%2Fcallback",
+        oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="mvMWWBb1d24xu651qEyvLh4081ajR2AOdzaVnSkqtA",
+        oauth_signature="7fP8c%2BHt%2Fqpjhr%2FKqBiVrdRag6U%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359425428", oauth_version="1.0"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - text/plain
+      content-length:
+      - '126'
+      set-cookie:
+      - connect.sid=6innXHA8deOqQY7ZoACiPIQO.3%2BWHuhY0LBEbdQv2ftdyq%2Bw0%2FXqABU0%2BD%2BakEuXiWCI;
+        path=/; httpOnly
+      date:
+      - Tue, 29 Jan 2013 02:10:28 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: oauth_token=829a5baa384f82020243e6e0799ed908&oauth_token_secret=ea223f94dce80113bfb4d7a7714b9395&oauth_callback_confirmed=true
+    http_version: '1.1'
+  recorded_at: Tue, 29 Jan 2013 02:10:28 GMT
+- request:
+    method: get
+    uri: https://trello.com/1/OAuthGetAccessToken
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*'
+      user-agent:
+      - OAuth gem v0.4.7
+      authorization:
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="0ehvffu1i4UMNa62HUEZUKTBhMIs6Zq0iCdv04cAMpw",
+        oauth_signature="AmyFJuYRNLMs1LQr%2Bb7uNbWGPVs%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359425428", oauth_token="829a5baa384f82020243e6e0799ed908",
+        oauth_verifier="8c9ff510665cb1459ee427c39b51a8bd", oauth_version="1.0"
+  response:
+    status:
+      code: 500
+      message: Internal Server Error
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - text/plain
+      content-length:
+      - '15'
+      set-cookie:
+      - connect.sid=OYHr3r5GkQth1c4zEQmie29O.3MpcxKO44XK6GzmRLpya2i7xgpodkW51g0ueU93%2FrmI;
+        path=/; httpOnly
+      date:
+      - Tue, 29 Jan 2013 02:10:28 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: token not found
+    http_version: '1.1'
+  recorded_at: Tue, 29 Jan 2013 02:10:28 GMT
+recorded_with: VCR 2.3.0

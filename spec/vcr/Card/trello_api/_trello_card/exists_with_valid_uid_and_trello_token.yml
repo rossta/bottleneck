@@ -12,9 +12,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="35d55675a1c18d0ef6ee125249af51fc",
-        oauth_signature="Vbj3pAk5M20WAiRzHbNcGVWKJiM%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1358483491", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="e65efce998a29ea1137915b7b5c529ca",
+        oauth_signature="sQ4X4%2FZxlPEUMDB5n1Rj8AQe6NM%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359424416", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -25,31 +25,29 @@ http_interactions:
     headers:
       x-powered-by:
       - Express
-      content-type:
-      - application/json; charset=utf-8
-      content-length:
-      - '696'
       x-server-time:
-      - '1358483492088'
+      - '1359424417100'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
       - Thu, 01 Jan 1970 00:00:00
+      content-type:
+      - application/json
       access-control-allow-origin:
       - ! '*'
       access-control-allow-methods:
       - GET, PUT, POST, DELETE
+      content-length:
+      - '817'
       set-cookie:
-      - connect.sid=1Bwp5zBKh2thjAMEpKbcKjX%2B.cAHuhgq5SMjkUVAbHutD7WidqcfPe9E%2FtdEvAu1GO5I;
+      - connect.sid=BzBFthCfcW0jsnBcfvITf1b0.dloSv32npZTtz938t3vhac2BPZZpVXmVGv5E%2F7MqFc4;
         path=/; httpOnly
       date:
-      - Fri, 18 Jan 2013 04:31:32 GMT
-      connection:
-      - keep-alive
+      - Tue, 29 Jan 2013 01:53:37 GMT
     body:
       encoding: US-ASCII
-      string: ! '{"id":"50f02b7e6a44c1b264004e34","badges":{"votes":0,"viewingMemberVoted":false,"subscribed":false,"fogbugz":"","checkItems":6,"checkItemsChecked":0,"comments":0,"attachments":0,"description":false,"due":null},"checkItemStates":[],"closed":false,"desc":"","due":null,"idBoard":"50ce927d006f9d1b63010458","idChecklists":["50f02b8d6a44c1b264004e37","50f02bae6a44c1b264004e3c"],"idList":"50ce92ad006f9d1b6301048b","idMembers":[],"idShort":8,"idAttachmentCover":null,"manualCoverAttachment":false,"labels":[],"name":"Record
-        interval in background for project''s time zone","pos":131071.5,"url":"https://trello.com/card/record-interval-in-background-for-project-s-time-zone/50ce927d006f9d1b63010458/8"}'
+      string: ! '{"id":"50f02b7e6a44c1b264004e34","badges":{"votes":0,"viewingMemberVoted":false,"subscribed":false,"fogbugz":"","checkItems":6,"checkItemsChecked":2,"comments":0,"attachments":0,"description":false,"due":null},"checkItemStates":[{"idCheckItem":"50f02d038e5be1580d004ce7","state":"complete"},{"idCheckItem":"50f02d0c8e5be1580d004ce8","state":"complete"}],"closed":false,"desc":"","due":null,"idBoard":"50ce927d006f9d1b63010458","idChecklists":["50f02b8d6a44c1b264004e37","50f02bae6a44c1b264004e3c"],"idList":"50ce92b4006f9d1b6301048f","idMembers":[],"idShort":8,"idAttachmentCover":null,"manualCoverAttachment":false,"labels":[],"name":"Record
+        interval in background for project''s time zone","pos":589823,"url":"https://trello.com/card/record-interval-in-background-for-project-s-time-zone/50ce927d006f9d1b63010458/8"}'
     http_version: '1.1'
-  recorded_at: Fri, 18 Jan 2013 04:31:32 GMT
+  recorded_at: Tue, 29 Jan 2013 01:53:37 GMT
 recorded_with: VCR 2.3.0

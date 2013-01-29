@@ -12,9 +12,9 @@ http_interactions:
       accept-encoding:
       - gzip, deflate
       authorization:
-      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="26e49577721be7e2635538eaab200340",
-        oauth_signature="3c0U6oe0IdERulAcVf3lfvw2nMc%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="1358305312", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
+      - OAuth oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="829fcb1bde38b9a1e962720ffec026e0",
+        oauth_signature="5bMNrQ19Eodkncny%2Fhah4nnQ%2FCM%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1359424415", oauth_token="c5c951febdf84a1e45ef8234cc5eef382d9643fb6c7f3717cc091a7afa23aad9",
         oauth_version="1.0"
       user-agent:
       - Ruby
@@ -25,30 +25,28 @@ http_interactions:
     headers:
       x-powered-by:
       - Express
-      content-type:
-      - application/json; charset=utf-8
-      content-length:
-      - '320'
       x-server-time:
-      - '1358305313093'
+      - '1359424415863'
       cache-control:
       - max-age=0, must-revalidate, no-cache, no-store
       expires:
       - Thu, 01 Jan 1970 00:00:00
+      content-type:
+      - application/json
       access-control-allow-origin:
       - ! '*'
       access-control-allow-methods:
       - GET, PUT, POST, DELETE
+      content-length:
+      - '401'
       set-cookie:
-      - connect.sid=bWAbsF45WFs1vrC07WVaibAI.Vgu0lrGpIEFJoETolN8L0cIifixJAfG%2BxI8S%2FoKI4AM;
+      - connect.sid=8EZwJqVgDcBe1fDIFrFwZf0s.6qo9JmaTSc%2FWXa2LayK042FT7eLUtc3u4wTKIX49A18;
         path=/; httpOnly
       date:
-      - Wed, 16 Jan 2013 03:01:53 GMT
-      connection:
-      - keep-alive
+      - Tue, 29 Jan 2013 01:53:35 GMT
     body:
       encoding: US-ASCII
-      string: ! '{"id":"50ce927d006f9d1b63010458","name":"Bottleneck","desc":"","closed":false,"idOrganization":null,"pinned":true,"url":"https://trello.com/board/bottleneck/50ce927d006f9d1b63010458","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true}}'
+      string: ! '{"id":"50ce927d006f9d1b63010458","name":"Bottleneck","desc":"","closed":false,"idOrganization":null,"pinned":true,"url":"https://trello.com/board/bottleneck/50ce927d006f9d1b63010458","prefs":{"permissionLevel":"private","voting":"members","comments":"members","invitations":"members","selfJoin":false,"cardCovers":true},"labelNames":{"red":"","orange":"","yellow":"","green":"","blue":"","purple":""}}'
     http_version: '1.1'
-  recorded_at: Wed, 16 Jan 2013 03:01:53 GMT
+  recorded_at: Tue, 29 Jan 2013 01:53:35 GMT
 recorded_with: VCR 2.3.0
