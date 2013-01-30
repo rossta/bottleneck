@@ -40,4 +40,6 @@ Bottleneck::Application.configure do
 
   require 'mock_redis'
   config.redis_class = MockRedis
+
+  config.disable_homepage = false
 end
