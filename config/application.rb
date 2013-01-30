@@ -77,5 +77,8 @@ module Bottleneck
     config.assets.initialize_on_precompile = false
 
     config.redis_class = Redis
+
+    # Settings
+    config.disable_homepage = true
   end
 end
