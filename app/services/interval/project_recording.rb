@@ -1,7 +1,8 @@
 class Interval::ProjectRecording < Interval::Base
   records :project
 
-  delegate :interval, :card_history, :list_history,
+  delegate :store_interval, :incr_interval, :interval_key?,
+    :card_history, :list_history,
     :cards, :zone_time_now, :lists, :current_cards,
     to: :project
 
@@ -19,40 +20,45 @@ class Interval::ProjectRecording < Interval::Base
 
   def update_daily_summary
     # list ids for today
-    interval.store(date_key(today, :list_ids), list_ids)
+    store_interval(date_key(today, :list_ids), list_ids)
 
     # all count today
-    interval.store(date_key(today, :card_count), card_count)
+    store_interval(date_key(today, :card_count), card_count)
 
     # card label counts for today
     card_label_counts.each do |label|
-      interval.store(date_key(today, :card_count, label.name), label.count)
+      store_interval(date_key(today, :card_count, label.name), label.count)
     end
 
     # backlog count today
-    interval.store(date_key(today, :backlog_count), backlog_card_count)
+    store_interval(date_key(today, :backlog_count), backlog_cards.count)
 
     # wip count today
-    interval.store(date_key(today, :wip_count), wip_card_count)
+    store_interval(date_key(today, :wip_count), wip_cards.count)
 
     # done count today
-    interval.store(date_key(today, :done_count), done_card_count)
+    store_interval(date_key(today, :done_count), done_card_count)
+
+    # card label counts for today
+    card_label_counts.each do |label|
+      store_interval(date_key(today, :card_count, label.name), label.count)
+    end
 
     # lead time today
-    interval.store(date_key(today, :lead_time), lead_time)
+    store_interval(date_key(today, :lead_time), lead_time)
   end
 
   def record_end_of_day_summary
-    return if interval.has_key?(date_key(today))
+    return if interval_key?(date_key(today))
 
     # end of day timestamp
-    interval.store(date_key(today), now.to_i)
+    store_interval(date_key(today), now.to_i)
 
     # increment age
-    interval.incr(:total, 1)
+    incr_interval(:total, 1)
 
     # store total card count
-    interval.store(:cards, cumulative_card_count)
+    store_interval(:cards, cumulative_card_count)
   end
 
   def card_count
@@ -60,15 +66,15 @@ class Interval::ProjectRecording < Interval::Base
   end
 
   def card_label_counts
-    @card_label_counts ||= cards.tag_counts_on(:labels)
+    @card_label_counts ||= current_cards.tag_counts_on(:labels)
   end
 
-  def backlog_card_count
-    @backlog_card_count ||= current_cards.joins(:list).merge(List.backlog).count
+  def backlog_cards
+    @backlog_cards ||= current_cards.joins(:list).merge(List.backlog)
   end
 
-  def wip_card_count
-    @wip_card_count ||= current_cards.joins(:list).merge(List.wip).count
+  def wip_cards
+    @wip_cards ||= current_cards.joins(:list).merge(List.wip)
   end
 
   def done_card_count
@@ -76,22 +82,7 @@ class Interval::ProjectRecording < Interval::Base
   end
 
   def lead_time
-    @lead_time ||= begin
-      days_ago = 0
-      done      = project.done_count(today)
-      capacity  = project.capacity_count(today)
-
-      # back track one day at a time until capacity
-      # was less than or equal to currently done
-      # "times out" over 100
-      while done < capacity
-        days_ago += 1
-        break if days_ago > 100
-        capacity = project.capacity_count(today - days_ago.days)
-      end
-
-      days_ago
-    end
+    @lead_time ||= LeadTime.days(project, today)
   end
 
   def cumulative_card_count

@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
   include Redis::Objects
   include RedisKeys
+  include RedisIntervals
 
   include Extensions::Age
   include Extensions::TrelloFetchable
@@ -95,12 +96,16 @@ class Project < ActiveRecord::Base
     cards.map(&:clear_history)
   end
 
+  def backlog_count(date)
+    interval_date_count date, :backlog_count
+  end
+
   def wip_count(date)
-    interval[date_key(date, :wip_count)].to_i
+    interval_date_count date, :wip_count
   end
 
   def done_count(date)
-    interval[date_key(date, :done_count)].to_i
+    interval_date_count date, :done_count
   end
 
   # WIP + Done
@@ -111,7 +116,7 @@ class Project < ActiveRecord::Base
   # Time to market:
   # days elapsed from when total capacity equaled total now completed
   def lead_time(date)
-    interval[date_key(date, :lead_time)].to_i
+    interval_date_count date, :lead_time
   end
 
   # Arrival rate = WIP (start of cycle) / Lead Time

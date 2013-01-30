@@ -22,8 +22,9 @@ describe Project do
     let(:today) { now.to_date }
 
     before do
-      list.cards << build(:card) << build(:card) << build(:card)
+      list.cards << build(:card, label_list: 'Bug') << build(:card, label_list: 'Story') << build(:card)
       list.stub!(:record_interval)
+      LeadTime.stub!(days: 4)
       project.lists << list
     end
 
@@ -51,6 +52,43 @@ describe Project do
       time = Clock.time
       list.should_receive(:record_interval).with(time)
       project.record_interval(time)
+    end
+
+    it "records backlog count" do
+      list.update_attributes(role: List::BACKLOG)
+      project.record_interval(now)
+      project.backlog_count(today).should eq(3)
+      project.wip_count(today).should eq(0)
+      project.done_count(today).should eq(0)
+    end
+
+    it "records wip count" do
+      list.update_attributes(role: List::WIP)
+      project.record_interval(now)
+      project.wip_count(today).should eq(3)
+      project.backlog_count(today).should eq(0)
+      project.done_count(today).should eq(0)
+    end
+
+    it "records done count" do
+      list.interval.store(date_key(today, :cumulative_total), 2)
+      list.update_attributes(role: List::DONE)
+      project.record_interval(now)
+      project.done_count(today).should eq(2)
+      project.wip_count(today).should eq(0)
+      project.backlog_count(today).should eq(0)
+    end
+
+    it "records lead time" do
+      LeadTime.should_receive(:days).and_return(4)
+      project.record_interval(now)
+      project.lead_time(today).should eq(4)
+    end
+
+    it "records card label counts" do
+      project.record_interval(now)
+      project.interval[date_key(today, :card_count, 'Bug')].to_i.should eq(1)
+      project.interval[date_key(today, :card_count, 'Story')].to_i.should eq(1)
     end
 
     it "records lists empty of cards" do
