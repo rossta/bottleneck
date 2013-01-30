@@ -52,7 +52,7 @@ class ProjectForm
 
   def persist!
     project.attributes = attributes
-    project.owner = owner if owner
+    project.owner = owner if owner && project.owner.nil?
 
     if trello_account
       project.trello_account = trello_account
