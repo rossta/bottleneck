@@ -18,9 +18,17 @@ module Bottleneck
       g.test_framework :rspec, fixture: true
       g.fixture_replacement :factory_girl
 
-
       g.view_specs false
       g.helper_specs false
+    end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          headers: %w[Origin Accept Content-Type X-CSRF-Token Authorization],
+          methods: [:get, :post, :put, :delete]
+      end
     end
 
     # Settings in config/environments/* take precedence over those specified here.

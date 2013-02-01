@@ -19,6 +19,8 @@ gem "pg", ">= 0.14.1"
 
 gem "figaro", ">= 0.5.0"
 
+gem 'rack-cors', require: 'rack/cors'
+
 # actionpack
 gem "devise", ">= 2.1.2"
 gem "cancan", ">= 1.6.8"

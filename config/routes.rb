@@ -1,6 +1,12 @@
 require 'resque/server'
 
 Bottleneck::Application.routes.draw do
+  namespace :api, defaults: { format: 'json' } do
+    scope module: :v1 do
+      resources :projects
+    end
+  end
+
   authenticated :user do
     root :to => 'dashboard#show', as: :dashboard
   end
