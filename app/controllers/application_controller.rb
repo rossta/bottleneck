@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     !user_signed_in?
   end
 
+  def current_ability
+    Ability.new(current_user)
+  end
+
   # # Public - devise override
   # def sign_in(resource_or_scope, *args)
   #   super

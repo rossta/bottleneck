@@ -18,7 +18,7 @@ Bottleneck::Application.routes.draw do
   resources :trello_accounts do
     collection do
       get :authorize
-      get :callback    # three-legged OAuth currently not functional
+      get :callback
     end
   end
 
@@ -45,7 +45,7 @@ Bottleneck::Application.routes.draw do
     request.env['warden'].user &&
     request.env['warden'].user.has_role?(:admin)
   end
-  scope "/admin", constraints: admin_constraint do
-    mount Resque::Server.new, at: "/resque"
-  end
+  # scope "/admin", constraints: admin_constraint do
+    # mount Resque::Server.new, at: "/resque"
+  # end
 end

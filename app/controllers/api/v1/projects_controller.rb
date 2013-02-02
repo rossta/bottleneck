@@ -1,8 +1,8 @@
-class Api::V1::ProjectsController < ApplicationController
+class Api::V1::ProjectsController < Api::V1::ApiController
 
   def index
+    authorize! :read, current_user
     @projects = current_user.projects
-    authorize! :read, @projects
     render json: @projects
   end
 
