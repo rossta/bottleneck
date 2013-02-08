@@ -2,7 +2,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_path, :alert => exception.message
+    respond_to do |format|
+      format.html { redirect_to root_path, :alert => exception.message }
+      format.js { render json: exception.to_json, status: :unauthorized }
+    end
   end
 
   # Public - devise override

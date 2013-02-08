@@ -4,8 +4,11 @@ Bottleneck::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       resources :projects
+      resources :cumulative_flows
     end
   end
+
+  match "/foobar", to: "foobars#show", format: :js
 
   authenticated :user do
     root :to => 'dashboard#show', as: :dashboard

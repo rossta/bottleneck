@@ -3,6 +3,12 @@ class Api::V1::ApiController < ApplicationController
 
   respond_to :json
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    respond_to do |format|
+      format.json { render :text => exception.to_json, :status => :not_found }
+    end
+  end
+
   protected
 
   # vnd.example-com.foo+json; version=1.0
@@ -16,5 +22,9 @@ class Api::V1::ApiController < ApplicationController
 
   def current_user
     @current_user
+  end
+
+  def find_project
+    current_user.projects.find
   end
 end

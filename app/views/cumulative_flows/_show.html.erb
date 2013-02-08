@@ -8,7 +8,7 @@
   </div>
   <div id="legend"></div>
   <script type="text/javascript">
-    var seriesData = <%= raw flow.to_json %>;
+    var seriesData = <%= raw flow.series_json %>;
 
     new TimeSeries(seriesData).render();
   </script>

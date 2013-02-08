@@ -8,10 +8,10 @@ describe LeadTime do
   describe "days" do
     let(:capacity_counts) {
       {
-        today               => 10,
-        1.day.ago.to_date   => 9,
-        2.days.ago.to_date  => 8,
-        3.days.ago.to_date  => 6
+        today       => 10,
+        (today - 1) => 9,
+        (today - 2) => 8,
+        (today - 3) => 6
       }
     }
 
@@ -33,7 +33,7 @@ describe LeadTime do
     end
 
     it "short circuits on project created_at" do
-      project.stub(created_at: 1.day.ago)
+      project.stub(created_at: today - 1)
       lead_time.days.should eq(2)
     end
   end

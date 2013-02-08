@@ -4,7 +4,7 @@ class Clock
       Time.zone.now
     end
 
-    def zone_time(time_zone, time = Time.now)
+    def zone_time(time_zone, time = Clock.time)
       time.in_time_zone(time_zone)
     end
 

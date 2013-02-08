@@ -6,7 +6,6 @@ class ListVectorInterval < ListInterval
 
   def counts
     @counts ||= begin
-      require "matrix"
       lists.map { |l| Vector[*l.interval_counts(dates)] }.inject(&:+)
     end
   end

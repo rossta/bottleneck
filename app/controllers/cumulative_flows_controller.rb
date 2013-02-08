@@ -3,10 +3,9 @@ class CumulativeFlowsController < ApplicationController
   around_filter :project_time_zone, if: :current_project
 
   def show
-    @flow = CumulativeFlow.new(
+    @flow = CumulativeFlow.new(@project,
       start_time: 14.days.ago,
       end_time: Clock.time,
-      project: @project,
       collapsed: !!params[:collapsed]
     )
   end
