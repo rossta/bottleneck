@@ -45,21 +45,13 @@ class CumulativeFlow
   end
 
   def series
-    if collapsed
-      [
-        ListVectorInterval.new(lists.backlog, start_date, end_date),
-        ListVectorInterval.new(lists.wip, start_date, end_date),
-        ListVectorInterval.new(lists.done, start_date, end_date)
-      ]
-    else
-      lists.flow.reverse_order.map { |list|
-        ListInterval.new(list, start_date, end_date)
-      }
-    end
+    lists_flow(collapsed: collapsed?).map { |list|
+      ListInterval.new(list, start_date, end_date).attributes
+    }
   end
 
   def series_json
-    series.map(&:to_json).to_json
+    series.to_json
   end
 
   def default_start_time

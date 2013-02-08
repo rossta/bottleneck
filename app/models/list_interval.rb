@@ -29,7 +29,7 @@ class ListInterval
     dates.to_a.zip(counts).map { |tuple| DateCount.new(tuple[0], tuple[1]) }
   end
 
-  def to_json
+  def attributes
     {
       name: list.name,
       data: data,

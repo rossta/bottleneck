@@ -68,6 +68,14 @@ class Project < ActiveRecord::Base
     :end_of_day
   end
 
+  def lists_flow(options = {})
+    if options[:collapsed]
+      [lists.backlog, lists.wip, lists.done]
+    else
+      lists.flow.reverse_order
+    end
+  end
+
   def add_moderator(user)
     user.add_role(:moderator, self)
   end
