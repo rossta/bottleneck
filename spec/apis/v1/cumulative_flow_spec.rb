@@ -21,7 +21,7 @@ describe "Cumulative Flows Api", type: :api do
       last_response.body.should eq(flow_json)
 
       flow = JSON.parse(last_response.body)["cumulative_flow"]
-      flow["title"].should eq("Cumulative Flow: 14 days trailing")
+      flow["name"].should =~ /Cumulative Flow/
       flow["collapsed"].should eq(false)
     end
 

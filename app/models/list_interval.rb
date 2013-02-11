@@ -5,20 +5,17 @@ class ListInterval
     def data; { x: x, y: y }; end
   end
 
-  attr_reader :list, :start_date, :end_date
+  attr_reader :list
+  attr_accessor :dates
 
   delegate :name, :position, to: :list
 
-  def initialize(list, start_date, end_date)
-    @list, @start_date, @end_date = list, start_date, end_date
+  def initialize(list, dates)
+    @list, @dates = list, dates
   end
 
   def data
     date_counts.map(&:data)
-  end
-
-  def dates
-    @dates ||= Range.new(start_date, end_date)
   end
 
   def counts

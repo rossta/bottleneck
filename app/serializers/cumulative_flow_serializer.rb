@@ -1,3 +1,3 @@
 class CumulativeFlowSerializer < ActiveModel::Serializer
-  attributes :id, :title, :start_date, :end_date, :collapsed, :series
+  attributes :id, :name, :start_date, :end_date, :collapsed, :series
 end

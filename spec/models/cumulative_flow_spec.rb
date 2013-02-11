@@ -6,7 +6,7 @@ describe CumulativeFlow do
   def mock_project(attributes = {})
     mock("Project", {
       title: "Scarecrow",
-      lists_flow: [mock_list],
+      flow_lists: [mock_list],
       time_zone: time_zone })
   end
 
@@ -31,6 +31,7 @@ describe CumulativeFlow do
     it "returns intervals for project lists" do
       today = now.to_date
       yesterday = today - 1
+      cumulative_flow.omit_weekends = false
       cumulative_flow.series.should == [
         {
           name: "List name",

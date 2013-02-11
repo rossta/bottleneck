@@ -11,6 +11,7 @@ class CumulativeFlow
   attribute :start_time, ActiveSupport::TimeWithZone, default: :default_start_time
   attribute :end_time, ActiveSupport::TimeWithZone, default: :default_end_time
   attribute :collapsed, Boolean, default: false
+  attribute :omit_weekends, Boolean, default: false
 
   def initialize(project, attributes = {})
     @project = project
@@ -40,13 +41,25 @@ class CumulativeFlow
   def start_date; start_time.to_date; end
   def end_date; end_time.to_date; end
 
+  def all_dates
+    @all_dates ||= Range.new(start_date, end_date)
+  end
+
+  def weekday_dates
+    all_dates.select { |d| (1..5).include?(d.wday) }
+  end
+
   def dates
-    @dates ||= Range.new(start_date, end_date)
+    if omit_weekends?
+      weekday_dates
+    else
+      all_dates
+    end
   end
 
   def series
-    lists_flow(collapsed: collapsed?).map { |list|
-      ListInterval.new(list, start_date, end_date).attributes
+   project.flow_lists(collapsed: collapsed?).map { |list|
+      ListInterval.new(list, dates).attributes
     }
   end
 

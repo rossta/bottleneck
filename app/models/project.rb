@@ -68,7 +68,7 @@ class Project < ActiveRecord::Base
     :end_of_day
   end
 
-  def lists_flow(options = {})
+  def flow_lists(options = {})
     if options[:collapsed]
       [lists.backlog, lists.wip, lists.done]
     else

@@ -3,6 +3,7 @@ module Bootstrap
 
   def project_for(user)
     require 'factory_girl'
+    project_name = "Scarecrow"
     time_zone = ActiveSupport::TimeZone['Eastern Time (US & Canada)']
     Time.use_zone(time_zone) do
       now = Time.now
@@ -10,9 +11,9 @@ module Bootstrap
       midday = time_zone.parse("#{today} 12 PM")
       end_of_day = time_zone.parse("#{today} 11 PM")
 
-      puts "set up project"
+      Rails.logger.info "#{project_name}: set up project"
 
-      project = user.owned_projects.find_or_create_by_name("Scarecrow")
+      project = user.owned_projects.find_or_create_by_name(project_name)
       project.time_zone = time_zone.name
       project.save!
       project.add_moderator(user) unless project.has_moderator?(user)
@@ -28,7 +29,7 @@ module Bootstrap
         ['done', List::DONE]
       ]
 
-      puts "set up lists"
+      Rails.logger.info "#{project_name}: set up lists"
 
       list_config.each_with_index do |config, i|
         name, role = *config
@@ -37,7 +38,7 @@ module Bootstrap
         instance_variable_set("@#{name}", list)
       end
 
-      puts "set up cards"
+      Rails.logger.info "#{project_name}: set up cards"
       label_set = %w[ Bug Chore Story Story ]
       1.upto(30).each do |num|
         card = project.cards.find_or_initialize_by_name("Card #{num}")
@@ -46,7 +47,7 @@ module Bootstrap
         card.save
       end
 
-      puts "record from 15 days ago"
+      Rails.logger.info "#{project_name}: record from 15 days ago"
       days_ago = 15.days
 
       # Day 0, Sunday
@@ -56,7 +57,7 @@ module Bootstrap
       @approved.cards = []
       @done.cards     = []
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -70,7 +71,7 @@ module Bootstrap
       @approved.cards = []
       @done.cards     = []
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -84,7 +85,7 @@ module Bootstrap
       @approved.cards = [@card_9]
       @done.cards     = [@card_10]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -98,7 +99,7 @@ module Bootstrap
       @approved.cards = []
       @done.cards     = [@card_9, @card_10]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -112,7 +113,7 @@ module Bootstrap
       @approved.cards = [@card_6]
       @done.cards     = [@card_7, @card_8, @card_9, @card_10]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -126,7 +127,7 @@ module Bootstrap
       @approved.cards = [@card_5]
       @done.cards     = [@card_6, @card_7, @card_8, @card_9, @card_10]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -143,7 +144,7 @@ module Bootstrap
 
       # Day 7, Sunday
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -157,7 +158,7 @@ module Bootstrap
       @approved.cards = [@card_3, @card_4]
       @done.cards     = [@card_5]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -171,7 +172,7 @@ module Bootstrap
       @approved.cards = [@card_2]
       @done.cards     = [@card_3, @card_4, @card_5]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -185,7 +186,7 @@ module Bootstrap
       @approved.cards = [@card_13]
       @done.cards     = [@card_12, @card_11, @card_1, @card_2, @card_3, @card_4, @card_5]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -199,7 +200,7 @@ module Bootstrap
       @approved.cards = [@card_15, @card_14]
       @done.cards     = [@card_13, @card_12, @card_11, @card_1, @card_2, @card_3, @card_4, @card_5]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -213,7 +214,7 @@ module Bootstrap
       @approved.cards = [@card_15]
       @done.cards     = [@card_16, @card_14, @card_13, @card_12, @card_11, @card_1, @card_2, @card_3, @card_4, @card_5]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -221,7 +222,7 @@ module Bootstrap
       days_ago -= 1.day  # 5.days
 
       # Day 13, Saturday
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -229,7 +230,7 @@ module Bootstrap
       days_ago -= 1.day  # 5.days
 
       # Day 14, Sunday
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
@@ -243,7 +244,7 @@ module Bootstrap
       @approved.cards = []
       @done.cards     = [@card_19, @card_18, @card_15]
 
-      Rails.logger.info "Recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
+      Rails.logger.info "#{project_name}: recording #{project.zone_time(end_of_day - days_ago).to_date.to_s(:long)}, #{days_ago/1.day} days ago"
       project.reload
       project.record_interval(project.zone_time(midday - days_ago))
       project.record_interval(project.zone_time(end_of_day - days_ago))
