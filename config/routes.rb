@@ -8,8 +8,6 @@ Bottleneck::Application.routes.draw do
     end
   end
 
-  match "/foobar", to: "foobars#show", format: :js
-
   authenticated :user do
     root :to => 'dashboard#show', as: :dashboard
   end
