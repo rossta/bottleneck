@@ -10,4 +10,10 @@ class Api::V1::ProjectsController < Api::V1::ApiController
     authorize! :read, @project
     render json: @project
   end
+
+  def summary
+    @project = current_user.projects.find(params[:id])
+    @summary = ProjectSummary.new(@project)
+    render json: @summary
+  end
 end
