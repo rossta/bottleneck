@@ -3,15 +3,22 @@ require 'resque/server'
 Bottleneck::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
-      resources :projects
+      resources :projects do
+        member do
+          get :summary
+        end
+      end
       resources :cumulative_flows
+
+      match "/users/me", to: "users#me"
+      resources :users
     end
   end
 
   authenticated :user do
-    root :to => 'dashboard#show', as: :dashboard
+    root to: 'dashboard#show', as: :dashboard
   end
-  root :to => "home#index"
+  root to: "home#index"
   devise_for :users,
     controllers: { registrations: "users/registrations" }
 
