@@ -8,6 +8,7 @@ class CumulativeFlow
 
   include Virtus
 
+  attribute :date_range, DateRange, default: -> { DateRange.new }
   attribute :start_time, ActiveSupport::TimeWithZone, default: :default_start_time
   attribute :end_time, ActiveSupport::TimeWithZone, default: :default_end_time
   attribute :collapsed, Boolean, default: false
@@ -33,6 +34,8 @@ class CumulativeFlow
   def title
     "#{name}: #{interval_in_days} days trailing"
   end
+
+  delegate :int, :start_date, :end_date, :dates, to: :date_range
 
   def interval_in_days
     ((end_time - start_time).round / 1.day)
@@ -68,7 +71,7 @@ class CumulativeFlow
   end
 
   def default_start_time
-    Clock.zone_time(time_zone, default_time - 14.days)
+    end_time - 14.days
   end
 
   def default_end_time

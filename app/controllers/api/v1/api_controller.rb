@@ -9,6 +9,12 @@ class Api::V1::ApiController < ApplicationController
     end
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.js { render json: exception.to_json, status: :unauthorized }
+    end
+  end
+
   protected
 
   # vnd.example-com.foo+json; version=1.0
@@ -18,6 +24,7 @@ class Api::V1::ApiController < ApplicationController
       Rails.logger.info("authenticating... #{token}, #{options}")
       User.find_by_authentication_token(token)
     end
+    raise CanCan::AccessDenied unless @current_user
   end
 
   def current_user

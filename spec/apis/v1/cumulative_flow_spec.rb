@@ -1,13 +1,12 @@
 require 'spec_helper'
 
-describe "Cumulative Flows Api", type: :api do
+describe "Cumulative Flows Api" do
   let(:user) { create(:user) }
-  let(:time) { Time.now }
+  let(:time) { Clock.zone_time(project.time_zone) }
   let(:project) { create(:project, name: "Scarecrow") }
-  let(:cumulative_flow) { CumulativeFlow.new(project) }
+  let(:cumulative_flow) { CumulativeFlow.new(project, end_time: time) }
 
   before do
-    Clock.stub!(:time).and_return(time)
     project.add_moderator(user)
   end
 
@@ -15,14 +14,14 @@ describe "Cumulative Flows Api", type: :api do
     it "returns cumulative flow by project id" do
       authenticated_get "/api/cumulative_flows/#{project.id}", user.authentication_token
 
-      flow_json = cumulative_flow.active_model_serializer.new(cumulative_flow, root: 'cumulative_flow').to_json
+      expected_json = cumulative_flow.active_model_serializer.new(cumulative_flow, root: 'cumulative_flow').to_json
       last_response.status.should eq(200)
-      puts last_response.body
-      last_response.body.should eq(flow_json)
+      last_response.body.should eq(expected_json)
 
-      flow = JSON.parse(last_response.body)["cumulative_flow"]
-      flow["name"].should =~ /Cumulative Flow/
-      flow["collapsed"].should eq(false)
+      flow_json = JSON.parse(last_response.body)["cumulative_flow"]
+      flow_json["id"].should eq(cumulative_flow.id)
+      flow_json["name"].should =~ /Cumulative Flow/
+      flow_json["collapsed"].should eq(false)
     end
 
     it "returns not found" do

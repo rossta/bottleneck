@@ -14,9 +14,9 @@ describe "Projects Api", type: :api do
     it "returns current_user projects" do
       authenticated_get "/api/projects", user.authentication_token
 
-      projects_json = user.projects.active_model_serializer.new(user.projects, root: 'projects').to_json
+      expected_json = user.projects.active_model_serializer.new(user.projects, root: 'projects').to_json
       last_response.status.should eq(200)
-      last_response.body.should eq(projects_json)
+      last_response.body.should eq(expected_json)
 
       projects = JSON.parse(last_response.body)["projects"]
       projects.any? do |p|
