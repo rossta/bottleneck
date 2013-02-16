@@ -4,9 +4,14 @@ class Api::V1::CumulativeFlowsController < Api::V1::ApiController
 
   def show
     authorize! :read, @project
-    @flow = CumulativeFlow.new(@project,
+    @date_range = DateRange.new(
       start_time: (end_time - 14.days),
       end_time: end_time,
+    )
+    puts @date_range.time_zone
+    puts @project.time_zone
+    @flow = CumulativeFlow.new(@project,
+      date_range: @date_range,
       collapsed: !!params[:collapsed]
     )
 

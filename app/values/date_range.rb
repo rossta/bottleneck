@@ -3,7 +3,6 @@ class DateRange
 
   attribute :start_time, ActiveSupport::TimeWithZone, default: :default_start_time
   attribute :end_time, ActiveSupport::TimeWithZone, default: :default_end_time
-  attribute :time_zone, ActiveSupport::TimeZone, default: Time.zone
   attribute :omit_weekends, Boolean, default: false
 
   def start_date; start_time.to_date; end
@@ -26,11 +25,15 @@ class DateRange
   end
 
   def default_end_time
-    Clock.zone_time(time_zone, default_time)
+    Clock.time
   end
 
   def default_time
     @default_time ||= Clock.time
+  end
+
+  def time_zone
+    end_time.time_zone
   end
 
   private

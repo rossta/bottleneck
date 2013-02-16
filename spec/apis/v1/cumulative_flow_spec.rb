@@ -4,7 +4,8 @@ describe "Cumulative Flows Api" do
   let(:user) { create(:user) }
   let(:time) { Clock.zone_time(project.time_zone) }
   let(:project) { create(:project, name: "Scarecrow") }
-  let(:cumulative_flow) { CumulativeFlow.new(project, end_time: time) }
+  let(:date_range) { DateRange.new(end_time: time, time_zone: project.time_zone) }
+  let(:cumulative_flow) { CumulativeFlow.new(project) }
 
   before do
     project.add_moderator(user)

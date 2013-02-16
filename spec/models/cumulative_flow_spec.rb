@@ -19,11 +19,14 @@ describe CumulativeFlow do
 
   let(:project) { mock_project }
   let(:now) { Clock.zone_time(time_zone) }
-  let(:cumulative_flow) {
-    CumulativeFlow.new(project,
-      start_time: (now - 1.day),
-      end_time: now)
+  let(:date_range) { DateRange.new(
+    start_time: (now - 1.day),
+    end_time: now,
+    time_zone: time_zone,
+    omit_weekends: false
+    )
   }
+  let(:cumulative_flow) { CumulativeFlow.new(project, date_range: date_range) }
 
   it { cumulative_flow.title.should =~ /Cumulative Flow/ }
 
@@ -31,7 +34,6 @@ describe CumulativeFlow do
     it "returns intervals for project lists" do
       today = now.to_date
       yesterday = today - 1
-      cumulative_flow.omit_weekends = false
       cumulative_flow.series.should == [
         {
           name: "List name",

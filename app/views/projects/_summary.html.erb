@@ -25,15 +25,15 @@
     </tr>
     <tr>
       <td>Avg Lead Time over range</td>
-      <td><%= @project.average_lead_time(@range) %> days</td>
+      <td><%= @project.average_lead_time(@dates) %> days</td>
     </tr>
     <tr>
       <td>Avg WIP over range</td>
-      <td><%= @project.average_wip_count(@range) %> cards</td>
+      <td><%= @project.average_wip_count(@dates) %> cards</td>
     </tr>
     <tr>
       <td>Avg Arrival Rate over range</td>
-      <td><%= @project.average_arrival_rate(@range) %> cards / day</td>
+      <td><%= @project.average_arrival_rate(@dates) %> cards / day</td>
     </tr>
     <tr>
       <td>Slow movers in WIP</td>

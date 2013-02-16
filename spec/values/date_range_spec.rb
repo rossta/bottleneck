@@ -14,7 +14,7 @@ describe DateRange do
 
   it { date_range.end_time.should eq(end_time) }
 
-  it { date_range.time_zone.should eq(Time.zone) }
+  it { date_range.time_zone.should eq(end_time.time_zone) }
 
   it { date_range.start_date.should eq(start_time.to_date) }
 

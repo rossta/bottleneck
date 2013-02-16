@@ -10,13 +10,15 @@ class ProjectsController < ApplicationController
 
   def show
     authorize! :read, @project
-
-    @flow = CumulativeFlow.new(@project,
+    @date_range = DateRange.new(
       start_time: 14.days.ago,
       end_time: Clock.time,
+    )
+    @flow = CumulativeFlow.new(@project,
+      date_range: @date_range,
       collapsed: !!params[:collapsed]
     )
-    @range = @flow.dates
+    @dates = @date_range.dates
   end
 
   def new
