@@ -43,6 +43,14 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  def find_project
+    @project = current_user.projects.find(params[:id])
+  end
+
+  def find_project_nested
+    @project = current_user.projects.find(params[:project_id])
+  end
+
   def current_project
     @project
   end

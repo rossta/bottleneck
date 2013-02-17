@@ -11,6 +11,8 @@ class CumulativeFlow
   attribute :date_range, DateRange, default: lambda { |flow, attr| DateRange.new }
   attribute :collapsed, Boolean, default: false
 
+  delegate :interval_in_days, :start_date, :end_date, :dates, to: :date_range
+
   def initialize(project, attributes = {})
     @project = project
     super(attributes)
@@ -31,8 +33,6 @@ class CumulativeFlow
   def title
     "#{name}: #{interval_in_days} days trailing"
   end
-
-  delegate :interval_in_days, :start_date, :end_date, :dates, to: :date_range
 
   def series
    project.flow_lists(collapsed: collapsed?).map { |list|

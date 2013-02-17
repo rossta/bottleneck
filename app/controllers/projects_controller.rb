@@ -77,7 +77,7 @@ class ProjectsController < ApplicationController
   protected
 
   def find_project
-    @project ||= Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
   end
 
   def build_trello_account

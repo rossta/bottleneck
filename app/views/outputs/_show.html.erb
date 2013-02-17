@@ -8,7 +8,7 @@
   </div>
   <div id="legend"></div>
   <script type="text/javascript">
-    var seriesData = <%= raw @output.to_json %>;
+    var seriesData = <%= raw @output.series.to_json %>;
 
     new TimeSeries(seriesData, { colorIndex: 0 }).render();
   </script>

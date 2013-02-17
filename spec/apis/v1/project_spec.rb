@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Projects Api", type: :api do
   let(:user) { create(:user) }
-  let(:project) { create(:project, name: "Scarecrow") }
+  let(:project) { create(:project, name: "Scarecrow", time_zone: ActiveSupport::TimeZone['(GMT+12:00) Fiji']) }
   let(:access_denied_project) { create(:project, name: "Access Denied") }
 
   before do
@@ -29,7 +29,7 @@ describe "Projects Api", type: :api do
     end
   end
 
-  describe "/project/:project_id" do
+  describe "/project/:id" do
     it "returns project by id" do
       authenticated_get "/api/projects/#{project.id}", user.authentication_token
 

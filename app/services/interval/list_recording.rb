@@ -15,7 +15,6 @@ class Interval::ListRecording < Interval::Base
   end
 
   def update_daily_summary
-    # puts "list_id: #{list.id},#{date_key(today, :cumulative_total)} count: #{card_ids.count}, history #{card_history.size}"
     card_cumulative = card_history.size
 
     # card count for today

@@ -4,9 +4,8 @@ Bottleneck::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       resources :projects do
-        member do
-          get :summary
-        end
+        resource :summary, only: [:show]
+        resource :output, only: [:show]
       end
       resources :cumulative_flows
 

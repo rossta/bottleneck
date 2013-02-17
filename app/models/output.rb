@@ -1,34 +1,45 @@
 class Output
-  DateCount = Struct.new(:date, :count) do
-    def x; date.to_time.to_i; end
-    def y; (count || 0).to_i; end
-    def data; { x: x, y: y }; end
-  end
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+  include ActiveModel::Validations
+  include ActiveModel::SerializerSupport
+
+  attr_accessor :project
 
   include Virtus
 
-  attribute :start_time
-  attribute :end_time
+  attribute :date_range, DateRange, default: lambda { |flow, attr| DateRange.new }
+  attribute :collapsed, Boolean, default: false
+
+  delegate :interval_in_days, :start_date, :end_date, :dates, to: :date_range
 
   attr_accessor :project
+
+  def initialize(project, attrs = {})
+    @project = project
+    super attrs
+  end
+
+  # Delegates missing instance methods to the source object.
+  def method_missing(method, *args, &block)
+    return super unless project.respond_to?(method)
+
+    self.class.delegate method, to: :project
+    project.send(method, *args, &block)
+  end
 
   def title
     "Output: #{days_trailing}"
   end
+  alias_method :name, :title
 
-  def interval_in_days
-    ((end_time - start_time) / 1.day).to_i
-  end
+  def project_id; project.id; end
 
   def days_trailing
     "#{interval_in_days} days trailing"
   end
 
-  def dates
-    @dates ||= Range.new(start_time.to_date, end_time.to_date)
-  end
-
-  def data
+  def series
     [
       {
         :name => 'Total WIP (cards)',
@@ -53,10 +64,6 @@ class Output
 
   def lead_time_data
     count_data dates.to_a.map { |date| project.lead_time(date) }
-  end
-
-  def to_json
-    data.to_json
   end
 
 end

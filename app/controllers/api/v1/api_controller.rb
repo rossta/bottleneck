@@ -31,7 +31,4 @@ class Api::V1::ApiController < ApplicationController
     @current_user
   end
 
-  def find_project
-    current_user.projects.find
-  end
 end

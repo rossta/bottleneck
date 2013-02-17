@@ -5,6 +5,9 @@ class DateRange
   attribute :end_time, ActiveSupport::TimeWithZone, default: :default_end_time
   attribute :omit_weekends, Boolean, default: false
 
+  delegate :first, :last, :begin, :cover?, :each, :end, :include?, :max, :min,
+    :member?, to: :range
+
   def start_date; start_time.to_date; end
   def end_date; end_time.to_date; end
 
@@ -38,8 +41,12 @@ class DateRange
 
   private
 
+  def range
+    @range ||= Range.new(start_date, end_date)
+  end
+
   def all_dates
-    @all_dates ||= Range.new(start_date, end_date).to_a
+    @all_dates ||= range.to_a
   end
 
   def weekday_dates
