@@ -28,6 +28,7 @@ class TimeSeries
       height: 250
       stroke: true
       renderer: 'area'
+      min: 'auto'
       series: @data
 
     xAxis = new Rickshaw.Graph.Axis.Time

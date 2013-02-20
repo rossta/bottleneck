@@ -19,6 +19,7 @@ gem "pg", ">= 0.14.1"
 
 gem "figaro", ">= 0.5.0"
 
+# Mounted
 gem 'rack-cors', require: 'rack/cors'
 
 # actionpack
@@ -59,6 +60,7 @@ group :development do
   gem "supporting_cast", branch: "master"
   gem "guard-rspec"
   gem 'rb-fsevent', require: false
+  gem 'meta_request', '0.2.1'
 end
 
 group :test do

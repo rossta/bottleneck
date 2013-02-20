@@ -9,6 +9,6 @@ feature "Sign up" do
     click_link "Get Started"
     complete_sign_up_form_with name, email
     page.should have_content("You have signed up successfully")
-    page.should have_content("Connect with Trello")
+    page.should have_content("Import")
   end
 end

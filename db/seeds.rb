@@ -21,5 +21,3 @@ users = %w(bob jane)
     user.add_role :user
   end
 end
-
-require 'db/bootstrap/project_data'

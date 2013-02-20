@@ -19,4 +19,8 @@ module ApiHelper
   def authenticated_get(path, token, params = {}, rack_env = {})
     get path, params, authenticated_env(token).merge(rack_env)
   end
+
+  def authenticated_delete(path, token, params = {}, rack_env = {})
+    delete path, params, authenticated_env(token).merge(rack_env)
+  end
 end

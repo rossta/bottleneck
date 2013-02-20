@@ -9,6 +9,9 @@ Bottleneck::Application.routes.draw do
       end
       resources :cumulative_flows
 
+      match "/login", to: "sessions#create", via: :post
+      match "/logout", to: "sessions#destroy", via: :delete
+
       match "/users/me", to: "users#me"
       resources :users
     end
@@ -18,8 +21,10 @@ Bottleneck::Application.routes.draw do
     root to: 'dashboard#show', as: :dashboard
   end
   root to: "home#index"
-  devise_for :users,
-    controllers: { registrations: "users/registrations" }
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    sessions: "users/sessions"
+  }
 
   resources :users
   resources :trello_accounts do

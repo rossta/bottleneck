@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   # has_many :project_memberships
   # has_many :projects, through: :project_memberships
 
-  before_save :ensure_authentication_token
+  before_create :ensure_authentication_token
 
   def projects
     Project.with_role(:moderator, self)
