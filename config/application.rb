@@ -89,6 +89,8 @@ module Bottleneck
     config.assets.precompile += ['ember-application.js']
 
     # Settings
+    config.app_name = "Bottleneck"
+
     config.enable_homepage = false
     config.enable_ember_application = false
   end

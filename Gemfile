@@ -27,6 +27,8 @@ gem 'rack-cors', require: 'rack/cors'
 gem "devise", ">= 2.1.2"
 gem "cancan", ">= 1.6.8"
 gem "simple_form", ">= 2.0.4"
+gem 'omniauth'
+gem 'omniauth-trello'
 
 # activerecord
 gem "virtus"

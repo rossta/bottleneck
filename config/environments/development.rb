@@ -52,4 +52,7 @@ Bottleneck::Application.configure do
   config.assets.debug = true
 
   config.ember.variant = :development
+
+  config.app_name = "Bottleneck (#{Rails.env.titleize})"
+  config.enable_ember_application = false
 end

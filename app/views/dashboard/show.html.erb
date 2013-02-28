@@ -1,4 +1,6 @@
 <% if Rails.application.config.enable_ember_application -%>
+  <%= javascript_include_tag "ember-application" %>
+<% else -%>
 <div class="row">
   <div class="eight columns">
     <% if current_user.projects.empty? %>
@@ -16,6 +18,4 @@
     </ul>
   </div>
 </div>
-<% else -%>
-  <%= javascript_include_tag "ember-application" %>
 <% end -%>

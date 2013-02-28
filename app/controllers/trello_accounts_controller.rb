@@ -33,7 +33,7 @@ class TrelloAccountsController < ApplicationController
   end
 
   def app_name
-    "Bottleneck (#{Rails.env.titleize})"
+    Rails.application.config.app_name
   end
 
   def consumer

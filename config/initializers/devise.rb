@@ -207,6 +207,10 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
+  config.omniauth :trello, ENV['TRELLO_USER_KEY'], ENV['TRELLO_USER_SECRET'],
+    app_name: Rails.application.config.app_name,
+    scope: 'read,write,account', expiration: '30days'
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
