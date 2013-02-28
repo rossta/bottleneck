@@ -86,7 +86,10 @@ module Bottleneck
 
     config.redis_class = Redis
 
+    config.assets.precompile += ['ember-application.js']
+
     # Settings
-    config.disable_homepage = true
+    config.enable_homepage = false
+    config.enable_ember_application = false
   end
 end

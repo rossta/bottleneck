@@ -1,0 +1,39 @@
+<article class="date-summary">
+  <h5>{{name}} <small>{{time_zone}}</small></h5>
+  <table>
+    <tr data='total-wip'>
+      <td>Current WIP</td>
+      <td>{{current_wip}} cards</td>
+    </tr>
+    <tr>
+      <td>Current Lead Time</td>
+      <td>{{lead_time}} days</td>
+    </tr>
+    <tr>
+      <td>Arrival Rate</td>
+      <td>
+        {{starting_wip}} cards
+        /
+        {{lead_time}} days lead time
+        =
+        {{arrival_rate}} cards / day
+      </td>
+    </tr>
+    <tr>
+      <td>Total Capacity</td>
+      <td>{{capacity}} cards</td>
+    </tr>
+    <tr>
+      <td>Avg Lead Time over range</td>
+      <td>{{average_lead_time}} days</td>
+    </tr>
+    <tr>
+      <td>Avg WIP over range</td>
+      <td>{{average_wip}} cards</td>
+    </tr>
+    <tr>
+      <td>Avg Arrival Rate over range</td>
+      <td>{{average_arrival_rate}} cards / day</td>
+    </tr>
+  </table>
+</article>

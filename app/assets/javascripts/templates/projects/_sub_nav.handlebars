@@ -1,0 +1,20 @@
+<dl class="tabs">
+  {{#view App.ProjectNavView classBinding="isSummary:active"}}
+    {{#linkTo "project.summary"}}Summary{{/linkTo}}
+  {{/view}}
+  {{#view App.ProjectNavView classBinding="isFlow:active"}}
+    {{#linkTo "project.flow"}}Flow{{/linkTo}}
+  {{/view}}
+  {{#view App.ProjectNavView classBinding="isOutput:active"}}
+    {{#linkTo "project.output"}}Output{{/linkTo}}
+  {{/view}}
+  {{#view App.ProjectNavView classBinding="isBreakdown:active"}}
+    {{#linkTo "project.breakdown"}}Breakdown{{/linkTo}}
+  {{/view}}
+  {{#view App.ProjectNavView classBinding="isSettings:active"}}
+    {{#linkTo "project.settings"}}Settings{{/linkTo}}
+  {{/view}}
+  {{#view App.ProjectNavView classBinding="isDates:active"}}
+    {{#linkTo "project.dates"}}Date{{/linkTo}}
+  {{/view}}
+</dl>

@@ -1,0 +1,35 @@
+<div class="contain-to-grid">
+  <nav class="container top-bar" data-role="top-nav">
+    <ul>
+      <li class="name">
+        <h1>Bottleneck</h1>
+      </li>
+      <li class="toggle-topbar"><a href="#"></a></li>
+    </ul>
+    <section>
+      <ul class="right">
+        {{#if controllers.currentUser.isSignedIn}}
+          <li>
+            {{#linkTo 'index'}}{{controllers.currentUser.name}}{{/linkTo}}
+          </li>
+          <li>
+            {{#linkTo 'logout'}}Logout{{/linkTo}}
+          </li>
+        {{else}}
+          <li>
+            {{#linkTo 'login'}}Login{{/linkTo}}
+          </li>
+        {{/if}}
+        {{#if controllers.currentUser.isSignedIn}}
+          <li>
+            <a class="#">Edit account</a>
+          </li>
+        {{else}}
+          <li>
+            <a class="#">Sign up</a>
+          </li>
+        {{/if}}
+      </ul>
+    </section>
+  </nav>
+</div>

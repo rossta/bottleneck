@@ -3,9 +3,13 @@ class Api::V1::SessionsController < Api::V1::ApiController
   skip_before_filter :restrict_access, only: [:create]
 
   def create
-    @user = warden.authenticate!(scope: :user)
-    @user.reset_authentication_token!
-    render json: @user
+    @user = warden.authenticate(scope: :user)
+    if @user
+      @user.reset_authentication_token!
+      render json: @user
+    else
+      render text: "Login credentials were not found", status: :unauthorized
+    end
   end
 
   def destroy

@@ -78,7 +78,7 @@ Bottleneck::Application.configure do
     password: ENV["SENDGRID_PASSWORD"]
   }
 
-
+  config.ember.variant = :production
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)

@@ -1,0 +1,37 @@
+<section class="twelve columns">
+  <section class="spotlight row">
+    <div class="three columns"></div>
+    <div class="six columns">
+      <h2>Bottleneck: Sign in</h2>
+      <form class="simple_form form-vertical" novalidate="novalidate">
+        {{#if error}}
+        <div class="alert-box alert">
+          {{error}}
+          <a {{action "removeError"}} href="#" class="close">&times;</a>
+        </div>
+        {{/if}}
+        <fieldset>
+          <div class="input email optional">
+            <label class="email optional control-label" for="user_email">Email</label>
+            {{view Ember.TextField valueBinding="email"}}
+          </div>
+          <div class="input password optional">
+            <label class="password optional control-label" for="user_password">Password</label>
+            {{view Ember.TextField valueBinding="password" type="password"}}
+          </div>
+          <button {{action "authenticate"}} class="btn button"/>Login</button>
+        </fieldset>
+      </form>
+      <ul style="list-style-type:none">
+        <li>
+        <a href="#">Need an account? Sign up</a><br>
+        </li>
+
+        <li>
+        <a href="#">Forgot your password?</a><br>
+        </li>
+      </ul>
+    </div>
+    <div class="three columns"></div>
+  </section>
+</section>

@@ -41,5 +41,8 @@ Bottleneck::Application.configure do
   require 'mock_redis'
   config.redis_class = MockRedis
 
-  config.disable_homepage = false
+  config.ember.variant = :development
+
+  config.enable_homepage = true
+  config.enable_ember_application = true
 end

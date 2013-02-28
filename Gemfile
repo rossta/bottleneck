@@ -13,6 +13,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'ember-rails'
 
 gem "thin", ">= 1.5.0"
 gem "pg", ">= 0.14.1"
