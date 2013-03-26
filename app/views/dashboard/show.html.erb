@@ -11,8 +11,12 @@
       <li><%= link_to project.name, project %></li>
     <% end %>
       <li>
-        <%= link_to start_project_path do %>
-          <i class="foundicon-plus" style="font-size:75%"></i> Import a project
+        <% if (session[:trello_account_id] || params[:trello_account_id]) %>
+          <%= link_to new_project_path do %>
+            <i class="foundicon-plus" style="font-size:75%"></i> Import a project
+          <% end %>
+        <% else %>
+          <%= link_to "Connect your Trello account", authorize_trello_accounts_path, class: "button radius" %>
         <% end %>
       </li>
     </ul>

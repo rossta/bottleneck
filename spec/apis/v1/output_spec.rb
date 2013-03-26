@@ -14,7 +14,7 @@ describe "Project Output Api" do
 
   describe "/projects/:project_id/output" do
     it "returns project output by project id" do
-      authenticated_get "/api/projects/#{project.id}/output", user.authentication_token
+      authenticated_get "/api/projects/#{project.id}/output"
 
       expected_json = output.active_model_serializer.new(output, root: 'output').to_json
       last_response.status.should eq(200)
@@ -26,9 +26,9 @@ describe "Project Output Api" do
     end
 
     it "returns unauthorized" do
-      authenticated_get "/api/projects/#{project.id}/output", "bad-token"
+      get "/api/projects/#{project.id}/output"
 
-      last_response.status.should eq(406)
+      last_response.status.should eq(401)
     end
   end
 

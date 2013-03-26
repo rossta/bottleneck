@@ -13,7 +13,7 @@ describe "Cumulative Flows Api" do
 
   describe "/cumulative_flows/:project_id" do
     it "returns cumulative flow by project id" do
-      authenticated_get "/api/cumulative_flows/#{project.id}", user.authentication_token
+      authenticated_get "/api/cumulative_flows/#{project.id}"
 
       expected_json = cumulative_flow.active_model_serializer.new(cumulative_flow, root: 'cumulative_flow').to_json
       last_response.status.should eq(200)
@@ -26,7 +26,7 @@ describe "Cumulative Flows Api" do
     end
 
     it "returns not found" do
-      authenticated_get "/api/cumulative_flows/not_found", user.authentication_token
+      authenticated_get "/api/cumulative_flows/not_found"
 
       last_response.status.should eq(404)
     end

@@ -17,9 +17,9 @@ describe "Users Api" do
     end
 
     it "returns unauthorized" do
-      authenticated_get '/api/users/me', 'badtoken'
+      get '/api/users/me'
 
-      last_response.status.should eq(406)
+      last_response.status.should eq(401)
     end
   end
 
@@ -37,9 +37,9 @@ describe "Users Api" do
     end
 
     it "returns unauthorized" do
-      authenticated_get "/api/users/#{user.id}", 'badtoken'
+      get "/api/users/#{user.id}"
 
-      last_response.status.should eq(406)
+      last_response.status.should eq(401)
     end
   end
 end

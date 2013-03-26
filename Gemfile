@@ -44,8 +44,7 @@ gem "oauth"
 
 # APIs
 gem "sendgrid", ">= 1.0.1"
-# gem 'ruby-trello', git: 'git://github.com/jeremytregunna/ruby-trello.git', branch: "master"
-gem 'ruby-trello', git: 'git://github.com/rossta/ruby-trello.git', branch: "master"
+gem 'ruby-trello'
 
 group :development, :test do
   gem "factory_girl_rails", ">= 4.1.0"

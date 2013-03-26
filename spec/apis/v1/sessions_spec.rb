@@ -32,7 +32,7 @@ describe "Sessions API" do
   describe "/logout" do
     it 'returns authenticates user with credentials' do
       user.reset_authentication_token!
-      authenticated_delete "/api/logout", user.authentication_token
+      authenticated_delete "/api/logout"
 
       user.reload
 
@@ -42,9 +42,9 @@ describe "Sessions API" do
     end
 
     it "returns unauthorized" do
-      authenticated_delete "/api/logout", "badtoken"
+      delete "/api/logout"
 
-      last_response.status.should eq(406)
+      last_response.status.should eq(401)
     end
   end
 

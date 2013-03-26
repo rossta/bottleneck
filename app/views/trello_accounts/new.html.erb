@@ -1,16 +1,6 @@
 <%= render layout: 'layouts/spotlight' do %>
   <h2>Connect with Trello</h2>
-  <p>3 legged Oauth</p>
-  <%= link_to "Connect your Trello account", authorize_trello_accounts_path %>
+  <!-- 3 legged Oauth -->
+  <%= link_to "Connect your Trello account", authorize_trello_accounts_path, class: "button radius" %>
 
-  <p>2 legged Oauth</p>
-  <%= link_to "Get your Trello Key", generate_trello_token_key_url, target: '_blank' %>
-
-  <%= simple_form_for @trello_account do |f| %>
-    <fieldset>
-      <%= f.input :name %>
-      <%= f.input :token %>
-      <%= f.submit 'Enter', class: "button radius" %>
-    </fieldset>
-  <% end %>
 <% end %>

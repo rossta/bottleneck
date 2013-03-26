@@ -9,6 +9,7 @@ feature "Sign up" do
     click_link "Get Started"
     complete_sign_up_form_with name, email
     page.should have_content("You have signed up successfully")
+    save_and_open_page
     page.should have_content("Import")
   end
 end

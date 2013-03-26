@@ -31,7 +31,7 @@ describe "Projects Api", type: :api do
 
   describe "/project/:id" do
     it "returns project by id" do
-      authenticated_get "/api/projects/#{project.id}", user.authentication_token
+      authenticated_get "/api/projects/#{project.id}"
 
       project_json = project.active_model_serializer.new(project, root: 'project').to_json
       last_response.status.should eq(200)
@@ -42,7 +42,7 @@ describe "Projects Api", type: :api do
     end
 
     it "returns not found" do
-      authenticated_get "/api/projects/#{access_denied_project.id}", user.authentication_token
+      authenticated_get "/api/projects/#{access_denied_project.id}"
 
       last_response.status.should eq(404)
     end

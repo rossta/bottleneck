@@ -21,6 +21,7 @@ RSpec.configure do |config|
   config.include DomHelpers, type: :feature
   config.include AuthHelpers, type: :feature
   config.include ApiHelper, example_group: { file_path: %r{spec/api} }
+  config.include Warden::Test::Helpers, example_group: { file_path: %r{spec/api} }
 
   config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
