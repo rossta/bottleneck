@@ -16,10 +16,6 @@ class Api::V1::CumulativeFlowsController < Api::V1::ApiController
     render json: @flow
   end
 
-  def find_project
-    @project = current_user.projects.find(params[:id])
-  end
-
   def end_time
     @end_time ||= Clock.time
   end

@@ -13,9 +13,4 @@ class OutputsController < ApplicationController
   def edit
   end
 
-  protected
-
-  def find_project
-    @project = Project.find(params[:project_id])
-  end
 end

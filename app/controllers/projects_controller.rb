@@ -75,10 +75,6 @@ class ProjectsController < ApplicationController
 
   protected
 
-  def find_project
-    @project = current_user.projects.find(params[:id])
-  end
-
   def build_trello_account
     if trello_account_id = (session[:trello_account_id] || params[:trello_account_id])
       session[:trello_account_id] = trello_account_id

@@ -1,11 +1,13 @@
 <div class="row">
   <hr />
   <div class="nine columns">
-    <ul class="inline-list">
-      <li><%= link_to 'guidelines', '/guidelines' %></li>
-      <li><%= link_to 'terms', '#' %></li>
-      <li><%= link_to 'privacy', '#' %></li>
-    </ul>
+    <%= preview_protected do %>
+      <ul class="inline-list">
+        <li><%= link_to 'guidelines', '/guidelines' %></li>
+        <li><%= link_to 'terms', '#' %></li>
+        <li><%= link_to 'privacy', '#' %></li>
+      </ul>
+    <% end %>
   </div>
   <div class="three columns">
     <ul class="inline-list">

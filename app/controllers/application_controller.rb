@@ -11,14 +11,14 @@ class ApplicationController < ActionController::Base
   end
 
   # Public - devise override
-  alias_method :devise_current_user, :current_user
-  def current_user
-    @current_user ||= devise_current_user || AnonymousUser.new
+  def current_user_with_anonymous
+    current_user_without_anonymous || AnonymousUser.new
   end
+  alias_method_chain :current_user, :anonymous
 
   # Public - devise override
   def user_signed_in?
-    !!devise_current_user
+    !!current_user_without_anonymous
   end
 
   def anonymous_user?
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_ability
-    Ability.new(current_user)
+    Ability.new(current_user, preview: project_preview?)
   end
 
   # # Public - devise override
@@ -46,15 +46,28 @@ class ApplicationController < ActionController::Base
   # end
 
   def find_project
-    @project = current_user.projects.find(params[:id])
-  end
-
-  def find_project_nested
-    @project = current_user.projects.find(params[:project_id])
+    # raise
+    @project = current_user.find_project(params[:project_id] || params[:id], preview_token)
   end
 
   def current_project
     @project
+  end
+
+  def project_preview?
+    current_project && preview_token && project_preview_token == preview_token
+  end
+  helper_method :project_preview?
+
+  def project_preview_token
+    @project_preview_token ||= PreviewToken.new(current_project)
+  end
+
+  def preview_token
+    return session[:preview] if params[:preview].blank?
+    params[:preview].tap do |preview|
+      session[:preview] = preview
+    end
   end
 
   def project_time_zone(&block)

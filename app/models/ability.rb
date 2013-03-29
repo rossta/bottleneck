@@ -1,16 +1,21 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, options = {})
+
     can :read, User do |u|
       user == u
     end
 
-    can [:update, :read], Project do |project|
+    can :update, Project do |project|
       project.has_moderator?(user)
     end
 
-    can :create, Project
+    can :read, Project do |project|
+      can?(:update, project) || options[:preview]
+    end
 
+    can :create, Project
   end
+
 end

@@ -8,10 +8,4 @@ class CardsController < ApplicationController
     @card = @project.cards.find(params[:id])
   end
 
-  protected
-
-  def find_project
-    @project = current_user.projects.find(params[:project_id])
-  end
-
 end

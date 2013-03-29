@@ -13,10 +13,4 @@ class Api::V1::ProjectsController < Api::V1::ApiController
     render json: @project
   end
 
-  protected
-
-  def find_project
-    @project = current_user.projects.find(params[:id])
-  end
-
 end

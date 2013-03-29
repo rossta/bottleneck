@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
   def projects
     Project.with_role(:moderator, self)
   end
+
+  def find_project(project_id, *args)
+    projects.find(project_id)
+  end
 end

@@ -29,6 +29,7 @@ class Project < ActiveRecord::Base
   hash_key :interval, marshal: true
   set :list_history
   set :card_history
+  value :preview_token_value
 
   attr_writer :imported
 

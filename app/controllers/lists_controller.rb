@@ -15,10 +15,4 @@ class ListsController < ApplicationController
     render json: @list
   end
 
-  protected
-
-  def find_project
-    @project = current_user.projects.find(params[:project_id])
-  end
-
 end

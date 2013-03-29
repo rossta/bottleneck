@@ -63,7 +63,6 @@ module ApplicationHelper
   end
 
   def app_name
-    # ENV['TRELLO_USER_NAME']
     :bottleneck
   end
 
@@ -86,4 +85,9 @@ module ApplicationHelper
     HTML
     html.html_safe
   end
+
+  def preview_protected(&block)
+    user_signed_in? ? capture(&block) : ''
+  end
+
 end
