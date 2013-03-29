@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.sortable
+//= require jquery.ui.slider
 //= require underscore
 //= require foundation
 //= require d3.v3
