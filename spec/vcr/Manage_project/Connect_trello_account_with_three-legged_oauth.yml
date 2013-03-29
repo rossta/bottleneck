@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://trello.com/1/OAuthGetRequestToken
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      accept:
+      - ! '*/*'
+      user-agent:
+      - OAuth gem v0.4.7
+      authorization:
+      - OAuth oauth_callback="http%3A%2F%2Fwww.example.com%2Ftrello_accounts%2Fcallback",
+        oauth_consumer_key="5bc3bf6f350105ad4a099b9c115bb058", oauth_nonce="V631Slqcp2IfaXiz2N47tpS52WAN69GmBHCtDXnQg",
+        oauth_signature="rsr0mpH%2BxnF8J6sm42lCbIovLjk%3D", oauth_signature_method="HMAC-SHA1",
+        oauth_timestamp="1364435188", oauth_version="1.0"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      x-powered-by:
+      - Express
+      content-type:
+      - text/plain
+      content-length:
+      - '126'
+      set-cookie:
+      - connect.sid=8qsU%2FHcwxi2yAZdDoH5%2BxwJe.hGk3K4xEPET4fsx6Rsh21PQcs9f7Xt%2Fj3XpdCHEZkk4;
+        path=/; httpOnly
+      date:
+      - Thu, 28 Mar 2013 01:46:27 GMT
+      connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: oauth_token=98743506861cdfd3d3a28fef9b5e7616&oauth_token_secret=5ad387400a449c8778fd452115442c09&oauth_callback_confirmed=true
+    http_version: '1.1'
+  recorded_at: Thu, 28 Mar 2013 01:46:28 GMT
+recorded_with: VCR 2.3.0

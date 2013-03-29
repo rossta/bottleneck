@@ -23,8 +23,7 @@ describe ProjectForm do
   end
 
   describe "#save" do
-    let(:project) { stub_model(Project) }
-
+    let(:project) { stub_model(Project, uid: "1234567890") }
     let(:form) { ProjectForm.new(attributes) }
 
     before do
@@ -33,7 +32,6 @@ describe ProjectForm do
       user.stub!(:add_role)
 
       form.project = project
-      form.owner = user
       form.trello_account = trello_account
     end
 
@@ -52,6 +50,7 @@ describe ProjectForm do
 
       it "adds moderator role to owner" do
         user.should_receive(:add_role).with(:moderator, project)
+        form.moderator = user
         form.save
       end
     end
@@ -73,9 +72,9 @@ describe ProjectForm do
   end
 
   describe "#valid?" do
+    # it { should validate_presence_of(:owner) }
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:uid) }
-    it { should validate_presence_of(:owner) }
     it { should validate_presence_of(:trello_account) }
   end
 end

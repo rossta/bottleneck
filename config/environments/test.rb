@@ -45,5 +45,5 @@ Bottleneck::Application.configure do
 
   config.app_name = "Bottleneck (#{Rails.env.titleize})"
   config.enable_homepage = true
-  config.enable_ember_application = true
+  config.enable_ember_application = false
 end

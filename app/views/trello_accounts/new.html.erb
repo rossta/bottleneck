@@ -1,6 +1,7 @@
 <%= render layout: 'layouts/spotlight' do %>
-  <h2>Connect with Trello</h2>
-  <!-- 3 legged Oauth -->
-  <%= link_to "Connect your Trello account", authorize_trello_accounts_path, class: "button radius" %>
-
+  <section class="panel">
+    <h2>Connect with Trello</h2>
+    <!-- 3 legged Oauth -->
+    <%= link_to "Connect your Trello account", authorize_trello_accounts_path, class: "button radius" %>
+  </section>
 <% end %>

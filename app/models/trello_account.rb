@@ -32,7 +32,14 @@ class TrelloAccount < ActiveRecord::Base
     @trello_boards ||= trello_member.boards
   end
 
+  def trello_board_uids
+    trello_boards.map(&:id)
+  end
+
+  def linked_projects
+    Project.where(uid: trello_board_uids)
+  end
+
   def trello_token; token; end
   def trello_secret; secret; end
-
 end

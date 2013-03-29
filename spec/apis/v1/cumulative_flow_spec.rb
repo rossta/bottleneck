@@ -5,7 +5,7 @@ describe "Cumulative Flows Api" do
   let(:time) { Clock.zone_time(project.time_zone) }
   let(:project) { create(:project, name: "Scarecrow") }
   let(:date_range) { DateRange.new(end_time: time, time_zone: project.time_zone) }
-  let(:cumulative_flow) { CumulativeFlow.new(project) }
+  let(:cumulative_flow) { CumulativeFlow.new(project, date_range: date_range) }
 
   before do
     project.add_moderator(user)
@@ -15,7 +15,7 @@ describe "Cumulative Flows Api" do
     it "returns cumulative flow by project id" do
       authenticated_get "/api/cumulative_flows/#{project.id}"
 
-      expected_json = cumulative_flow.active_model_serializer.new(cumulative_flow, root: 'cumulative_flow').to_json
+      expected_json = CumulativeFlowSerializer.new(cumulative_flow, root: 'cumulative_flow').to_json
       last_response.status.should eq(200)
       last_response.body.should eq(expected_json)
 

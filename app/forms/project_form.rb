@@ -7,13 +7,14 @@ class ProjectForm
 
   delegate :uid, :name, :time_zone, :persisted?, to: :project, prefix: true
 
-  attribute :uid, String, default: :project_uid
+  attribute :uid, String
   attribute :name, String, default: :project_name
   attribute :time_zone, String, default: :default_time_zone
 
+  attr_accessor :moderator
+
   validates :uid, presence: true
   validates :name, presence: true
-  validates :owner, presence: true, unless: :project_persisted?
   validates_inclusion_of :time_zone, in: ActiveSupport::TimeZone.zones_map(&:name)
 
   validates :trello_account, presence: true, unless: :project_persisted?
@@ -22,8 +23,8 @@ class ProjectForm
   attr_accessor :owner, :trello_account
 
   def initialize(attrs = {})
-    super
     yield self if block_given?
+    super
   end
 
   def persisted?
@@ -41,7 +42,12 @@ class ProjectForm
   end
 
   def project
-    @project ||= Project.new
+    @project ||= Project.find_or_initialize_by_uid(uid)
+  end
+
+  def project=(project)
+    @uid = project.uid
+    @project = project
   end
 
   def default_time_zone
@@ -52,8 +58,7 @@ class ProjectForm
 
   def persist!
     project.attributes = attributes
-    project.owner = owner if owner && project.owner.nil?
-
+    project.owner = moderator if project.owner.nil? && moderator
     if trello_account
       project.trello_account = trello_account
       project.fetch
@@ -61,6 +66,6 @@ class ProjectForm
 
     project.save
 
-    project.add_moderator(owner) if owner
+    project.add_moderator(moderator) if moderator
   end
 end

@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
 
     form = ProjectForm.new(params[:project]) do |p|
       p.trello_account = @trello_account
-      p.owner = current_user
+      p.moderator = current_user
     end
 
     if form.save
@@ -44,7 +44,6 @@ class ProjectsController < ApplicationController
   def edit
     @project = Project.find(params[:id])
     authorize! :update, @project
-
   end
 
   def update

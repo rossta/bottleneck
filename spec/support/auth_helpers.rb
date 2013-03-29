@@ -17,3 +17,9 @@ module AuthHelpers
     click_button "Sign up"
   end
 end
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.mock_auth[:trello] = OmniAuth::AuthHash.new({
+  :provider => 'trello',
+  :uid => '123545'
+})

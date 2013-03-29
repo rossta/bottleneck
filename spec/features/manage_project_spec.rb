@@ -7,13 +7,32 @@ feature "Manage project" do
     login_as user
   end
 
-  scenario "Connect trello account", vcr: { record: :new_episodes, re_record_interval: 7.days } do
+  scenario "Connect trello account with two-legged oauth", :pending,
+    vcr: { record: :new_episodes, re_record_interval: 7.days } do
     trello_account = build(:trello_account)
 
     visit start_project_path
+
     fill_in "Name", with: trello_account.name
     fill_in "Token", with: trello_account.token
     click_button "Enter"
+
+    page.should have_content("Import a Project")
+
+    within("[data-id='#{trello_account.trello_boards.first.id}']") do
+      click_button "Import"
+    end
+
+    page.should have_content("Your project was successfully imported")
+  end
+
+  scenario "Connect trello account with three-legged oauth", :pending,
+    vcr: { record: :new_episodes, re_record_interval: 7.days } do
+    trello_account = build(:trello_account)
+
+    visit start_project_path
+
+    click_link "Connect"
 
     page.should have_content("Import a Project")
 
@@ -30,7 +49,6 @@ feature "Manage project" do
     board.name.should eq("Bottleneck")
 
     visit new_project_path(trello_account_id: trello_account.id)
-
     within "[class*='trello_board'][data-id='#{board.id}']" do
       click_button "Import"
     end
