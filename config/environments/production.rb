@@ -71,12 +71,12 @@ Bottleneck::Application.configure do
 
   config.action_mailer.smtp_settings = {
     address: "smtp.sendgrid.net",
-    port: 25,
     domain: "bottleneckapp.herokuapp.com",
-    authentication: "plain",
     user_name: ENV["SENDGRID_USERNAME"],
     password: ENV["SENDGRID_PASSWORD"],
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
+    port: 25,
+    authentication: :plain
   }
 
   config.ember.variant = :production
