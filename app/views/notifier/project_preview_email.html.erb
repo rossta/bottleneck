@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Check out your Bottlenecks</h1>
+    <p>
+      Visit this link to visualize recent cumulative flow results:
+      <%= link_to @project.name, project_url(@project, preview: @preview_token) %>.<br/>
+    </p>
+
+    <p>Thanks for listening and have a great day!</p>
+  </body>
+</html>

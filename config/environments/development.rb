@@ -16,20 +16,21 @@ Bottleneck::Application.configure do
   config.action_controller.perform_caching = false
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'localhost:5300' }
+  config.action_mailer.default_url_options = { :host => 'localhost:5000' }
   config.action_mailer.delivery_method = :smtp
   # change to true to allow email to be sent during development
-  config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.smtp_settings = {
     address: "smtp.sendgrid.net",
-    port: 25,
-    domain: "example.com",
-    authentication: "plain",
+    domain: "bottleneckapp.herokuapp.com",
     user_name: ENV["SENDGRID_USERNAME"],
-    password: ENV["SENDGRID_PASSWORD"]
+    password: ENV["SENDGRID_PASSWORD"],
+    enable_starttls_auto: true,
+    port: 587,
+    authentication: :plain
   }
 
   # Print deprecation notices to the Rails logger

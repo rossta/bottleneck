@@ -61,7 +61,7 @@ Bottleneck::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'example.com' }
+  config.action_mailer.default_url_options = { :host => 'bottleneckapp.herokuapp.com' }
   # ActionMailer Config
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
@@ -72,10 +72,11 @@ Bottleneck::Application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.sendgrid.net",
     port: 25,
-    domain: "example.com",
+    domain: "bottleneckapp.herokuapp.com",
     authentication: "plain",
     user_name: ENV["SENDGRID_USERNAME"],
-    password: ENV["SENDGRID_PASSWORD"]
+    password: ENV["SENDGRID_PASSWORD"],
+    enable_starttls_auto: true
   }
 
   config.ember.variant = :production
