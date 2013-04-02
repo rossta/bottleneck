@@ -46,7 +46,6 @@ class ApplicationController < ActionController::Base
   # end
 
   def find_project
-    # raise
     @project = current_user.find_project(params[:project_id] || params[:id], preview_token)
   end
 

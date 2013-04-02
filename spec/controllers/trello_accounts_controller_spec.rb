@@ -10,6 +10,7 @@ describe TrelloAccountsController do
 
       request_token.should_receive(:get_access_token, with: { oauth_verifier: "8c9ff510665cb1459ee427c39b51a8bd" })
       controller.stub(request_token: request_token)
+      controller.stub(current_user: stub_model(User))
 
       get :callback, {
         "oauth_token"=>"5d10861de99cf14953d58c9a30a51c4b",

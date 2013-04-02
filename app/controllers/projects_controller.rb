@@ -66,6 +66,8 @@ class ProjectsController < ApplicationController
     @project.fetch
     @project.save
     respond_with @project
+  rescue Trello::InvalidAccessToken
+    redirect_to start_project_path, notice: "Your Trello access expired. Please reconnect."
   end
 
   def clear

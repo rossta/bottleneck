@@ -6,7 +6,9 @@ class TrelloAccountsController < ApplicationController
   end
 
   def create
-    @trello_account = TrelloAccount.create(params[:trello_account])
+    @trello_account = TrelloAccount.create(params[:trello_account]) do |ta|
+      ta.user = current_user
+    end
     session[:trello_account_id] = @trello_account.id if @trello_account.persisted?
     respond_with @trello_account, location: new_project_path
   end
@@ -20,9 +22,11 @@ class TrelloAccountsController < ApplicationController
     Rails.logger.info params.inspect
     @access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
     @trello_account = TrelloAccount.create do |ta|
+      ta.user   = current_user
       ta.token  = @access_token.token
       ta.secret = @access_token.secret
     end
+    expire_request_token!
     redirect_to new_project_path(trello_account_id: @trello_account.id)
   end
 
@@ -45,17 +49,11 @@ class TrelloAccountsController < ApplicationController
                      http_method:         :get)
   end
 
-  def access_token
-    @access_token ||= begin
-      return nil unless token = request.cookies["access_token"]
-      Marshal.load(redis.get(token))
-    end
-  end
-
   def request_token
     @request_token ||= begin
       if session[:request_token] && session[:request_token_secret]
-        ::OAuth::RequestToken.new(consumer, session[:request_token], session[:request_token_secret])
+        ::OAuth::RequestToken.new(consumer, session.delete(:request_token),
+          session.delete(:request_token_secret))
       else
         rtoken = consumer.get_request_token(:oauth_callback => callback_url)
         session[:request_token] = rtoken.token
@@ -65,27 +63,9 @@ class TrelloAccountsController < ApplicationController
     end
   end
 
-  def oauth_verify!(oauth_verifier)
-    atoken = request_token.get_access_token(:oauth_verifier => oauth_verifier)
-
-    store_access_token! atoken
-
-    atoken
-  end
-
-  def oauth_verified?
-    !access_token.nil?
-  end
-
-  def store_access_token!(atoken)
-    # Request token is invalidated after retrieving access_token
-    session.clear
-
-    token_key = atoken.token
-    @access_token = nil
-
-    response.set_cookie "access_token", token_key
-    redis.set token_key, Marshal.dump(atoken)
+  def expire_request_token!
+    session.delete(:request_token)
+    session.delete(:request_token_secret)
   end
 
 end
