@@ -25,6 +25,7 @@ db/*.rdb
 **.war
 *.rbc
 *.sassc
+.ruby-version
 .rspec
 .env
 .redcar/

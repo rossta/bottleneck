@@ -55,15 +55,15 @@ class Output
   end
 
   def count_data(counts)
-    dates.to_a.zip(counts).map { |tuple| DateCount.new(tuple[0], tuple[1]).data }
+    dates.zip(counts).map { |tuple| DateCount.new(tuple[0], tuple[1]).data }
   end
 
   def wip_data
-    count_data dates.to_a.map { |date| project.wip_count(date) }
+    count_data dates.map { |date| project.wip_count(date) }
   end
 
   def lead_time_data
-    count_data dates.to_a.map { |date| project.lead_time(date) }
+    count_data dates.map { |date| project.lead_time(date) }
   end
 
 end

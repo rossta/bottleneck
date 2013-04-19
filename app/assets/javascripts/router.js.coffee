@@ -4,6 +4,6 @@ Bottleneck.Router.map ->
     @route 'summary'
     @route 'flow'
     @route 'output'
-    @route 'breakdown'
     @route 'settings'
     @route 'dates'
+    @resource 'breakdown'

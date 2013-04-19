@@ -42,19 +42,26 @@ App.ProjectOutputRoute = Ember.Route.extend
   setupController: ->
     console.log("setupController", "series", this.model().get('series'))
     @controllerFor('projectNav').set('currentRoute', @get('routeName'))
-    @controllerFor('timeSeries').set('content', this.model().get('series'))
-    window.timeSeriesController = @controllerFor('timeSeries')
+    # @controllerFor('timeSeries').set('content', this.model().get('series'))
+    # window.timeSeriesController = @controllerFor('timeSeries')
 
 App.ProjectBreakdownRoute = Ember.Route.extend
+  model: (params) ->
+    @modelFor("project").get('lists')
+
   setupController: (controller) ->
-    # content = []
-    # for x in [0..10]
-    #   do (x) =>
-    #     x = parseInt(Math.random() * 10, 10)
-    #     y = parseInt(Math.random() * 10, 10)
-    #     content.pushObject(x: x, y: y)
-    content = [{"id":250,"name":"[Feb 6][L] Users can click \"Register\" button","count":0},{"id":307,"name":"[Feb 19] [M] Remove unused email notification types","count":0},{"id":321,"name":"[Feb 19][S] Discover page shows featured challenges when nothing matches filters","count":0},{"id":269,"name":"[Feb 13] (M) Update Mixpanel Analytics","count":3},{"id":294,"name":"[Feb 18][S] Ability to customize help text on submission forms","count":1},{"id":305,"name":"[Feb 15] #821 Challenge guidelines only show up if you fill in both Eligibility and Submission Requirements fields","count":4},{"id":292,"name":"[Feb 8] \u26a0 Links to challenges on the discover page should not use the https protocol.","count":3},{"id":323,"name":"[Feb 19] [S] Remove unused emails","count":2}]
-    controller.set("content", content)
+    # content = [{"id":250,"name":"[Feb 6][L] Users can click \"Register\" button","count":0},{"id":307,"name":"[Feb 19] [M] Remove unused email notification types","count":0},{"id":321,"name":"[Feb 19][S] Discover page shows featured challenges when nothing matches filters","count":0},{"id":269,"name":"[Feb 13] (M) Update Mixpanel Analytics","count":3},{"id":294,"name":"[Feb 18][S] Ability to customize help text on submission forms","count":1},{"id":305,"name":"[Feb 15] #821 Challenge guidelines only show up if you fill in both Eligibility and Submission Requirements fields","count":4},{"id":292,"name":"[Feb 8] \u26a0 Links to challenges on the discover page should not use the https protocol.","count":3},{"id":323,"name":"[Feb 19] [S] Remove unused emails","count":2}]
+    # controller.set("content", content)
+    @controllerFor('projectNav').set('currentRoute', @get('routeName'))
+
+App.BreakdownIndexRoute = Ember.Route.extend
+  model: (params) ->
+    debugger
+    @modelFor("project").get('lists')
+
+  setupController: (controller) ->
+    # content = [{"id":250,"name":"[Feb 6][L] Users can click \"Register\" button","count":0},{"id":307,"name":"[Feb 19] [M] Remove unused email notification types","count":0},{"id":321,"name":"[Feb 19][S] Discover page shows featured challenges when nothing matches filters","count":0},{"id":269,"name":"[Feb 13] (M) Update Mixpanel Analytics","count":3},{"id":294,"name":"[Feb 18][S] Ability to customize help text on submission forms","count":1},{"id":305,"name":"[Feb 15] #821 Challenge guidelines only show up if you fill in both Eligibility and Submission Requirements fields","count":4},{"id":292,"name":"[Feb 8] \u26a0 Links to challenges on the discover page should not use the https protocol.","count":3},{"id":323,"name":"[Feb 19] [S] Remove unused emails","count":2}]
+    # controller.set("content", content)
     @controllerFor('projectNav').set('currentRoute', @get('routeName'))
 
 App.ProjectSettingsRoute = Ember.Route.extend

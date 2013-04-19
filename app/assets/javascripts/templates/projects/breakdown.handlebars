@@ -1,5 +1,16 @@
 <h3>{{name}}</h3>
-<div>
-  {{view App.BarChartView contentBinding="content"}}
-  {{view App.BarChartLegendView contentBinding="content"}}
+<div class="row">
+  <div class="four columns">
+    <ul>
+      {{#each list in controller}}
+        <li>{{#linkTo project.breakdowns list}}{{list.name}}{{/linkTo}}</li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <div class="eight columns">
+    {{outlet}}
+  </div>
+  <!-- {{view App.BarChartView contentBinding="content"}} -->
+  <!-- {{view App.BarChartLegendView contentBinding="content"}} -->
 </div>

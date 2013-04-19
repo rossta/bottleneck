@@ -52,8 +52,9 @@ App.ProjectOutputController = Ember.ObjectController.extend()
 
 App.ProjectBreakdownController = Ember.ArrayController.extend
   name: "Breakdown"
-  content: []
-    # new CardCountChart("#card_counts_list_14", [{"id":250,"name":"[Feb 6][L] Users can click \"Register\" button","count":0},{"id":307,"name":"[Feb 19] [M] Remove unused email notification types","count":0},{"id":321,"name":"[Feb 19][S] Discover page shows featured challenges when nothing matches filters","count":0},{"id":269,"name":"[Feb 13] (M) Update Mixpanel Analytics","count":3},{"id":294,"name":"[Feb 18][S] Ability to customize help text on submission forms","count":1},{"id":305,"name":"[Feb 15] #821 Challenge guidelines only show up if you fill in both Eligibility and Submission Requirements fields","count":4},{"id":292,"name":"[Feb 8] \u26a0 Links to challenges on the discover page should not use the https protocol.","count":3},{"id":323,"name":"[Feb 19] [S] Remove unused emails","count":2}]);
+
+App.BreakdownController = Ember.ArrayController.extend
+  name: "Breakdown"
 
 App.NavigationController = App.Controller.extend
   needs: ['currentUser']

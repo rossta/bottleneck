@@ -9,8 +9,11 @@ module Extensions
       created_at.to_date
     end
 
-    def age_range(end_date = Clock.date)
-      @age_range ||= Range.new(create_date, end_date)
+    def age_range(end_time = Clock.time)
+      @age_range ||= DateRange.new(
+        start_time: created_at,
+        end_time: end_time,
+      )
     end
 
     def age_in_days

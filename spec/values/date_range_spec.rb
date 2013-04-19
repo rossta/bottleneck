@@ -25,4 +25,17 @@ describe DateRange do
   it { date_range.dates.should eq(Range.new(start_time.to_date, end_time.to_date).to_a) }
 
   it { date_range.interval_in_days.should eq(14) }
+
+  describe "calculate_average" do
+    it "calculates average over range" do
+      value = 0
+      object = Object.new
+      object.stub(:calc) do |date|
+        value += 1
+      end
+      date_range.calculate_average do |date|
+        object.calc(date)
+      end.should eq((1..date_range.length).inject(&:+)/14)
+    end
+  end
 end

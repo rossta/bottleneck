@@ -8,6 +8,8 @@ class DateRange
   delegate :first, :last, :begin, :cover?, :each, :end, :include?, :max, :min,
     :member?, to: :range
 
+  delegate :length, to: :dates
+
   def start_date; start_time.to_date; end
   def end_date; end_time.to_date; end
 
@@ -22,6 +24,7 @@ class DateRange
       all_dates
     end
   end
+  alias_method :to_a, :dates
 
   def default_start_time
     end_time - 14.days
@@ -37,6 +40,10 @@ class DateRange
 
   def time_zone
     end_time.time_zone
+  end
+
+  def calculate_average(&block)
+    ((dates.map { |date| block.call(date) }.inject(&:+)) / dates.length).round(2)
   end
 
   private
